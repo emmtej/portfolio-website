@@ -34,7 +34,7 @@ export function Tabs() {
   return (
     <div className="w-full">
       <div className="border-b border-gray-100">
-        <nav role="tablist" className="flex gap-2">
+        <nav role="tablist" className="flex gap-4">
           {TABS.map((tab) => (
             <TabButton
               key={tab.id}
