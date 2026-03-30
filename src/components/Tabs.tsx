@@ -8,46 +8,48 @@ const TABS = [
   {
     id: "about",
     label: "About",
-    content: <AboutTab />,
+    Component: AboutTab,
   },
   {
     id: "development",
     label: "Development",
-    content: (
-      <div className="animate-in fade-in duration-500">
-        <DevelopmentTab />
-      </div>
-    ),
+    Component: DevelopmentTab,
+    wrapperClass: "animate-in fade-in duration-500",
   },
   {
     id: "audio",
     label: "Audio Mixing & Mastering",
-    content: <AudioTab />,
+    Component: AudioTab,
   },
 ];
 
 export function Tabs() {
   const [activeTabId, setActiveTabId] = useState(() => {
-    // Wait for window to load and match the url state to a tab label.
     if (typeof window !== "undefined") {
       const path = window.location.pathname.replace(/^\//, "");
       if (path && TABS.some((t) => t.id === path)) {
         return path;
       }
     }
-    // Else just return about
     return TABS[0].id;
   });
 
-  // Mini router to allow backwards and forwards browser nav.
+  // Track which tabs have been "visited" to implement lazy loading
+  const [visitedTabs, setVisitedTabs] = useState<Set<string>>(
+    new Set([activeTabId])
+  );
+
   useEffect(() => {
     const handlePopState = () => {
       const path = window.location.pathname.replace(/^\//, "");
-      if (path && TABS.some((t) => t.id === path)) {
-        setActiveTabId(path);
-      } else {
-        setActiveTabId(TABS[0].id);
-      }
+      const targetId =
+        path && TABS.some((t) => t.id === path) ? path : TABS[0].id;
+      setActiveTabId(targetId);
+      setVisitedTabs((prev) => {
+        const next = new Set(prev);
+        next.add(targetId);
+        return next;
+      });
     };
 
     window.addEventListener("popstate", handlePopState);
@@ -56,13 +58,16 @@ export function Tabs() {
 
   const handleTabChange = (id: string) => {
     setActiveTabId(id);
+    setVisitedTabs((prev) => {
+      const next = new Set(prev);
+      next.add(id);
+      return next;
+    });
     const newPath = `/${id}`;
     if (window.location.pathname !== newPath) {
       window.history.pushState({}, "", newPath);
     }
   };
-
-  const activeTab = TABS.find((tab) => tab.id === activeTabId);
 
   return (
     <div className="w-full">
@@ -80,13 +85,28 @@ export function Tabs() {
         </nav>
       </div>
 
-      <div
-        id={`panel-${activeTabId}`}
-        role="tabpanel"
-        aria-labelledby={`tab-${activeTabId}`}
-        className="mt-6"
-      >
-        {activeTab?.content}
+      <div className="mt-6">
+        {TABS.map((tab) => {
+          const isVisited = visitedTabs.has(tab.id);
+          const isActive = activeTabId === tab.id;
+
+          // Lazy load: Only render if visited at least once
+          if (!isVisited) return null;
+
+          return (
+            <div
+              key={tab.id}
+              id={`panel-${tab.id}`}
+              role="tabpanel"
+              aria-labelledby={`tab-${tab.id}`}
+              className={`${isActive ? "block" : "hidden"} ${
+                tab.wrapperClass || ""
+              }`}
+            >
+              <tab.Component />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
