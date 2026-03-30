@@ -51,7 +51,7 @@ export function Tabs() {
         id={`panel-${activeTabId}`}
         role="tabpanel"
         aria-labelledby={`tab-${activeTabId}`}
-        className="mt-10 min-h-[300px]"
+        className="mt-6"
       >
         {activeTab?.content}
       </div>
