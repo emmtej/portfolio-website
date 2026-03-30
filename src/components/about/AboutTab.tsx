@@ -1,8 +1,9 @@
 import { ExperienceTimeline } from "./ExperienceTimeline";
+import { Contact } from "./Contact";
 
 export function AboutTab() {
   return (
-    <div className="space-y-16">
+    <div className="space-y-10">
       <section className="max-w-2xl">
         <div className="text-[15px] text-[#37352f]/80 space-y-5 leading-relaxed tracking-tight">
           <p>
@@ -37,6 +38,8 @@ export function AboutTab() {
         </h2>
         <ExperienceTimeline />
       </section>
+
+      <Contact />
     </div>
   );
 }

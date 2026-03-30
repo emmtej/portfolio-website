@@ -10,7 +10,7 @@ const experiences = [
   {
     time: "2021 - 2024",
     company: "Consultant",
-    location: "Remote | NYC -> Italy",
+    location: "Remote | Brooklyn, New York",
     title: "Frontend Development",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga officiis tempora ipsum adipisci tenetur sunt quae exercitationem sed pariatur porro!",
