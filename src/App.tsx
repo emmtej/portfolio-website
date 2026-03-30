@@ -6,7 +6,7 @@ function App() {
     <Layout>
       <div className="space-y-10">
         <header className="space-y-4">
-          <h1 className="text-4xl font-bold tracking-tight text-[#37352f]">
+          <h1 className="text-4xl font-bold tracking-tight text-text-main">
             Hello, I'm <span>Emmanuel</span>
           </h1>
         </header>

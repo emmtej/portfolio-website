@@ -66,7 +66,7 @@ export function Tabs() {
 
   return (
     <div className="w-full">
-      <div className="border-b border-gray-100">
+      <div className="border-b border-border-subtle">
         <nav role="tablist" className="flex gap-6">
           {TABS.map((tab) => (
             <TabButton

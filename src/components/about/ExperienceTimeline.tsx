@@ -27,25 +27,25 @@ const experiences = [
 
 export function ExperienceTimeline() {
   return (
-    <ol className="relative space-y-12 before:absolute before:left-[4.5px] before:h-full before:w-px before:bg-gray-100">
+    <ol className="relative space-y-12 before:absolute before:left-[4.5px] before:h-full before:w-px before:bg-border-subtle">
       {experiences.map((exp, index) => (
         <li key={index} className="group relative flex items-start gap-6">
-          <span className="mt-1.5 size-2.5 shrink-0 rounded-full border border-gray-200 bg-white ring-4 ring-white transition-colors duration-1000 group-hover:bg-black group-hover:border-black"></span>
+          <span className="mt-1.5 size-2.5 shrink-0 rounded-full border border-border-subtle bg-bg-app ring-4 ring-bg-app transition-colors duration-1000 group-hover:bg-text-main group-hover:border-text-main"></span>
 
           <div className="flex-1">
-            <time className="block mb-1 text-xs font-semibold tracking-[0.15em] uppercase text-gray-400">
+            <time className="block mb-1 text-xs font-semibold tracking-[0.15em] uppercase text-text-muted/60">
               {exp.time}
             </time>
 
-            <h3 className="text-base font-semibold text-[#37352f] tracking-tight">
+            <h3 className="text-base font-semibold text-text-main tracking-tight">
               {exp.title} — {exp.company}
             </h3>
 
-            <p className="text-xs font-medium text-gray-400 mt-0.5 tracking-wide">
+            <p className="text-xs font-medium text-text-muted/60 mt-0.5 tracking-wide">
               {exp.location}
             </p>
 
-            <p className="mt-2 text-sm leading-relaxed text-gray-500 tracking-tight">
+            <p className="mt-2 text-sm leading-relaxed text-text-muted tracking-tight">
               {exp.description}
             </p>
           </div>

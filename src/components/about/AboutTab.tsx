@@ -5,14 +5,14 @@ export function AboutTab() {
   return (
     <div className="space-y-10">
       <section className="max-w-2xl">
-        <div className="text-[15px] text-[#37352f]/80 space-y-5 leading-relaxed tracking-tight">
+        <div className="text-[15px] text-text-main/80 space-y-5 leading-relaxed tracking-tight">
           <p>
             Full-stack web developer currently based in{" "}
-            <span className="font-semibold text-[#37352f]">
+            <span className="font-semibold text-text-main">
               Palagianello, Italy
             </span>
             , and previously from{" "}
-            <span className="font-semibold text-[#37352f]">New York City</span>.
+            <span className="font-semibold text-text-main">New York City</span>.
           </p>
           <p>
             My passion for travel inspired me to work freelance, giving me the
@@ -33,7 +33,7 @@ export function AboutTab() {
       </section>
 
       <section className="space-y-10">
-        <h2 className="uppercase font-semibold tracking-[0.1em] text-[#37352f]/80 text-xs">
+        <h2 className="uppercase font-semibold tracking-[0.1em] text-text-main/80 text-xs">
           Experience
         </h2>
         <ExperienceTimeline />

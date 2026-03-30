@@ -2,8 +2,20 @@
 
 @theme {
   --font-sans: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+
+  --color-bg-app: white;
+  --color-text-main: #37352f;
+  --color-text-muted: #6b7280;
+  --color-border-subtle: #f3f4f6;
+}
+
+:root.dark {
+  --color-bg-app: #1c1c1c;
+  --color-text-main: #e3e2e0;
+  --color-text-muted: #a3a3a3;
+  --color-border-subtle: #333333;
 }
 
 body {
-  @apply bg-white text-[#37352f] antialiased;
+  @apply bg-bg-app text-text-main antialiased transition-colors duration-300;
 }
