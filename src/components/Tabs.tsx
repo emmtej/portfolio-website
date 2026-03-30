@@ -28,16 +28,18 @@ const TABS = [
 
 export function Tabs() {
   const [activeTabId, setActiveTabId] = useState(() => {
-    // Initialize from URL path or default to first tab
+    // Wait for window to load and match the url state to a tab label.
     if (typeof window !== "undefined") {
       const path = window.location.pathname.replace(/^\//, "");
       if (path && TABS.some((t) => t.id === path)) {
         return path;
       }
     }
+    // Else just return about
     return TABS[0].id;
   });
 
+  // Mini router to allow backwards and forwards browser nav.
   useEffect(() => {
     const handlePopState = () => {
       const path = window.location.pathname.replace(/^\//, "");
@@ -65,7 +67,7 @@ export function Tabs() {
   return (
     <div className="w-full">
       <div className="border-b border-gray-100">
-        <nav role="tablist" className="flex gap-2">
+        <nav role="tablist" className="flex gap-6">
           {TABS.map((tab) => (
             <TabButton
               key={tab.id}
@@ -89,4 +91,3 @@ export function Tabs() {
     </div>
   );
 }
-
