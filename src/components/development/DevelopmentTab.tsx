@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { Project, ProjectCard, ProjectModal } from "./ProjectUI";
+import { ProjectCard, ProjectModal, type Project } from "./ProjectUI";
 
 const PROJECTS: Project[] = [
   {
     id: "invoice",
     title: "InVoice",
-    shortDesc: "A modern, streamlined invoicing application designed for freelancers and small businesses.",
-    fullDesc: "InVoice is a comprehensive invoicing solution built to simplify the financial workflow of independent professionals. It provides a clean, intuitive interface for creating, managing, and tracking invoices, ensuring that you get paid on time without the administrative headache.",
-    tech: ["React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL"],
+    shortDesc:
+      "A modern, streamlined invoicing application designed for voice actors.",
+    fullDesc:
+      "InVoice is a comprehensive invoicing solution built to simplify the financial workflow of independent professionals. It provides a clean, intuitive interface for creating, managing, and tracking invoices, ensuring that you get paid on time without the administrative headache.",
+    tech: ["React", "TypeScript", "Tailwind CSS", "Zustand", "Mantine UI"],
     features: [
       "Intuitive dashboard for tracking pending and completed payments",
       "Professional PDF generation for clean, branded invoices",
@@ -30,7 +32,7 @@ export function DevelopmentTab() {
         <h2 className="uppercase font-semibold tracking-[0.1em] text-text-main/80 text-xs mb-6">
           Projects
         </h2>
-        
+
         <div className="grid grid-cols-1 gap-10">
           {PROJECTS.map((project) => (
             <ProjectCard
