@@ -9,14 +9,13 @@ const PROJECTS: Project[] = [
     shortDesc:
       "A modern, streamlined invoicing application designed for voice actors.",
     fullDesc:
-      "InVoice is a comprehensive invoicing solution built to simplify the financial workflow of independent professionals. It provides a clean, intuitive interface for creating, managing, and tracking invoices, ensuring that you get paid on time without the administrative headache.",
+      "InVoice is a voice actor's highly specialized productivity and billing software. It automates the inconvenient process of manual script check by breaking down the dialogue of characters, accurately counting words, and producing neat and professional invoices with itemized detail and at rates customizable. By making a financial document out of a creative one, InVoice enables artists to dedicate less time to paperwork and more time in front of the microphone.",
     tech: ["React", "TypeScript", "Tailwind CSS", "Zustand", "Mantine UI"],
     features: [
-      "Intuitive dashboard for tracking pending and completed payments",
-      "Professional PDF generation for clean, branded invoices",
-      "Robust client management system to keep all contacts in one place",
-      "Automated email reminders for overdue payments",
-      "Secure data handling with modern authentication patterns",
+      "Used MantineUI components to quickly developt accessible components.",
+      "Implemented Zustand to allow the user to use either a single or multiple documents accross different tools seamlessly.",
+      "Allowed for the user to quickly set custom rates and save them as preset for re-use.",
+      "Let the user export custom invoices in PDF, DOCX, or even simple text for copy-paste sharability.",
     ],
     link: "https://invoice-demo.example.com",
     github: "https://github.com/example/invoice",
