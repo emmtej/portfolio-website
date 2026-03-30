@@ -27,13 +27,10 @@ const experiences = [
 
 export function ExperienceTimeline() {
   return (
-    <ol className="relative space-y-12 before:absolute before:-ms-px before:h-full before:w-px before:bg-gray-100">
+    <ol className="relative space-y-12 before:absolute before:left-[4.5px] before:h-full before:w-px before:bg-gray-100">
       {experiences.map((exp, index) => (
-        <li
-          key={index}
-          className="relative -ms-[0.4375rem] flex items-start gap-6 pl-2"
-        >
-          <span className="mt-1.5 size-2.5 shrink-0 rounded-full border border-gray-200 bg-white ring-4 ring-white"></span>
+        <li key={index} className="group relative flex items-start gap-6">
+          <span className="mt-1.5 size-2.5 shrink-0 rounded-full border border-gray-200 bg-white ring-4 ring-white transition-colors duration-1000 group-hover:bg-black group-hover:border-black"></span>
 
           <div className="flex-1">
             <time className="block mb-1 text-xs font-semibold tracking-[0.15em] uppercase text-gray-400">
