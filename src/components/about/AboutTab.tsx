@@ -32,7 +32,7 @@ export function AboutTab() {
       </section>
 
       <section className="space-y-10">
-        <h2 className="uppercase font-semibold tracking-[0.2em] text-[#37352f]/40 text-xs">
+        <h2 className="uppercase font-semibold tracking-[0.1em] text-[#37352f]/80 text-xs">
           Experience
         </h2>
         <ExperienceTimeline />
