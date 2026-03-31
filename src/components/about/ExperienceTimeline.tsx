@@ -1,3 +1,5 @@
+import { Text } from "../../ui/Text";
+
 const experiences = [
   {
     time: "2024 - 2025",
@@ -36,18 +38,13 @@ export function ExperienceTimeline() {
             <time className="block mb-1 text-xs font-semibold tracking-[0.15em] uppercase text-text-muted/60">
               {exp.time}
             </time>
-
             <h3 className="text-base font-semibold text-text-main tracking-tight">
               {exp.title} — {exp.company}
             </h3>
-
-            <p className="text-xs font-medium text-text-muted/60 mt-0.5 tracking-wide">
+            <p className="text-xs font-bold text-text-muted/60 mt-0.5 tracking-wide">
               {exp.location}
             </p>
-
-            <p className="mt-2 text-sm leading-relaxed text-text-muted tracking-tight">
-              {exp.description}
-            </p>
+            <Text className="mt-2">{exp.description}</Text>
           </div>
         </li>
       ))}

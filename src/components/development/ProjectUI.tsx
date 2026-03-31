@@ -26,7 +26,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
         transition: { type: "spring", stiffness: 400, damping: 25 },
       }}
       whileTap={{ scale: 0.98 }}
-      className="group relative cursor-pointer overflow-hidden rounded-2xl border border-border-subtle bg-bg-app hover:border-text-main/20 hover:shadow-2xl hover:shadow-text-main/[0.04]"
+      className="group relative cursor-pointer overflow-hidden border border-border-subtle bg-bg-app hover:border-text-main/20 hover:shadow-2xl hover:shadow-text-main/[0.04]"
     >
       {/* Visual Preview Area - Full Width */}
       <div className="aspect-[16/10] w-full bg-gradient-to-br from-text-main/5 to-text-main/10 relative overflow-hidden border-b border-border-subtle transition-colors duration-500 group-hover:from-text-main/[0.07] group-hover:to-text-main/[0.12]">

@@ -1,5 +1,6 @@
 import { ExperienceTimeline } from "./ExperienceTimeline";
 import { Contact } from "./Contact";
+import { Title } from "../../ui/Text";
 
 export function AboutTab() {
   return (
@@ -33,12 +34,9 @@ export function AboutTab() {
       </section>
 
       <section className="space-y-10">
-        <h2 className="uppercase font-semibold tracking-[0.1em] text-text-main/80 text-xs">
-          Experience
-        </h2>
+        <Title>Experience</Title>
         <ExperienceTimeline />
       </section>
-
       <Contact />
     </div>
   );
