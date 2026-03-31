@@ -1,6 +1,21 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 
+// TODO: Implement validation and loading and sent state.
 export function ContactForm() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
     <section className="space-y-8">
       <p className="text-sm text-text-muted tracking-tight">
@@ -16,6 +31,9 @@ export function ContactForm() {
             <div className="relative overflow-hidden">
               <input
                 type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
                 placeholder="John Doe"
                 className="w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-[14px] text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40"
               />
@@ -29,6 +47,9 @@ export function ContactForm() {
             <div className="relative overflow-hidden">
               <input
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="john@example.com"
                 className="w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-[14px] text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40"
               />
@@ -43,6 +64,9 @@ export function ContactForm() {
           </p>
           <div className="relative overflow-hidden">
             <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
               rows={6}
               placeholder="..."
               className="w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-[14px] text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40 resize-none"
