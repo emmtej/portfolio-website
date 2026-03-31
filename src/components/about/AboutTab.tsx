@@ -1,5 +1,4 @@
 import { ExperienceTimeline } from "./ExperienceTimeline";
-import { Contact } from "./Contact";
 import { Title } from "../../ui/Text";
 
 export function AboutTab() {
@@ -37,7 +36,6 @@ export function AboutTab() {
         <Title>Experience</Title>
         <ExperienceTimeline />
       </section>
-      <Contact />
     </div>
   );
 }

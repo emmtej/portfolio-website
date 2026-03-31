@@ -3,6 +3,7 @@ import { TabButton } from "../ui/Tabs";
 import { AboutTab } from "./about/AboutTab";
 import { DevelopmentTab } from "./development/DevelopmentTab";
 import { AudioTab } from "./audio/AudioTab";
+import { ContactTab } from "./contact/ContactTab";
 
 const TABS = [
   {
@@ -21,6 +22,11 @@ const TABS = [
     label: "Audio Mixing & Mastering",
     Component: AudioTab,
   },
+  {
+    id: "contact",
+    label: "Contact",
+    Component: ContactTab,
+  },
 ];
 
 export function Tabs() {
@@ -36,7 +42,7 @@ export function Tabs() {
 
   // Track which tabs have been "visited" to implement lazy loading
   const [visitedTabs, setVisitedTabs] = useState<Set<string>>(
-    new Set([activeTabId])
+    new Set([activeTabId]),
   );
 
   useEffect(() => {
