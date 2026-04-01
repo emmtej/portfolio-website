@@ -1,8 +1,27 @@
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 import { Layout } from "./components/Layout";
 import { Tabs } from "./components/Tabs";
 import { cn } from "./utils/cn";
 import { HeaderLink, HeaderSeparator } from "./components/ui/HeaderLink";
+
+const fadeInUp = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] },
+  },
+};
+
+const fadeInRest = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, delay: 0.3, ease: [0.21, 0.47, 0.32, 0.98] },
+  },
+};
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -14,7 +33,12 @@ function App() {
         <Tabs
           header={
             <header className="space-y-8 md:space-y-12">
-              <div className="flex items-center gap-4 text-xs font-mono uppercase tracking-widest text-text-muted">
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={fadeInRest}
+                className="flex items-center gap-4 text-xs font-mono uppercase tracking-widest text-text-muted"
+              >
                 <HeaderLink
                   href="https://github.com/emmtej"
                   target="_blank"
@@ -26,8 +50,13 @@ function App() {
                 <HeaderLink href="mailto:contact@emmanueltejeda.com">
                   [EMAIL].CONTACT
                 </HeaderLink>
-              </div>
-              <h1 className="text-6xl font-bold tracking-tight text-text-main leading-[0.85]">
+              </motion.div>
+              <motion.h1
+                initial="hidden"
+                animate="visible"
+                variants={fadeInUp}
+                className="text-6xl font-bold tracking-tight text-text-main leading-[0.85]"
+              >
                 {t("app.title.greeting")
                   .split(" ")
                   .map((word, i) => (
@@ -44,7 +73,7 @@ function App() {
                   ))}
                 <br />
                 <span className="text-text-main">Emmanuel</span>
-              </h1>
+              </motion.h1>
             </header>
           }
         />

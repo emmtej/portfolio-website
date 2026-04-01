@@ -1,12 +1,22 @@
 import { useEffect, useState, useMemo } from "react";
 import type React from "react";
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 import { AboutTab } from "./about/AboutTab";
 import { DevelopmentTab } from "./development/DevelopmentTab";
 import { AudioTab } from "./audio/AudioTab";
 import { ContactTab } from "./contact/ContactTab";
 import { cn } from "../utils/cn";
 import { TabButton } from "./ui/Tabs";
+
+const fadeInRest = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.8, delay: 0.4, ease: [0.21, 0.47, 0.32, 0.98] }
+  }
+};
 
 export function Tabs({ header }: { header?: React.ReactNode }) {
   const { t } = useTranslation();
@@ -87,7 +97,13 @@ export function Tabs({ header }: { header?: React.ReactNode }) {
         header ? "sticky top-0 pt-8 md:pt-16 lg:pt-24" : "sticky top-0 pt-4"
       )}>
         {header && <div className="mb-8 md:mb-12">{header}</div>}
-        <nav role="tablist" className="flex gap-6">
+        <motion.nav 
+          role="tablist" 
+          className="flex gap-6"
+          initial="hidden"
+          animate="visible"
+          variants={fadeInRest}
+        >
           {TABS.map((tab) => (
             <TabButton
               key={tab.id}
@@ -97,10 +113,15 @@ export function Tabs({ header }: { header?: React.ReactNode }) {
               onClick={handleTabChange}
             />
           ))}
-        </nav>
+        </motion.nav>
       </div>
 
-      <div className="mt-8">
+      <motion.div 
+        className="mt-8" 
+        initial="hidden"
+        animate="visible"
+        variants={fadeInRest}
+      >
         {TABS.map((tab) => {
           const isVisited = visitedTabs.has(tab.id);
           const isActive = activeTabId === tab.id;
@@ -120,7 +141,7 @@ export function Tabs({ header }: { header?: React.ReactNode }) {
             </div>
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 }
