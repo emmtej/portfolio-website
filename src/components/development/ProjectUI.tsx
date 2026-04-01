@@ -27,6 +27,11 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
       type="button"
       layoutId={`card-${project.id}`}
       onClick={onClick}
+      transition={{
+        type: "spring",
+        stiffness: 260,
+        damping: 32,
+      }}
       whileHover={{
         y: -8,
         transition: { type: "spring", stiffness: 400, damping: 25 },
@@ -34,7 +39,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
       whileTap={{ scale: 0.98 }}
       className={cn(
         "text-left w-full group relative cursor-pointer overflow-hidden border border-border-subtle bg-bg-app",
-        "hover:border-text-main/20 hover:shadow-2xl hover:shadow-text-main/[0.04] transition-all duration-normal",
+        "hover:border-text-main/20 hover:shadow-2xl hover:shadow-text-main/[0.04]",
       )}
     >
       {/* Visual Preview Area - Full Width */}
@@ -46,7 +51,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
             <span className="text-lg font-bold tracking-tighter text-text-main/10 group-hover:text-text-main/20 transition-all duration-slow ease-out">
               {project.title}
             </span>
-            <div className="px-3 py-1 rounded-full bg-text-main/5 border border-text-main/10 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-slow delay-75">
+            <div className="px-3 py-1 bg-text-main/5 border border-text-main/10 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-slow delay-75">
               <span className="text-xs font-bold uppercase tracking-widest text-text-main/40">
                 {t("dev.view_project")}
               </span>
@@ -69,7 +74,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
 
           <motion.div
             whileHover={{ x: 4 }}
-            className="mt-1 size-8 rounded-full border border-border-subtle flex items-center justify-center text-text-muted/40 group-hover:border-text-main/20 group-hover:text-text-main/60 transition-all duration-normal"
+            className="mt-1 size-8 border border-border-subtle flex items-center justify-center text-text-muted/40 group-hover:border-text-main/20 group-hover:text-text-main/60 transition-all duration-normal"
           >
             <svg
               width="15"
@@ -92,7 +97,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
           {project.tech.map((techItem) => (
             <span
               key={techItem}
-              className="text-xs font-bold px-2.5 py-1 rounded-md bg-border-subtle text-text-muted/80 uppercase tracking-wider group-hover:bg-text-main/5 group-hover:text-text-main/60 transition-colors duration-normal"
+              className="text-xs font-bold px-2.5 py-1 bg-border-subtle text-text-muted/80 uppercase tracking-wider group-hover:bg-text-main/5 group-hover:text-text-main/60 transition-colors duration-normal"
             >
               {techItem}
             </span>
@@ -184,14 +189,19 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
-        className="relative w-full max-w-2xl bg-bg-app rounded-2xl overflow-hidden shadow-2xl border border-border-subtle"
+        transition={{
+          type: "spring",
+          stiffness: 260,
+          damping: 32,
+        }}
+        className="relative w-full max-w-2xl bg-bg-app overflow-hidden shadow-2xl border border-border-subtle"
       >
         <button
           ref={closeButtonRef}
           type="button"
           onClick={onClose}
           aria-label={t("dev.close_modal")}
-          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-bg-app/80 backdrop-blur-md border border-border-subtle text-text-muted hover:text-text-main transition-colors"
+          className="absolute top-4 right-4 z-10 p-2 bg-bg-app/80 backdrop-blur-md border border-border-subtle text-text-muted hover:text-text-main transition-colors"
         >
           <svg
             width="15"
@@ -237,7 +247,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                     key={`${feature}-${index}`}
                     className="flex items-start gap-3 text-sm text-text-muted tracking-tight"
                   >
-                    <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-text-main/20" />
+                    <span className="mt-1.5 size-1.5 shrink-0 bg-text-main/20" />
                     {feature}
                   </li>
                 ))}
@@ -252,7 +262,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {project.tech.map((techItem) => (
                   <span
                     key={techItem}
-                    className="text-sm font-semibold px-3 py-1 rounded-full bg-border-subtle text-text-main/60 uppercase tracking-wider"
+                    className="text-sm font-semibold px-3 py-1 bg-border-subtle text-text-main/60 uppercase tracking-wider"
                   >
                     {techItem}
                   </span>
@@ -266,7 +276,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-2.5 bg-text-main text-bg-app rounded-full text-sm font-semibold tracking-tight hover:opacity-90 transition-opacity"
+                  className="px-6 py-2.5 bg-text-main text-bg-app text-sm font-semibold tracking-tight hover:opacity-90 transition-opacity"
                 >
                   {t("dev.view_source")}
                 </a>
@@ -276,7 +286,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-2.5 border border-border-subtle text-text-main rounded-full text-sm font-semibold tracking-tight hover:border-text-main/40 transition-colors"
+                  className="px-6 py-2.5 border border-border-subtle text-text-main text-sm font-semibold tracking-tight hover:border-text-main/40 transition-colors"
                 >
                   {t("dev.view_demo")}
                 </a>

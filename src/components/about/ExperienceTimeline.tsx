@@ -38,7 +38,7 @@ export function ExperienceTimeline() {
         >
           <span
             className={cn(
-              "mt-1.5 size-2.5 shrink-0 rounded-full border border-border-subtle bg-bg-app ring-4 ring-bg-app transition-colors duration-slower",
+              "mt-1.5 size-2.5 shrink-0 border border-border-subtle bg-bg-app ring-4 ring-bg-app transition-colors duration-slower",
               "group-hover:bg-text-main group-hover:border-text-main",
             )}
           ></span>
@@ -48,7 +48,7 @@ export function ExperienceTimeline() {
               <time className="text-xs font-mono uppercase tracking-widest text-text-muted/80">
                 {exp.time}
               </time>
-              <span className="size-1 rounded-full bg-border-subtle" />
+              <span className="size-1 bg-border-subtle" />
               <span className="text-xs font-mono uppercase tracking-widest text-text-muted/80">
                 {exp.location}
               </span>

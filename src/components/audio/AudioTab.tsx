@@ -84,7 +84,7 @@ export function AudioTab() {
               aria-label={isPlaying ? t("audio.pause") : t("audio.play")}
             >
               {isPlaying ? (
-                <div className="w-20 h-20 flex items-center justify-center bg-white/10 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100">
+                <div className="w-20 h-20 flex items-center justify-center bg-white/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100">
                   <svg
                     className="w-10 h-10 text-white"
                     fill="currentColor"
@@ -94,7 +94,7 @@ export function AudioTab() {
                   </svg>
                 </div>
               ) : (
-                <div className="w-20 h-20 flex items-center justify-center bg-white/20 rounded-full backdrop-blur-md opacity-90 group-hover:opacity-100 transition-all duration-300 scale-100 group-hover:scale-110 shadow-xl">
+                <div className="w-20 h-20 flex items-center justify-center bg-white/20 backdrop-blur-md opacity-90 group-hover:opacity-100 transition-all duration-300 scale-100 group-hover:scale-110 shadow-xl">
                   <svg
                     className="w-10 h-10 text-white translate-x-0.5"
                     fill="currentColor"
