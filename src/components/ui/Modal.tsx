@@ -124,9 +124,8 @@ export const Modal = ({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{
-              type: "spring",
-              stiffness: 260,
-              damping: 32,
+              duration: 0.4,
+              ease: [0.21, 0.47, 0.32, 0.98],
             }}
             className={cn(
               "relative w-full max-w-2xl bg-bg-app overflow-hidden shadow-2xl border border-border-subtle",
