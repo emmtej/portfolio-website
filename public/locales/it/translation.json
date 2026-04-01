@@ -1,4 +1,9 @@
 {
+  "app": {
+    "title": {
+      "greeting": "Ciao, sono"
+    }
+  },
   "about": {
     "hero_description_1": "Sviluppatore web full-stack attualmente basato a ",
     "hero_location_italy": "Palagianello, Italia",

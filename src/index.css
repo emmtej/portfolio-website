@@ -10,6 +10,15 @@
   --color-text-muted: #6b7280;
   --color-border-subtle: #f3f4f6;
 
+  /* Italian Matte Palette */
+  --color-it-sage: #e4e9e1;
+  --color-it-sage-text: #829379;
+  --color-it-green: #8ba888;
+  --color-it-white: #f4f4f2;
+  --color-it-red: #c28e8e;
+  --color-it-cream: #f7f6f1;
+  --color-it-rose: #f5eceb;
+
   /* Typography */
   --font-size-tiny: 10px;
   --font-size-xs: 12px;
@@ -40,6 +49,12 @@
   --color-text-main: #e3e2e0;
   --color-text-muted: #a3a3a3;
   --color-border-subtle: #333333;
+
+  /* Italian Matte Palette (Dark) */
+  --color-it-sage: #2a3325;
+  --color-it-sage-text: #96a68b;
+  --color-it-cream: #33312e;
+  --color-it-rose: #3d2b2a;
 }
 
 body {

@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import { cn } from "../../utils/cn";
 
 const SKILLS = [
   "React",
@@ -23,6 +25,10 @@ const SKILLS = [
 ];
 
 export function SkillsCarousel() {
+  const { i18n } = useTranslation();
+  const isIt = i18n.language === "it";
+  const matteColors = ["bg-it-sage", "bg-it-cream", "bg-it-rose"];
+
   // Duplicate skills to create a seamless loop
   const duplicatedSkills = [...SKILLS, ...SKILLS];
 
@@ -52,7 +58,10 @@ export function SkillsCarousel() {
             {duplicatedSkills.map((skill, index) => (
               <motion.div
                 key={`${skill}-${index}`}
-                className="flex items-center gap-2 px-5 py-2.5 border border-border-subtle bg-bg-app hover:border-text-main/20 hover:bg-text-main/[0.02] transition-colors duration-100 cursor-default"
+                className={cn(
+                  "flex items-center gap-2 px-5 py-2.5 border border-border-subtle bg-bg-app hover:border-text-main/20 hover:bg-text-main/[0.02] transition-colors duration-100 cursor-default",
+                  isIt && matteColors[index % matteColors.length],
+                )}
               >
                 <span className="text-sm font-bold uppercase tracking-wider text-text-main/60 whitespace-nowrap">
                   {skill}

@@ -1,7 +1,12 @@
+import { useTranslation } from "react-i18next";
 import { Layout } from "./components/Layout";
 import { Tabs } from "./components/Tabs";
+import { cn } from "./utils/cn";
 
 function App() {
+  const { t, i18n } = useTranslation();
+  const isIt = i18n.language === "it";
+
   return (
     <Layout>
       <div className="space-y-8">
@@ -24,8 +29,22 @@ function App() {
             </a>
           </div>
           <h1 className="text-6xl font-bold tracking-tight text-text-main leading-[0.85]">
-            Hello, I'm <br />
-            <span className="opacity-30">Emmanuel</span>
+            {t("app.title.greeting")
+              .split(" ")
+              .map((word, i) => (
+                <span
+                  key={i}
+                  className={cn(
+                    "transition-all duration-slow mr-3",
+                    isIt && i === 0 && "text-it-green",
+                    isIt && i === 1 && "text-it-red",
+                  )}
+                >
+                  {word}
+                </span>
+              ))}
+            <br />
+            <span className="text-text-main">Emmanuel</span>
           </h1>
         </header>
         <div className="w-full">
