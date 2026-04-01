@@ -1,4 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
+import type React from "react";
 import { useTranslation } from "react-i18next";
 import { AboutTab } from "./about/AboutTab";
 import { DevelopmentTab } from "./development/DevelopmentTab";
@@ -7,7 +8,7 @@ import { ContactTab } from "./contact/ContactTab";
 import { cn } from "../utils/cn";
 import { TabButton } from "./ui/Tabs";
 
-export function Tabs() {
+export function Tabs({ header }: { header?: React.ReactNode }) {
   const { t } = useTranslation();
 
   const TABS = useMemo(() => [
@@ -81,7 +82,11 @@ export function Tabs() {
 
   return (
     <div className="w-full">
-      <div className="border-b border-border-subtle">
+      <div className={cn(
+        "border-b border-border-subtle bg-bg-app z-40 transition-all duration-300",
+        header ? "sticky top-0 pt-8 md:pt-16 lg:pt-24" : "sticky top-0 pt-4"
+      )}>
+        {header && <div className="mb-8 md:mb-12">{header}</div>}
         <nav role="tablist" className="flex gap-6">
           {TABS.map((tab) => (
             <TabButton
