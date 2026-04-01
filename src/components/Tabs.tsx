@@ -188,7 +188,7 @@ export function Tabs({ header }: { header?: React.ReactNode }) {
               aria-labelledby={`tab-${tab.id}`}
               className={cn(isActive ? "block" : "hidden", tab.wrapperClass)}
             >
-              <Suspense fallback={<div className="h-40 flex items-center justify-center animate-pulse text-text-muted/40 font-mono text-xs uppercase tracking-widest">Loading...</div>}>
+              <Suspense fallback={<div className="h-40 flex items-center justify-center animate-pulse text-text-muted/40 font-mono text-xs uppercase tracking-widest">{t("common.loading")}</div>}>
                 <tab.Component />
               </Suspense>
             </div>

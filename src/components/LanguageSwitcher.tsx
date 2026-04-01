@@ -5,7 +5,7 @@ export function LanguageSwitcher() {
   const { i18n, t } = useTranslation();
 
   const toggleLanguage = () => {
-    const newLang = i18n.language === "en" ? "it" : "en";
+    const newLang = i18n.language.startsWith("en") ? "it" : "en";
     i18n.changeLanguage(newLang);
   };
 

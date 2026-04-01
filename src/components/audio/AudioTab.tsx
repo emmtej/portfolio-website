@@ -61,7 +61,7 @@ export function AudioTab() {
             <button
               onClick={togglePlay}
               className="absolute inset-0 w-full h-full flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors duration-300 cursor-pointer"
-              aria-label={isPlaying ? "Pause" : "Play"}
+              aria-label={isPlaying ? t("audio.pause") : t("audio.play")}
             >
               {isPlaying ? (
                 <div className="w-20 h-20 flex items-center justify-center bg-white/10 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100">

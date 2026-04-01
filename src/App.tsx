@@ -25,7 +25,7 @@ const fadeInRest: Variants = {
 
 function App() {
   const { t, i18n } = useTranslation();
-  const isIt = i18n.language === "it";
+  const isIt = i18n.language.startsWith("it");
 
   return (
     <Layout>

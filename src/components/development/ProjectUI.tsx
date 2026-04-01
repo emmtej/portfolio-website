@@ -217,7 +217,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   rel="noopener noreferrer"
                   className="px-6 py-2.5 bg-text-main text-bg-app rounded-full text-sm font-semibold tracking-tight hover:opacity-90 transition-opacity"
                 >
-                  View Source
+                  {t("dev.view_source")}
                 </a>
               )}
             </div>

@@ -1,4 +1,7 @@
 {
+  "common": {
+    "loading": "Caricamento..."
+  },
   "app": {
     "title": {
       "greeting": "Ciao, sono"
@@ -27,7 +30,7 @@
         "title": "Ingegneria Audio e Mastering Audio",
         "company": "Greative Media (Collaboratore)",
         "location": "Remoto | Bologna, Italia",
-        "description": "Ottimizzazione e standardizzazione di diverse registrazioni vocali per garantire un output audio professionale ad alta fedeltà. Utilizzo di iZotope RX per il restauro spettrale, Reaper per l'editing di precisione e DaVinci Resolve per il mixaggio finale e la sincronizzazione audio-video, garantendo la conformità agli standard di loudness (LUFS)."
+        "description": "Ottimizzazione e standardizzazione di diverse registrazioni vocali per garantire un output audio professionale ad alta fedeltà. Utilizzo di iZotope RX per il restauro spettrale, Reaper per l'editing di precisione e DaVinci Resolve for il mixaggio finale e la sincronizzazione audio-video, garantendo la conformità agli standard di loudness (LUFS)."
       },
       "consultant": {
         "title": "Sviluppo Frontend",
@@ -57,6 +60,8 @@
     "view_project": "Visualizza Progetto",
     "tech_stack": "Tech Stack",
     "features_title": "Funzionalità",
+    "skills_title": "Competenze",
+    "view_source": "Sorgente",
     "projects": {
       "invoice": {
         "title": "InVoice",
@@ -75,7 +80,9 @@
     "intro": "Specializzato in restauro audio, dialogue editing e post-produzione per contenuti digitali. Focus sulla qualità del segnale, chiarezza sonora e rispetto dei parametri di loudness professionali.",
     "tools_title": "Software e Strumenti Audio",
     "restoration_title": "Demo di Restauro",
-    "restoration_desc": "Dimostrazione del processo di pulizia di dialoghi registrati sul campo, passando dalla cattura grezza a un output professionale impeccabile."
+    "restoration_desc": "Dimostrazione del processo di pulizia di dialoghi registrati sul campo, passando dalla cattura grezza a un output professionale impeccabile.",
+    "play": "Riproduci",
+    "pause": "Pausa"
   },
   "contact": {
     "title": "Contattami",
