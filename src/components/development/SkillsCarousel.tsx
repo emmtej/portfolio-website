@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { cn } from "../../utils/cn";
@@ -25,28 +25,52 @@ const SKILLS = [
   "JavaScript",
 ];
 
-function subscribeReducedMotion(onChange: () => void) {
-  const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-  mq.addEventListener("change", onChange);
-  return () => mq.removeEventListener("change", onChange);
-}
-
-function getReducedMotionSnapshot() {
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
 export function SkillsCarousel() {
   const { i18n, t } = useTranslation();
   const isIt = i18n.language.startsWith("it");
   const matteColors = ["bg-it-sage", "bg-it-cream", "bg-it-rose"];
 
-  const prefersReducedMotion = useSyncExternalStore(
-    subscribeReducedMotion,
-    getReducedMotionSnapshot,
-    () => false,
-  );
+  const trackRef = useRef<HTMLDivElement>(null);
+  /** Half of duplicated track width in px — one seamless loop (matches former `x: "-50%"`). */
+  const [loopWidthPx, setLoopWidthPx] = useState(0);
 
-  const duplicatedSkills = [...SKILLS, ...SKILLS];
+  const duplicatedSkills = useMemo(() => [...SKILLS, ...SKILLS], []);
+
+  useLayoutEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+
+    const measure = () => {
+      const total = el.scrollWidth;
+      setLoopWidthPx(total > 0 ? total / 2 : 0);
+    };
+
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+
+    // When the tab panel switches from `display: none` to visible, some engines
+    // need an extra nudge after layout; IO covers that case.
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) measure();
+      },
+      { threshold: 0 },
+    );
+    io.observe(el);
+
+    return () => {
+      ro.disconnect();
+      io.disconnect();
+    };
+  }, []);
+
+  const marqueeTransition = {
+    duration: 40,
+    ease: "linear" as const,
+    repeat: Infinity,
+    repeatType: "loop" as const,
+  };
 
   return (
     <section className="w-full overflow-hidden py-4 select-none">
@@ -57,50 +81,28 @@ export function SkillsCarousel() {
         <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-bg-app to-transparent z-10 pointer-events-none max-md:hidden" />
         <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-bg-app to-transparent z-10 pointer-events-none max-md:hidden" />
 
-        <div className="relative flex">
-          {prefersReducedMotion ? (
-            <div className="flex flex-wrap gap-4">
-              {SKILLS.map((skill, index) => (
-                <div
-                  key={skill}
-                  className={cn(
-                    "flex items-center gap-2 px-5 py-2.5 border border-border-subtle bg-bg-app",
-                    isIt && matteColors[index % matteColors.length],
-                  )}
-                >
-                  <span className="text-sm font-bold uppercase tracking-wider text-text-main/60 whitespace-nowrap">
-                    {skill}
-                  </span>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <motion.div
-              className="flex gap-4 pr-4"
-              animate={{
-                x: ["0%", "-50%"],
-              }}
-              transition={{
-                duration: 80,
-                ease: "linear",
-                repeat: Infinity,
-              }}
-            >
-              {duplicatedSkills.map((skill, index) => (
-                <motion.div
-                  key={`${skill}-${index}`}
-                  className={cn(
-                    "flex items-center gap-2 px-5 py-2.5 border border-border-subtle bg-bg-app hover:border-text-main/20 hover:bg-text-main/[0.02] transition-colors duration-100 cursor-default",
-                    isIt && matteColors[index % matteColors.length],
-                  )}
-                >
-                  <span className="text-sm font-bold uppercase tracking-wider text-text-main/60 whitespace-nowrap">
-                    {skill}
-                  </span>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
+        <div className="relative">
+          <motion.div
+            ref={trackRef}
+            className="flex w-max shrink-0 gap-4 pr-4 will-change-transform"
+            initial={{ x: 0 }}
+            animate={loopWidthPx > 0 ? { x: -loopWidthPx } : { x: 0 }}
+            transition={marqueeTransition}
+          >
+            {duplicatedSkills.map((skill, index) => (
+              <div
+                key={`${skill}-${index}`}
+                className={cn(
+                  "flex items-center gap-2 px-5 py-2.5 border border-border-subtle bg-bg-app hover:border-text-main/20 hover:bg-text-main/[0.02] transition-colors duration-100 cursor-default",
+                  isIt && matteColors[index % matteColors.length],
+                )}
+              >
+                <span className="text-sm font-bold uppercase tracking-wider text-text-main/60 whitespace-nowrap">
+                  {skill}
+                </span>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>
