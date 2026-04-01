@@ -1,4 +1,5 @@
 import { Text } from "../../ui/Text";
+import { cn } from "../../utils/cn";
 
 const experiences = [
   {
@@ -15,7 +16,7 @@ const experiences = [
     location: "Remote | Brooklyn, New York",
     title: "Frontend Development",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga officiis tempora ipsum adipisci tenetur sunt quae exercitationem sed pariatur porro!",
+      "Over the last few years, I've worked with various clients to build modern, responsive web applications, focusing on the React ecosystem and performance optimization.",
   },
   {
     time: "2015 - 2017",
@@ -23,7 +24,7 @@ const experiences = [
     location: "Brooklyn, NY",
     title: "IT Service Desk",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga officiis tempora ipsum adipisci tenetur sunt quae exercitationem sed pariatur porro!",
+      "Provided technical support and troubleshooting for students and faculty, managing hardware and software deployments across the campus.",
   },
 ];
 
@@ -31,20 +32,26 @@ export function ExperienceTimeline() {
   return (
     <ol className="relative space-y-12 before:absolute before:left-[4.5px] before:h-full before:w-px before:bg-border-subtle">
       {experiences.map((exp, index) => (
-        <li key={index} className="group relative flex items-start gap-6">
-          <span className="mt-1.5 size-2.5 shrink-0 rounded-full border border-border-subtle bg-bg-app ring-4 ring-bg-app transition-colors duration-1000 group-hover:bg-text-main group-hover:border-text-main"></span>
+        <li
+          key={index}
+          className={cn("group relative flex items-start gap-6")}
+        >
+          <span className={cn(
+            "mt-1.5 size-2.5 shrink-0 rounded-full border border-border-subtle bg-bg-app ring-4 ring-bg-app transition-colors duration-slower",
+            "group-hover:bg-text-main group-hover:border-text-main"
+          )}></span>
 
           <div className="flex-1">
-            <time className="block mb-1 text-xs font-semibold tracking-[0.15em] uppercase text-text-muted/60">
+            <time className="block mb-1 text-small font-semibold tracking-wider uppercase text-text-muted/60">
               {exp.time}
             </time>
-            <h3 className="text-base font-semibold text-text-main tracking-tight">
+            <h3 className="text-base font-bold text-text-main tracking-tight">
               {exp.title} — {exp.company}
             </h3>
-            <p className="text-xs font-bold text-text-muted/60 mt-0.5 tracking-wide">
+            <p className="text-small font-bold text-text-muted/60 mt-0.5 tracking-wide">
               {exp.location}
             </p>
-            <Text className="mt-2">{exp.description}</Text>
+            <Text className="mt-2 text-text-muted/90">{exp.description}</Text>
           </div>
         </li>
       ))}

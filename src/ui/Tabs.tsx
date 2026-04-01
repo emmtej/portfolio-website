@@ -1,3 +1,5 @@
+import { cn } from "../utils/cn";
+
 export const TabButton = ({
   id,
   label,
@@ -14,11 +16,10 @@ export const TabButton = ({
     role="tab"
     aria-selected={isActive}
     aria-controls={`panel-${id}`}
-    className={`-mb-px border-b-2 py-2 text-xs transition-colors uppercase font-semibold tracking-[0.1em] ${
-      isActive
-        ? "border-text-main text-text-main"
-        : "border-transparent text-text-muted/60 hover:text-text-main"
-    }`}
+    className={cn(
+      "-mb-px border-b-2 py-2 text-small transition-colors uppercase font-semibold tracking-wide border-transparent text-text-muted/60 hover:text-text-main",
+      "aria-selected:border-text-main aria-selected:text-text-main",
+    )}
     onClick={() => onClick(id)}
   >
     {label}

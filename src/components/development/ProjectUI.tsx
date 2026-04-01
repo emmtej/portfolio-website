@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { cn } from "../../utils/cn";
 
 export interface Project {
   id: string;
@@ -26,31 +27,34 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
         transition: { type: "spring", stiffness: 400, damping: 25 },
       }}
       whileTap={{ scale: 0.98 }}
-      className="group relative cursor-pointer overflow-hidden border border-border-subtle bg-bg-app hover:border-text-main/20 hover:shadow-2xl hover:shadow-text-main/[0.04]"
+      className={cn(
+        "group relative cursor-pointer overflow-hidden border border-border-subtle bg-bg-app",
+        "hover:border-text-main/20 hover:shadow-2xl hover:shadow-text-main/[0.04] transition-all duration-normal",
+      )}
     >
       {/* Visual Preview Area - Full Width */}
-      <div className="aspect-[16/10] w-full bg-gradient-to-br from-text-main/5 to-text-main/10 relative overflow-hidden border-b border-border-subtle transition-colors duration-500 group-hover:from-text-main/[0.07] group-hover:to-text-main/[0.12]">
+      <div className="aspect-[16/10] w-full bg-gradient-to-br from-text-main/5 to-text-main/10 relative overflow-hidden border-b border-border-subtle transition-colors duration-slow group-hover:from-text-main/[0.07] group-hover:to-text-main/[0.12]">
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)] opacity-40 transition-opacity duration-500 group-hover:opacity-60" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)] opacity-40 transition-opacity duration-slow group-hover:opacity-60" />
 
           <div className="relative flex flex-col items-center gap-2">
-            <span className="text-3xl font-bold tracking-tighter text-text-main/10 group-hover:text-text-main/20 transition-all duration-700 ease-out">
+            <span className="text-3xl font-bold tracking-tighter text-text-main/10 group-hover:text-text-main/20 transition-all duration-slow ease-out">
               {project.title}
             </span>
-            <div className="px-3 py-1 rounded-full bg-text-main/5 border border-text-main/10 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500 delay-75">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-text-main/40">
+            <div className="px-3 py-1 rounded-full bg-text-main/5 border border-text-main/10 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-slow delay-75">
+              <span className="text-xs-tight font-bold uppercase tracking-widest text-text-main/40">
                 View Project
               </span>
             </div>
           </div>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-slow" />
       </div>
 
       <div className="p-6 space-y-4">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
-            <h3 className="text-lg font-bold text-text-main tracking-tight transition-colors duration-300">
+            <h3 className="text-lg font-bold text-text-main tracking-tight transition-colors duration-normal">
               {project.title}
             </h3>
             <p className="text-sm text-text-muted/80 leading-relaxed tracking-tight max-w-lg">
@@ -60,7 +64,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
 
           <motion.div
             whileHover={{ x: 4 }}
-            className="mt-1 size-8 rounded-full border border-border-subtle flex items-center justify-center text-text-muted/40 group-hover:border-text-main/20 group-hover:text-text-main/60 transition-all duration-300"
+            className="mt-1 size-8 rounded-full border border-border-subtle flex items-center justify-center text-text-muted/40 group-hover:border-text-main/20 group-hover:text-text-main/60 transition-all duration-normal"
           >
             <svg
               width="15"
@@ -83,7 +87,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
           {project.tech.map((t) => (
             <span
               key={t}
-              className="text-[10px] font-bold px-2.5 py-1 rounded-md bg-border-subtle text-text-muted/80 uppercase tracking-wider group-hover:bg-text-main/5 group-hover:text-text-main/60 transition-colors duration-300"
+              className="text-xs-tight font-bold px-2.5 py-1 rounded-md bg-border-subtle text-text-muted/80 uppercase tracking-wider group-hover:bg-text-main/5 group-hover:text-text-main/60 transition-colors duration-normal"
             >
               {t}
             </span>
@@ -153,7 +157,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             </div>
 
             <div className="space-y-4">
-              <h4 className="uppercase font-semibold tracking-[0.1em] text-text-main/80 text-[11px]">
+              <h4 className="uppercase font-semibold tracking-wide text-text-main/80 text-small">
                 Features
               </h4>
               <ul className="grid grid-cols-1 gap-3">
@@ -170,14 +174,14 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             </div>
 
             <div className="space-y-4 pt-4 border-t border-border-subtle">
-              <h4 className="uppercase font-semibold tracking-[0.1em] text-text-main/80 text-[11px]">
+              <h4 className="uppercase font-semibold tracking-wide text-text-main/80 text-small">
                 Tech Stack
               </h4>
               <div className="flex flex-wrap gap-2">
                 {project.tech.map((t) => (
                   <span
                     key={t}
-                    className="text-[11px] font-semibold px-3 py-1 rounded-full bg-border-subtle text-text-main/60 uppercase tracking-wider"
+                    className="text-small font-semibold px-3 py-1 rounded-full bg-border-subtle text-text-main/60 uppercase tracking-wider"
                   >
                     {t}
                   </span>

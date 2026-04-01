@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { ProjectCard, ProjectModal, type Project } from "./ProjectUI";
 import { SkillsCarousel } from "./SkillsCarousel";
-import { Text } from "../../ui/Text";
+import { Text, Title } from "../../ui/Text";
 
 const PROJECTS: Project[] = [
   {
@@ -30,17 +30,15 @@ export function DevelopmentTab() {
   return (
     <div className="space-y-10">
       <Text>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat
-        aliquid modi nemo, dolorem unde reprehenderit sed rerum culpa. Cum
-        eveniet omnis nihil totam molestias numquam eaque alias commodi
-        consequatur possimus.
+        I focus on building high-performance web applications using modern
+        technologies like React, TypeScript, and Tailwind CSS. My goal is to
+        create intuitive user experiences that solve real-world problems for
+        creatives and small businesses.
       </Text>
       <SkillsCarousel />
 
       <section className="max-w-2xl">
-        <h2 className="uppercase font-semibold tracking-[0.1em] text-text-main/80 text-xs mb-6">
-          Projects
-        </h2>
+        <Title className="mb-6">Projects</Title>
 
         <div className="grid grid-cols-1 gap-10">
           {PROJECTS.map((project) => (

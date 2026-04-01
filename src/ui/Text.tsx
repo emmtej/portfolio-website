@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { cn } from "../utils/cn";
 import type React from "react";
 
 interface BaseProps {
@@ -13,8 +13,8 @@ interface TitleProps extends BaseProps {}
 export const Text = ({ children, className }: TextProps) => {
   return (
     <p
-      className={clsx(
-        "text-[15px] text-text-main/80 space-y-5 leading-relaxed tracking-tight whitespace-pre-line",
+      className={cn(
+        "text-paragraph text-text-main/80 leading-relaxed tracking-tight whitespace-pre-line",
         className,
       )}
     >
@@ -26,8 +26,8 @@ export const Text = ({ children, className }: TextProps) => {
 export const Title = ({ children, className }: TitleProps) => {
   return (
     <h2
-      className={clsx(
-        "uppercase font-semibold tracking-[0.1em] text-text-main/80 text-xs",
+      className={cn(
+        "uppercase font-semibold tracking-wide text-text-main/80 text-small",
         className,
       )}
     >

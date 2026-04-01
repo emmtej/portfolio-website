@@ -6,19 +6,19 @@ function App() {
     <Layout>
       <div className="space-y-10">
         <header className="space-y-4">
-          <div className="flex items-center gap-3 text-[10px] font-mono uppercase tracking-[0.3em] text-text-muted">
+          <div className="flex items-center gap-3 text-xs-tight font-mono uppercase tracking-widest text-text-muted">
             <a
               href="https://github.com/emmtej"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-text-main transition-colors duration-200"
+              className="hover:text-text-main transition-colors duration-fast"
             >
               [GH].EMMTEJ
             </a>
-            <span className="opacity-60 text-xs font-sans">//</span>
+            <span className="opacity-60 text-small font-sans">//</span>
             <a
               href="mailto:contact@emmanueltejeda.com"
-              className="hover:text-text-main transition-colors duration-200"
+              className="hover:text-text-main transition-colors duration-fast"
             >
               [EMAIL].CONTACT
             </a>

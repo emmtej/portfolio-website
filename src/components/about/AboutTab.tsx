@@ -1,11 +1,11 @@
 import { ExperienceTimeline } from "./ExperienceTimeline";
-import { Title } from "../../ui/Text";
+import { Title, Text } from "../../ui/Text";
 
 export function AboutTab() {
   return (
     <div className="space-y-10">
       <section className="max-w-2xl">
-        <div className="text-[15px] text-text-main/80 space-y-5 leading-relaxed tracking-tight">
+        <Text className="space-y-5">
           <p>
             Full-stack web developer currently based in{" "}
             <span className="font-semibold text-text-main">
@@ -29,7 +29,7 @@ export function AboutTab() {
             blending frontend expertise with the backend logic needed to help
             small businesses outgrow their static sites.
           </p>
-        </div>
+        </Text>
       </section>
 
       <section className="space-y-10">

@@ -4,6 +4,7 @@ import { AboutTab } from "./about/AboutTab";
 import { DevelopmentTab } from "./development/DevelopmentTab";
 import { AudioTab } from "./audio/AudioTab";
 import { ContactTab } from "./contact/ContactTab";
+import { cn } from "../utils/cn";
 
 const TABS = [
   {
@@ -15,7 +16,7 @@ const TABS = [
     id: "development",
     label: "Development",
     Component: DevelopmentTab,
-    wrapperClass: "animate-in fade-in duration-500",
+    wrapperClass: "animate-in fade-in duration-slow",
   },
   {
     id: "audio",
@@ -105,9 +106,7 @@ export function Tabs() {
               id={`panel-${tab.id}`}
               role="tabpanel"
               aria-labelledby={`tab-${tab.id}`}
-              className={`${isActive ? "block" : "hidden"} ${
-                tab.wrapperClass || ""
-              }`}
+              className={cn(isActive ? "block" : "hidden", tab.wrapperClass)}
             >
               <tab.Component />
             </div>
