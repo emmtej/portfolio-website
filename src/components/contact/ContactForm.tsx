@@ -111,7 +111,7 @@ export function ContactForm() {
         {/* Socials Column */}
         <div className="lg:col-span-5 space-y-6 order-1 lg:order-2">
           <Title>{t("contact.find_me_title")}</Title>
-...          <div className="flex flex-col">
+          <div className="flex flex-col">
             {SOCIALS.map((social) => (
               <SocialLink
                 key={social.label}

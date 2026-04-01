@@ -14,7 +14,7 @@ function App() {
         <Tabs
           header={
             <header className="space-y-8 md:space-y-12">
-              <div className="flex items-center gap-4 text-xs md:text-sm font-mono uppercase tracking-widest text-text-muted">
+              <div className="flex items-center gap-4 text-xs font-mono uppercase tracking-widest text-text-muted">
                 <HeaderLink
                   href="https://github.com/emmtej"
                   target="_blank"
@@ -51,7 +51,6 @@ function App() {
       </div>
     </Layout>
   );
-
 }
 
 export default App;
