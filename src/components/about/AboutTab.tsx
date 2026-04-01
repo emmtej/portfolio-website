@@ -20,9 +20,9 @@ const LANGUAGE_KEYS = [
 export function AboutTab() {
   const { t } = useTranslation();
   return (
-    <div className="space-y-12">
+    <div className="space-y-8 md:space-y-12">
       <section className="max-w-4xl">
-        <div className="space-y-5">
+        <div className="space-y-4 md:space-y-5">
           <Text>
             {t("about.hero_description_1")}
             <span className="font-semibold text-text-main">
@@ -40,12 +40,12 @@ export function AboutTab() {
         </div>
       </section>
 
-      <section className="space-y-10">
+      <section className="space-y-6 md:space-y-8">
         <Title>{t("about.experience_title")}</Title>
         <ExperienceTimeline />
       </section>
 
-      <section className="space-y-10">
+      <section className="space-y-6 md:space-y-8">
         <Title>{t("about.languages_title")}</Title>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {LANGUAGE_KEYS.map(({ level, name }) => (

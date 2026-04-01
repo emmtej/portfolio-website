@@ -33,12 +33,12 @@ export function DevelopmentTab() {
   );
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-10 md:space-y-12">
       <Text className="max-w-4xl">{t("dev.intro")}</Text>
       <SkillsCarousel />
       <section className="max-w-5xl">
-        <Title className="mb-6">{t("dev.projects_title")}</Title>
-        <div className="grid grid-cols-1 gap-10">
+        <Title className="mb-4 md:mb-6">{t("dev.projects_title")}</Title>
+        <div className="grid grid-cols-1 gap-6 md:gap-8">
           {PROJECTS.map((project) => (
             <ProjectCard
               key={project.id}

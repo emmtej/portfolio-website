@@ -41,15 +41,15 @@ export function AudioTab() {
   };
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8 md:space-y-10">
       <section className="max-w-4xl">
         <Text>{t("audio.intro")}</Text>
       </section>
 
       {/* Software Expertise */}
-      <section className="space-y-8">
+      <section className="space-y-6 md:space-y-8">
         <Title>{t("audio.tools_title")}</Title>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-2 md:gap-3">
           {audioSoftware.map((software) => (
             <span
               key={software}
@@ -61,8 +61,8 @@ export function AudioTab() {
         </div>
       </section>
 
-      <section className="space-y-12">
-        <div className="flex flex-col gap-4 max-w-4xl">
+      <section className="space-y-8 md:space-y-10">
+        <div className="flex flex-col gap-3 md:gap-4 max-w-4xl">
           <Title>{t("audio.restoration_title")}</Title>
           <Text>{t("audio.restoration_desc")}</Text>
         </div>

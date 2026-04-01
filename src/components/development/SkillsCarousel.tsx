@@ -73,8 +73,8 @@ export function SkillsCarousel() {
   };
 
   return (
-    <section className="w-full overflow-hidden py-4 select-none">
-      <h2 className="uppercase font-semibold tracking-[0.1em] text-text-main/80 text-xs mb-6 px-0">
+    <section className="w-full overflow-hidden py-2 select-none">
+      <h2 className="uppercase font-semibold tracking-[0.1em] text-text-main/80 text-xs mb-4 px-0">
         {t("dev.skills_title")}
       </h2>
       <div className="relative group">

@@ -30,7 +30,7 @@ export function ExperienceTimeline() {
   ];
 
   return (
-    <ol className="relative space-y-12 before:absolute before:left-[4.5px] before:h-full before:w-px before:bg-border-subtle">
+    <ol className="relative space-y-8 md:space-y-10 before:absolute before:left-[4.5px] before:h-full before:w-px before:bg-border-subtle">
       {experiences.map((exp) => (
         <li
           key={`${exp.company}-${exp.time}`}

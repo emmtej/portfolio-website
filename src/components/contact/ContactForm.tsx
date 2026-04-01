@@ -66,15 +66,15 @@ export function ContactForm() {
   };
 
   return (
-    <div className="space-y-12 lg:space-y-16">
-      <div className="space-y-6 max-w-3xl">
+    <div className="space-y-10 md:space-y-12">
+      <div className="space-y-4 md:space-y-6 max-w-3xl">
         <Title>{t("contact.title")}</Title>
         <Text className="text-sm md:text-base leading-relaxed">
           {t("contact.intro")}
         </Text>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
         <div className="lg:col-span-7 order-2 lg:order-1">
           <form
             className="space-y-5"
