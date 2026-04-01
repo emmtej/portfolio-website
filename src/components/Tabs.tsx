@@ -77,6 +77,13 @@ export function Tabs({ header }: { header?: React.ReactNode }) {
     return () => window.removeEventListener("popstate", handlePopState);
   }, [TABS]);
 
+  useEffect(() => {
+    const activeTab = TABS.find((t) => t.id === activeTabId);
+    if (activeTab) {
+      document.title = `${activeTab.label} || Emmanuel T.`;
+    }
+  }, [activeTabId, TABS]);
+
   const handleTabChange = (id: string) => {
     setActiveTabId(id);
     setVisitedTabs((prev) => {

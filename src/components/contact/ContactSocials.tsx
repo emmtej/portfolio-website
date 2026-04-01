@@ -23,7 +23,7 @@ export function SocialLink({ label, href, value, icon }: SocialLinkProps) {
       </div>
 
       <div className="flex items-center gap-4 overflow-hidden">
-        <span className="hidden md:block text-xs font-mono text-text-muted/0 translate-x-4 group-hover:translate-x-0 group-hover:text-text-muted/40 transition-all duration-500 ease-out">
+        <span className="hidden md:block text-xs font-mono text-text-muted/20 translate-x-4 group-hover:translate-x-0 group-hover:text-text-muted/80 transition-all duration-500 ease-out">
           {value}
         </span>
         <div className="relative w-4 h-4 overflow-hidden">
