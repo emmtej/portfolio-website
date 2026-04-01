@@ -41,13 +41,13 @@ export function ExperienceTimeline() {
           ></span>
 
           <div className="flex-1">
-            <time className="block mb-1 text-small font-semibold tracking-wider uppercase text-text-muted/60">
+            <time className="block mb-1 text-sm font-semibold tracking-wider uppercase text-text-muted/60">
               {exp.time}
             </time>
             <h3 className="text-base font-bold text-text-main tracking-tight">
               {exp.title} — {exp.company}
             </h3>
-            <p className="text-small font-bold text-text-muted/60 mt-0.5 tracking-wide">
+            <p className="text-sm font-bold text-text-muted/60 mt-0.5 tracking-wide">
               {exp.location}
             </p>
             <Text className="mt-2 text-text-muted/90">{exp.description}</Text>

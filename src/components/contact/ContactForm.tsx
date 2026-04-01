@@ -25,7 +25,7 @@ export function ContactForm() {
       <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-3 group">
-            <p className="text-[9px] font-mono uppercase tracking-[0.3em] text-text-muted group-hover:text-text-main/60 transition-colors">
+            <p className="text-tiny font-mono uppercase tracking-[0.3em] text-text-muted group-hover:text-text-main/60 transition-colors">
               Name
             </p>
             <div className="relative overflow-hidden">
@@ -35,13 +35,13 @@ export function ContactForm() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="John Doe"
-                className="w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-[14px] text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40"
+                className="w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-md text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40"
               />
               <div className="absolute bottom-0 left-0 w-full h-[1px] bg-text-main scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left opacity-20" />
             </div>
           </div>
           <div className="space-y-3 group">
-            <p className="text-[9px] font-mono uppercase tracking-[0.3em] text-text-muted group-hover:text-text-main/60 transition-colors">
+            <p className="text-tiny font-mono uppercase tracking-[0.3em] text-text-muted group-hover:text-text-main/60 transition-colors">
               Email
             </p>
             <div className="relative overflow-hidden">
@@ -51,7 +51,7 @@ export function ContactForm() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="john@example.com"
-                className="w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-[14px] text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40"
+                className="w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-md text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40"
               />
               <div className="absolute bottom-0 left-0 w-full h-[1px] bg-text-main scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left opacity-20" />
             </div>
@@ -59,7 +59,7 @@ export function ContactForm() {
         </div>
 
         <div className="space-y-3 group">
-          <p className="text-[9px] font-mono uppercase tracking-[0.3em] text-text-muted group-hover:text-text-main/60 transition-colors">
+          <p className="text-tiny font-mono uppercase tracking-[0.3em] text-text-muted group-hover:text-text-main/60 transition-colors">
             Message
           </p>
           <div className="relative overflow-hidden">
@@ -69,7 +69,7 @@ export function ContactForm() {
               onChange={handleChange}
               rows={6}
               placeholder="..."
-              className="w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-[14px] text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40 resize-none"
+              className="w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-md text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40 resize-none"
             />
             <div className="absolute bottom-0 left-0 w-full h-[1px] bg-text-main scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left opacity-20" />
           </div>
@@ -80,7 +80,7 @@ export function ContactForm() {
           whileHover="hover"
           whileTap="tap"
           type="submit"
-          className="group relative flex items-center justify-center gap-4 w-full md:w-fit px-12 py-5 bg-text-main text-bg-app text-[11px] font-bold uppercase tracking-[0.3em] overflow-hidden"
+          className="group relative flex items-center justify-center gap-4 w-full md:w-fit px-12 py-5 bg-text-main text-bg-app text-sm font-bold uppercase tracking-[0.3em] overflow-hidden"
         >
           <motion.div
             variants={{

@@ -54,7 +54,7 @@ export function SkillsCarousel() {
                 key={`${skill}-${index}`}
                 className="flex items-center gap-2 px-5 py-2.5 border border-border-subtle bg-bg-app hover:border-text-main/20 hover:bg-text-main/[0.02] transition-colors duration-100 cursor-default"
               >
-                <span className="text-[11px] font-bold uppercase tracking-wider text-text-main/60 whitespace-nowrap">
+                <span className="text-sm font-bold uppercase tracking-wider text-text-main/60 whitespace-nowrap">
                   {skill}
                 </span>
               </motion.div>

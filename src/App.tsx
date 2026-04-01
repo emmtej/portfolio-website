@@ -6,7 +6,7 @@ function App() {
     <Layout>
       <div className="space-y-10">
         <header className="space-y-4">
-          <div className="flex items-center gap-3 text-xs-tight font-mono uppercase tracking-widest text-text-muted">
+          <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-text-muted">
             <a
               href="https://github.com/emmtej"
               target="_blank"
@@ -15,7 +15,7 @@ function App() {
             >
               [GH].EMMTEJ
             </a>
-            <span className="opacity-60 text-small font-sans">//</span>
+            <span className="opacity-60 text-sm font-sans">//</span>
             <a
               href="mailto:contact@emmanueltejeda.com"
               className="hover:text-text-main transition-colors duration-fast"
@@ -23,7 +23,7 @@ function App() {
               [EMAIL].CONTACT
             </a>
           </div>
-          <h1 className="text-4xl font-bold tracking-tight text-text-main">
+          <h1 className="text-xl font-bold tracking-tight text-text-main">
             Hello, I'm <span>Emmanuel</span>
           </h1>
         </header>

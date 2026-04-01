@@ -14,7 +14,7 @@ export const Text = ({ children, className }: TextProps) => {
   return (
     <p
       className={cn(
-        "text-paragraph text-text-main/80 leading-relaxed tracking-tight whitespace-pre-line",
+        "text-md text-text-main/80 leading-relaxed tracking-tight whitespace-pre-line",
         className,
       )}
     >
@@ -27,7 +27,7 @@ export const Title = ({ children, className }: TitleProps) => {
   return (
     <h2
       className={cn(
-        "uppercase font-semibold tracking-wide text-text-main/80 text-small",
+        "uppercase font-semibold tracking-wide text-text-main/80 text-sm",
         className,
       )}
     >

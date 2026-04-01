@@ -10,10 +10,12 @@
 
   /* Typography */
   --font-size-tiny: 9px;
-  --font-size-xs-tight: 10px;
-  --font-size-small: 11px;
-  --font-size-base-tight: 13px;
-  --font-size-paragraph: 15px;
+  --font-size-xs: 10px;
+  --font-size-sm: 11px;
+  --font-size-base: 13px;
+  --font-size-md: 14px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
 
   /* Tracking */
   --tracking-widest: 0.3em;

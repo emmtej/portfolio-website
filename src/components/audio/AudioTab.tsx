@@ -20,7 +20,7 @@ export function AudioTab() {
           {audioSoftware.map((software) => (
             <span
               key={software}
-              className="text-[11px] font-bold px-3 py-1.5 bg-border-subtle text-text-muted/80 uppercase tracking-wider hover:bg-text-main/5 hover:text-text-main/60 transition-colors duration-300"
+              className="text-sm font-bold px-3 py-1.5 bg-border-subtle text-text-muted/80 uppercase tracking-wider hover:bg-text-main/5 hover:text-text-main/60 transition-colors duration-300"
             >
               {software}
             </span>

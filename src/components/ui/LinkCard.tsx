@@ -30,10 +30,10 @@ export function LinkCard({
           {label}
         </p>
         <div className="flex items-center justify-between">
-          <p className="text-base-tight font-bold text-text-main tracking-tight">
+          <p className="text-base font-bold text-text-main tracking-tight">
             {value}
           </p>
-          <span className="text-xs-tight font-mono text-text-muted/40 group-hover:text-text-main/40 transition-colors">
+          <span className="text-xs font-mono text-text-muted/40 group-hover:text-text-main/40 transition-colors">
             [{icon}]
           </span>
         </div>
