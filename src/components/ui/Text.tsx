@@ -6,9 +6,9 @@ interface BaseProps {
   className?: string;
 }
 
-interface TextProps extends BaseProps {}
+type TextProps = BaseProps;
 
-interface TitleProps extends BaseProps {}
+type TitleProps = BaseProps;
 
 export const Text = ({ children, className }: TextProps) => {
   return (

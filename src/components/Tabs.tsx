@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import type React from "react";
 import { useTranslation } from "react-i18next";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { AboutTab } from "./about/AboutTab";
 import { DevelopmentTab } from "./development/DevelopmentTab";
 import { AudioTab } from "./audio/AudioTab";
@@ -9,7 +9,7 @@ import { ContactTab } from "./contact/ContactTab";
 import { cn } from "../utils/cn";
 import { TabButton } from "./ui/Tabs";
 
-const fadeInRest = {
+const fadeInRest: Variants = {
   hidden: { opacity: 0, y: 10 },
   visible: { 
     opacity: 1, 

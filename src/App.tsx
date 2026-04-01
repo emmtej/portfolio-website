@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Layout } from "./components/Layout";
 import { Tabs } from "./components/Tabs";
 import { cn } from "./utils/cn";
 import { HeaderLink, HeaderSeparator } from "./components/ui/HeaderLink";
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -14,7 +14,7 @@ const fadeInUp = {
   },
 };
 
-const fadeInRest = {
+const fadeInRest: Variants = {
   hidden: { opacity: 0, y: 10 },
   visible: {
     opacity: 1,
