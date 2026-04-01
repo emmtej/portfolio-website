@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { cn } from "../../utils/cn";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 export interface Project {
   id: string;
@@ -24,6 +24,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
 
   return (
     <motion.button
+      type="button"
       layoutId={`card-${project.id}`}
       onClick={onClick}
       whileHover={{
@@ -107,8 +108,30 @@ interface ProjectModalProps {
   onClose: () => void;
 }
 
+function getFocusableElements(container: HTMLElement): HTMLElement[] {
+  return Array.from(
+    container.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    ),
+  );
+}
+
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const { t } = useTranslation();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
+  useLayoutEffect(() => {
+    previousFocusRef.current =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    closeButtonRef.current?.focus();
+    return () => {
+      previousFocusRef.current?.focus();
+    };
+  }, [project.id]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -119,6 +142,31 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    const handleTabKey = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const focusable = getFocusableElements(dialog);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    dialog.addEventListener("keydown", handleTabKey);
+    return () => dialog.removeEventListener("keydown", handleTabKey);
+  }, [project.id]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
@@ -131,6 +179,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
       />
 
       <motion.div
+        ref={dialogRef}
         layoutId={`card-${project.id}`}
         role="dialog"
         aria-modal="true"
@@ -138,8 +187,10 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         className="relative w-full max-w-2xl bg-bg-app rounded-2xl overflow-hidden shadow-2xl border border-border-subtle"
       >
         <button
+          ref={closeButtonRef}
+          type="button"
           onClick={onClose}
-          aria-label={t("dev.close_modal", { defaultValue: "Close modal" })}
+          aria-label={t("dev.close_modal")}
           className="absolute top-4 right-4 z-10 p-2 rounded-full bg-bg-app/80 backdrop-blur-md border border-border-subtle text-text-muted hover:text-text-main transition-colors"
         >
           <svg
@@ -161,14 +212,14 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         <div className="flex flex-col h-full max-h-[90vh] overflow-y-auto">
           <div className="h-64 shrink-0 bg-gradient-to-br from-text-main/5 to-text-main/10 flex items-center justify-center relative">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)] opacity-50" />
-            <h2 id="modal-title" className="text-xl font-bold tracking-tighter text-text-main/30">
+            <h2 className="text-xl font-bold tracking-tighter text-text-main/30">
               {project.title}
             </h2>
           </div>
 
           <div className="p-8 space-y-8">
             <div className="space-y-4">
-              <h3 className="text-lg font-bold tracking-tight text-text-main">
+              <h3 id="modal-title" className="text-lg font-bold tracking-tight text-text-main">
                 {project.title}
               </h3>
               <p className="text-md leading-relaxed text-text-muted tracking-tight">
@@ -181,9 +232,9 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {t("dev.features_title")}
               </h4>
               <ul className="grid grid-cols-1 gap-3">
-                {project.features.map((feature) => (
+                {project.features.map((feature, index) => (
                   <li
-                    key={feature}
+                    key={`${feature}-${index}`}
                     className="flex items-start gap-3 text-sm text-text-muted tracking-tight"
                   >
                     <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-text-main/20" />
@@ -209,15 +260,25 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               </div>
             </div>
 
-            <div className="flex gap-4 pt-6">
+            <div className="flex flex-wrap gap-4 pt-6">
               {project.github && (
                 <a
-                  href={project.link}
+                  href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-2.5 bg-text-main text-bg-app rounded-full text-sm font-semibold tracking-tight hover:opacity-90 transition-opacity"
                 >
                   {t("dev.view_source")}
+                </a>
+              )}
+              {project.link && (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-2.5 border border-border-subtle text-text-main rounded-full text-sm font-semibold tracking-tight hover:border-text-main/40 transition-colors"
+                >
+                  {t("dev.view_demo")}
                 </a>
               )}
             </div>

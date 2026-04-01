@@ -28,3 +28,5 @@ export const TabButton = forwardRef<HTMLButtonElement, {
     {label}
   </button>
 ));
+
+TabButton.displayName = "TabButton";

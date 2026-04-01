@@ -5,28 +5,36 @@ import { ProjectCard, ProjectModal, type Project } from "./ProjectUI";
 import { SkillsCarousel } from "./SkillsCarousel";
 import { Text, Title } from "../ui/Text";
 
+function parseStringArray(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value.filter((item): item is string => typeof item === "string");
+}
+
 export function DevelopmentTab() {
   const { t } = useTranslation();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const PROJECTS: Project[] = useMemo(() => [
-    {
-      id: "invoice",
-      title: t("dev.projects.invoice.title"),
-      shortDesc: t("dev.projects.invoice.shortDesc"),
-      fullDesc: t("dev.projects.invoice.fullDesc"),
-      tech: ["React", "TypeScript", "Tailwind CSS", "Zustand", "Mantine UI"],
-      features: t("dev.projects.invoice.features", { returnObjects: true }) as string[],
-      link: "https://invoice-demo.example.com",
-      github: "https://github.com/example/invoice",
-    },
-  ], [t]);
+  const PROJECTS: Project[] = useMemo(
+    () => [
+      {
+        id: "invoice",
+        title: t("dev.projects.invoice.title"),
+        shortDesc: t("dev.projects.invoice.shortDesc"),
+        fullDesc: t("dev.projects.invoice.fullDesc"),
+        tech: ["React", "TypeScript", "Tailwind CSS", "Zustand", "Mantine UI"],
+        features: parseStringArray(
+          t("dev.projects.invoice.features", { returnObjects: true }),
+        ),
+        link: "https://invoice-demo.example.com",
+        github: "https://github.com/example/invoice",
+      },
+    ],
+    [t],
+  );
 
   return (
     <div className="space-y-16">
-      <Text className="max-w-4xl">
-        {t("dev.intro")}
-      </Text>
+      <Text className="max-w-4xl">{t("dev.intro")}</Text>
       <SkillsCarousel />
       <section className="max-w-5xl">
         <Title className="mb-6">{t("dev.projects_title")}</Title>
