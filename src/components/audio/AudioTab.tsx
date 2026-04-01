@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Text, Title } from "../ui/Text";
 
 const audioSoftware = ["iZotope RX", "Reaper", "DaVinci Resolve"];
@@ -8,6 +8,26 @@ export function AudioTab() {
   const { t } = useTranslation();
   const [isPlaying, setIsPlaying] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.origin !== "https://www.youtube-nocookie.com") return;
+      try {
+        const data = JSON.parse(event.data);
+        if (data.event === "infoDelivery" && data.info && data.info.playerState !== undefined) {
+          const state = data.info.playerState;
+          // 1 is playing, 2 is paused, 0 is ended
+          if (state === 1) setIsPlaying(true);
+          else if (state === 2 || state === 0) setIsPlaying(false);
+        }
+      } catch {
+        // Ignore non-JSON messages
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []);
 
   const togglePlay = () => {
     if (!iframeRef.current) return;
@@ -53,7 +73,7 @@ export function AudioTab() {
               ref={iframeRef}
               className="w-full h-full pointer-events-none scale-[1.01]"
               src="https://www.youtube-nocookie.com/embed/9AVBGNRMMZM?enablejsapi=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1"
-              title="Audio Restoration Demo"
+              title={t("audio.iframe_title")}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             ></iframe>
 
