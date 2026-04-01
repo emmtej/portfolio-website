@@ -40,17 +40,29 @@ export function ExperienceTimeline() {
             )}
           ></span>
 
-          <div className="flex-1">
-            <time className="block mb-1 text-sm font-semibold tracking-wider uppercase text-text-muted/60">
-              {exp.time}
-            </time>
-            <h3 className="text-base font-bold text-text-main tracking-tight">
-              {exp.title} — {exp.company}
-            </h3>
-            <p className="text-sm font-bold text-text-muted/60 mt-0.5 tracking-wide">
-              {exp.location}
-            </p>
-            <Text className="mt-2 text-text-muted/90">{exp.description}</Text>
+          <div className="flex-1 -mt-0.5">
+            <div className="flex flex-wrap items-center gap-2 mb-2">
+              <time className="text-xs font-mono uppercase tracking-widest text-text-muted/80">
+                {exp.time}
+              </time>
+              <span className="size-1 rounded-full bg-border-subtle" />
+              <span className="text-xs font-mono uppercase tracking-widest text-text-muted/80">
+                {exp.location}
+              </span>
+            </div>
+
+            <div className="flex flex-col md:flex-row md:items-baseline gap-1 md:gap-3">
+              <h3 className="text-base font-bold text-text-main tracking-tight">
+                {exp.title}
+              </h3>
+              <span className="text-xs font-mono uppercase tracking-widest text-text-muted/80 group-hover:text-text-main transition-colors duration-normal">
+                [{exp.company}]
+              </span>
+            </div>
+
+            <Text className="mt-3 text-text-muted/80 leading-relaxed">
+              {exp.description}
+            </Text>
           </div>
         </li>
       ))}
