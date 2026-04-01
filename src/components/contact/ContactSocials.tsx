@@ -1,7 +1,7 @@
 import { LinkCard } from "../ui/LinkCard";
 import { Title } from "../ui/Text";
 
-const SOCIALS = [
+export const SOCIALS = [
   {
     label: "GitHub",
     href: "https://github.com/emmtej",
@@ -22,10 +22,14 @@ const SOCIALS = [
   },
 ];
 
-export function ContactSocials() {
+interface ContactSocialsProps {
+  renderTitle?: boolean;
+}
+
+export function ContactSocials({ renderTitle = true }: ContactSocialsProps) {
   return (
-    <section className=" border-t border-border-subtle">
-      <Title>Find me on</Title>
+    <section className={renderTitle ? "border-t border-border-subtle pt-10" : ""}>
+      {renderTitle && <Title>Find me on</Title>}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {SOCIALS.map((social) => (
           <LinkCard
