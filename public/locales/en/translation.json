@@ -62,6 +62,8 @@
     "features_title": "Features",
     "skills_title": "Skills",
     "view_source": "View Source",
+    "view_demo": "View demo",
+    "close_modal": "Close project details",
     "projects": {
       "invoice": {
         "title": "InVoice",
@@ -82,7 +84,8 @@
     "restoration_title": "Restoration Demo",
     "restoration_desc": "Demonstration of the process of cleaning up field-recorded dialogue, moving from the raw capture to a polished, professional result.",
     "play": "Play",
-    "pause": "Pause"
+    "pause": "Pause",
+    "iframe_title": "Audio restoration demo video"
   },
   "contact": {
     "title": "Get in touch",
@@ -97,6 +100,11 @@
       "sending": "Sending...",
       "success": "Message sent successfully!",
       "error": "Failed to send message. Please try again.",
+      "placeholders": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "message": "Tell me more about your project..."
+      },
       "errors": {
         "name_min": "Name must be at least 2 characters",
         "email_invalid": "Please enter a valid email address",

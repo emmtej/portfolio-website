@@ -62,6 +62,8 @@
     "features_title": "Funzionalità",
     "skills_title": "Competenze",
     "view_source": "Sorgente",
+    "view_demo": "Apri demo",
+    "close_modal": "Chiudi dettagli progetto",
     "projects": {
       "invoice": {
         "title": "InVoice",
@@ -82,7 +84,8 @@
     "restoration_title": "Demo di Restauro",
     "restoration_desc": "Dimostrazione del processo di pulizia di dialoghi registrati sul campo, passando dalla cattura grezza a un output professionale impeccabile.",
     "play": "Riproduci",
-    "pause": "Pausa"
+    "pause": "Pausa",
+    "iframe_title": "Video dimostrativo di restauro audio"
   },
   "contact": {
     "title": "Contattami",
@@ -97,6 +100,11 @@
       "sending": "Invio in corso...",
       "success": "Messaggio inviato con successo!",
       "error": "Impossibile inviare il messaggio. Riprova.",
+      "placeholders": {
+        "name": "Nome e cognome",
+        "email": "nome@esempio.com",
+        "message": "Parlami del tuo progetto..."
+      },
       "errors": {
         "name_min": "Il nome deve contenere almeno 2 caratteri",
         "email_invalid": "Inserisci un indirizzo email valido",
