@@ -24,7 +24,7 @@ const SOCIALS = [
 
 export function ContactSocials() {
   return (
-    <section className="space-y-8 pt-10 border-t border-border-subtle">
+    <section className=" border-t border-border-subtle">
       <Title>Find me on</Title>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {SOCIALS.map((social) => (

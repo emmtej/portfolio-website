@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { Input, TextArea } from "../ui/Input";
+import { Text, Title } from "../ui/Text";
 
 // TODO: Implement validation and loading and sent state.
 export function ContactForm() {
@@ -17,63 +19,36 @@ export function ContactForm() {
   };
 
   return (
-    <section className="space-y-8">
-      <p className="text-sm text-text-muted tracking-tight">
-        Have a project in mind or just want to say hi?
-      </p>
-
+    <section className="space-y-10">
+      <Title>Or message me</Title>
       <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-3 group">
-            <p className="text-tiny font-mono uppercase tracking-[0.3em] text-text-muted group-hover:text-text-main/60 transition-colors">
-              Name
-            </p>
-            <div className="relative overflow-hidden">
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="John Doe"
-                className="w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-md text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40"
-              />
-              <div className="absolute bottom-0 left-0 w-full h-[1px] bg-text-main scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left opacity-20" />
-            </div>
-          </div>
-          <div className="space-y-3 group">
-            <p className="text-tiny font-mono uppercase tracking-[0.3em] text-text-muted group-hover:text-text-main/60 transition-colors">
-              Email
-            </p>
-            <div className="relative overflow-hidden">
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="john@example.com"
-                className="w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-md text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40"
-              />
-              <div className="absolute bottom-0 left-0 w-full h-[1px] bg-text-main scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left opacity-20" />
-            </div>
-          </div>
+          <Input
+            label="Name"
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="John Doe"
+          />
+          <Input
+            label="Email"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="john@example.com"
+          />
         </div>
 
-        <div className="space-y-3 group">
-          <p className="text-tiny font-mono uppercase tracking-[0.3em] text-text-muted group-hover:text-text-main/60 transition-colors">
-            Message
-          </p>
-          <div className="relative overflow-hidden">
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              rows={6}
-              placeholder="..."
-              className="w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-md text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40 resize-none"
-            />
-            <div className="absolute bottom-0 left-0 w-full h-[1px] bg-text-main scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left opacity-20" />
-          </div>
-        </div>
+        <TextArea
+          label="Message"
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+          rows={6}
+          placeholder="..."
+        />
 
         <motion.button
           initial="initial"

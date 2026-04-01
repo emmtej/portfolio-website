@@ -17,7 +17,7 @@ export const TabButton = ({
     aria-selected={isActive}
     aria-controls={`panel-${id}`}
     className={cn(
-      "-mb-px border-b-2 py-2 text-sm transition-colors uppercase font-semibold tracking-wide border-transparent text-text-muted/60 hover:text-text-main",
+      "-mb-px border-b-2 py-4 text-sm transition-colors uppercase font-bold tracking-widest border-transparent text-text-muted/40 hover:text-text-main/80",
       "aria-selected:border-text-main aria-selected:text-text-main",
     )}
     onClick={() => onClick(id)}

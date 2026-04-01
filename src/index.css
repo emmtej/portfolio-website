@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-sans:
+    "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji";
 
   --color-bg-app: white;
   --color-text-main: #37352f;
@@ -9,13 +11,17 @@
   --color-border-subtle: #f3f4f6;
 
   /* Typography */
-  --font-size-tiny: 9px;
-  --font-size-xs: 10px;
-  --font-size-sm: 11px;
-  --font-size-base: 13px;
-  --font-size-md: 14px;
-  --font-size-lg: 18px;
-  --font-size-xl: 24px;
+  --font-size-tiny: 10px;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-base: 15px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 28px;
+  --font-size-2xl: 42px;
+  --font-size-3xl: 56px;
+  --font-size-4xl: 72px;
+  --font-size-5xl: 96px;
 
   /* Tracking */
   --tracking-widest: 0.3em;

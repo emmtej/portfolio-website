@@ -92,7 +92,7 @@ export function Tabs() {
         </nav>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-8">
         {TABS.map((tab) => {
           const isVisited = visitedTabs.has(tab.id);
           const isActive = activeTabId === tab.id;

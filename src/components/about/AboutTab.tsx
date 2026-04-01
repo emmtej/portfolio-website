@@ -3,8 +3,8 @@ import { Title, Text } from "../ui/Text";
 
 export function AboutTab() {
   return (
-    <div className="space-y-10">
-      <section className="max-w-2xl">
+    <div className="space-y-12">
+      <section className="max-w-4xl">
         <Text className="space-y-5">
           <p>
             Full-stack web developer currently based in{" "}

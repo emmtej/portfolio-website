@@ -28,18 +28,16 @@ export function DevelopmentTab() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <div className="space-y-10">
-      <Text>
+    <div className="space-y-16">
+      <Text className="max-w-4xl">
         I focus on building high-performance web applications using modern
         technologies like React, TypeScript, and Tailwind CSS. My goal is to
         create intuitive user experiences that solve real-world problems for
         creatives and small businesses.
       </Text>
       <SkillsCarousel />
-
-      <section className="max-w-2xl">
+      <section className="max-w-5xl">
         <Title className="mb-6">Projects</Title>
-
         <div className="grid grid-cols-1 gap-10">
           {PROJECTS.map((project) => (
             <ProjectCard
