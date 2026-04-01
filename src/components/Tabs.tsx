@@ -1,9 +1,10 @@
 import { useEffect, useState, useMemo, useRef } from "react";
-import type React from "react";
+import type { KeyboardEvent, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { cn } from "../utils/cn";
 import { TabButton } from "./ui/Tabs";
+import { fadeInBorder, fadeInRestTabs } from "../utils/motion-variants";
 
 // Static imports for tab components
 import { AboutTab } from "./about/AboutTab";
@@ -11,24 +12,7 @@ import { DevelopmentTab } from "./development/DevelopmentTab";
 import { AudioTab } from "./audio/AudioTab";
 import { ContactTab } from "./contact/ContactTab";
 
-const fadeInBorder: Variants = {
-  hidden: { opacity: 0 },
-  visible: { 
-    opacity: 1, 
-    transition: { duration: 0.8, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }
-  }
-};
-
-const fadeInRest: Variants = {
-  hidden: { opacity: 0, y: 10 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.8, delay: 0.4, ease: [0.21, 0.47, 0.32, 0.98] }
-  }
-};
-
-export function Tabs({ header }: { header?: React.ReactNode }) {
+export function Tabs({ header }: { header?: ReactNode }) {
   const { t } = useTranslation();
 
   const TABS = useMemo(() => [
@@ -94,17 +78,17 @@ export function Tabs({ header }: { header?: React.ReactNode }) {
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-    const currentIndex = TABS.findIndex(t => t.id === activeTabId);
+  const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
+    const currentIndex = TABS.findIndex((t) => t.id === activeTabId);
     let nextIndex = currentIndex;
 
-    if (e.key === 'ArrowRight') {
+    if (e.key === "ArrowRight") {
       nextIndex = (currentIndex + 1) % TABS.length;
-    } else if (e.key === 'ArrowLeft') {
+    } else if (e.key === "ArrowLeft") {
       nextIndex = (currentIndex - 1 + TABS.length) % TABS.length;
-    } else if (e.key === 'Home') {
+    } else if (e.key === "Home") {
       nextIndex = 0;
-    } else if (e.key === 'End') {
+    } else if (e.key === "End") {
       nextIndex = TABS.length - 1;
     }
 
@@ -134,7 +118,7 @@ export function Tabs({ header }: { header?: React.ReactNode }) {
           className="flex gap-6"
           initial="hidden"
           animate="visible"
-          variants={fadeInRest}
+          variants={fadeInRestTabs}
           onKeyDown={handleKeyDown}
         >
           {TABS.map((tab, index) => (
@@ -154,7 +138,7 @@ export function Tabs({ header }: { header?: React.ReactNode }) {
         className="mt-8" 
         initial="hidden"
         animate="visible"
-        variants={fadeInRest}
+        variants={fadeInRestTabs}
       >
         {TABS.map((tab) => {
           const isActive = activeTabId === tab.id;

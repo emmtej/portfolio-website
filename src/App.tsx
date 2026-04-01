@@ -1,27 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { Layout } from "./components/Layout";
 import { Tabs } from "./components/Tabs";
 import { cn } from "./utils/cn";
 import { HeaderLink, HeaderSeparator } from "./components/ui/HeaderLink";
-
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] },
-  },
-};
-
-const fadeInRest: Variants = {
-  hidden: { opacity: 0, y: 10 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, delay: 0.3, ease: [0.21, 0.47, 0.32, 0.98] },
-  },
-};
+import { fadeInRest, fadeInUp } from "./utils/motion-variants";
 
 function App() {
   const { t, i18n } = useTranslation();
