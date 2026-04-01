@@ -4,7 +4,7 @@ import { Title, Text } from "../ui/Text";
 
 export function AboutTab() {
   const { t } = useTranslation();
-
+  console.log("Test");
   return (
     <div className="space-y-12">
       <section className="max-w-4xl">
