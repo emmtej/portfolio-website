@@ -22,8 +22,8 @@ export function AboutTab() {
   return (
     <div className="space-y-12">
       <section className="max-w-4xl">
-        <Text className="space-y-5">
-          <p>
+        <div className="space-y-5">
+          <Text>
             {t("about.hero_description_1")}
             <span className="font-semibold text-text-main">
               {t("about.hero_location_italy")}
@@ -33,11 +33,11 @@ export function AboutTab() {
               {t("about.hero_location_nyc")}
             </span>
             .
-          </p>
-          <p>{t("about.hero_description_2")}</p>
-          <p>{t("about.hero_description_3")}</p>
-          <p>{t("about.hero_description_4")}</p>
-        </Text>
+          </Text>
+          <Text>{t("about.hero_description_2")}</Text>
+          <Text>{t("about.hero_description_3")}</Text>
+          <Text>{t("about.hero_description_4")}</Text>
+        </div>
       </section>
 
       <section className="space-y-10">
