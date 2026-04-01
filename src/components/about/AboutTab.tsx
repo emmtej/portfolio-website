@@ -2,9 +2,23 @@ import { useTranslation } from "react-i18next";
 import { ExperienceTimeline } from "./ExperienceTimeline";
 import { Title, Text } from "../ui/Text";
 
+const LANGUAGE_KEYS = [
+  {
+    level: "about.languages.english_level",
+    name: "about.languages.english_name",
+  },
+  {
+    level: "about.languages.spanish_level",
+    name: "about.languages.spanish_name",
+  },
+  {
+    level: "about.languages.italian_level",
+    name: "about.languages.italian_name",
+  },
+] as const;
+
 export function AboutTab() {
   const { t } = useTranslation();
-  const LANGUAGES = ["english", "spanish", "italian"] as const;
   return (
     <div className="space-y-12">
       <section className="max-w-4xl">
@@ -34,16 +48,16 @@ export function AboutTab() {
       <section className="space-y-10">
         <Title>{t("about.languages_title")}</Title>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {LANGUAGES.map((lang) => (
+          {LANGUAGE_KEYS.map(({ level, name }) => (
             <div
-              key={lang}
+              key={level}
               className="p-5 border border-border-subtle bg-bg-app hover:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-normal group"
             >
               <p className="text-tiny font-mono uppercase tracking-widest text-text-muted mb-2 group-hover:text-text-main/60 transition-colors">
-                {t(`about.languages.${lang}_level`)}
+                {t(level)}
               </p>
               <p className="text-base font-bold text-text-main tracking-tight">
-                {t(`about.languages.${lang}_name`)}
+                {t(name)}
               </p>
             </div>
           ))}
