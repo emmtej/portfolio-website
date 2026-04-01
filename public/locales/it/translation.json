@@ -90,6 +90,12 @@
   "contact": {
     "title": "Contattami",
     "intro": "Al momento sono disponibile per collaborazioni freelance e aperto a nuove opportunità. Se hai un progetto in mente o vuoi semplicemente salutarmi, non esitare a contattarmi.",
+    "availability": {
+      "available": "Di solito disponibile · {{localWindow}} ora tua ({{romeWindow}} Roma)",
+      "away": "Disponibile tra {{countdown}} · {{localNext}} ora tua (08:00 Roma)",
+      "available_short": "Disponibile per progetti",
+      "away_short": "Al momento fuori ufficio"
+    },
     "find_me_title": "Trovami su",
     "form": {
       "name": "Nome",

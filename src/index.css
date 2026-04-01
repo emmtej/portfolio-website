@@ -42,6 +42,20 @@
   --duration-normal: 300ms;
   --duration-slow: 500ms;
   --duration-slower: 1000ms;
+
+  /* Contact: Rome availability dot (when in window) */
+  --animate-rome-availability-pulse: rome-availability-pulse 2.8s ease-in-out
+    infinite;
+}
+
+@keyframes rome-availability-pulse {
+  0%,
+  100% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 :root.dark {

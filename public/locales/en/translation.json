@@ -90,6 +90,12 @@
   "contact": {
     "title": "Get in touch",
     "intro": "I'm currently available for freelance work and open to new opportunities. If you have a project in mind or just want to say hello, feel free to reach out.",
+    "availability": {
+      "available": "Typically available · {{localWindow}} your time ({{romeWindow}} Rome)",
+      "away": "Available in {{countdown}} · {{localNext}} your time (08:00 Rome)",
+      "available_short": "Available for business",
+      "away_short": "Currently away"
+    },
     "find_me_title": "Find me on",
     "form": {
       "name": "Name",
