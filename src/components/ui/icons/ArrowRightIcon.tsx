@@ -1,5 +1,3 @@
-import React from "react";
-
 export const ArrowRightIcon = ({ className }: { className?: string }) => (
   <svg
     width="15"

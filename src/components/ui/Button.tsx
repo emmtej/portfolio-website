@@ -14,6 +14,9 @@ interface ButtonProps extends Omit<HTMLMotionProps<"button">, "children"> {
   rightIcon?: React.ReactNode;
   children?: React.ReactNode;
   as?: React.ElementType;
+  href?: string;
+  target?: string;
+  rel?: string;
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
@@ -30,7 +33,7 @@ const sizeStyles: Record<ButtonSize, string> = {
   icon: "p-2",
 };
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = React.forwardRef<any, ButtonProps>(
   (
     {
       variant = "primary",
@@ -48,7 +51,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const isDisabled = disabled || isLoading || isSuccess;
-    const MotionComponent = motion(Component);
+    const MotionComponent = motion(Component as any);
 
     return (
       <MotionComponent

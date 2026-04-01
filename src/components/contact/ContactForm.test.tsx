@@ -40,6 +40,11 @@ function clickSubmit() {
 }
 
 describe("ContactForm", () => {
+  it("renders Rome availability status", () => {
+    render(<ContactForm />);
+    expect(screen.getByRole("status")).toBeTruthy();
+  });
+
   beforeEach(() => {
     vi.stubGlobal(
       "fetch",

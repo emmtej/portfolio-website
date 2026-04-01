@@ -11,6 +11,7 @@ import { ArrowRightIcon } from "../ui/icons/ArrowRightIcon";
 import { SocialLink } from "./ContactSocials";
 import { SOCIALS } from "./constants";
 import { translateContactFieldError } from "./contactFormErrors";
+import { RomeAvailability } from "../ui/RomeAvailability";
 
 const contactSchema = z.object({
   name: z.string().min(2, "contact.form.errors.name_min"),
@@ -68,11 +69,14 @@ export function ContactForm() {
 
   return (
     <div className="space-y-10 md:space-y-12">
-      <div className="space-y-4 md:space-y-6 max-w-3xl">
-        <Title>{t("contact.title")}</Title>
-        <Text className="text-sm md:text-base leading-relaxed">
-          {t("contact.intro")}
-        </Text>
+      <div className="space-y-4 md:space-y-6">
+        <div className="space-y-4 md:space-y-6 max-w-3xl">
+          <Title>{t("contact.title")}</Title>
+          <Text className="text-sm md:text-base leading-relaxed">
+            {t("contact.intro")}
+          </Text>
+        </div>
+        <RomeAvailability />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
@@ -118,13 +122,13 @@ export function ContactForm() {
               disabled={isSubmitting || isSubmitted}
             />
 
-            <div className="flex flex-col md:flex-row items-center gap-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3">
               <Button
                 type="submit"
                 isLoading={isSubmitting}
                 isSuccess={isSubmitted}
                 rightIcon={<ArrowRightIcon />}
-                className="w-full md:w-fit"
+                className="w-full shrink-0 sm:w-fit"
               >
                 {isSubmitting
                   ? t("contact.form.sending")
@@ -137,7 +141,7 @@ export function ContactForm() {
                 <motion.span
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="text-xs font-mono text-it-red uppercase tracking-widest"
+                  className="w-full text-xs font-mono text-it-red uppercase tracking-widest sm:w-auto"
                 >
                   {submitError}
                 </motion.span>
