@@ -30,34 +30,33 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
       layoutId={`card-${project.id}`}
       onClick={onClick}
       transition={{
-        type: "spring",
-        stiffness: 260,
-        damping: 32,
+        duration: 0.4,
+        ease: [0.21, 0.47, 0.32, 0.98],
       }}
       whileHover={{
-        y: -8,
-        transition: { type: "spring", stiffness: 400, damping: 25 },
+        y: -2,
+        opacity: 0.9,
       }}
-      whileTap={{ scale: 0.98 }}
-      className="text-left w-full group relative cursor-pointer overflow-hidden border border-border-subtle bg-bg-app hover:border-text-main/20 hover:shadow-2xl hover:shadow-text-main/[0.04]"
+      whileTap={{ scale: 0.99 }}
+      className="text-left w-full group relative cursor-pointer overflow-hidden border border-border-subtle bg-bg-app hover:border-text-main/20 hover:shadow-2xl hover:shadow-text-main/[0.04] transition-opacity duration-normal"
     >
       {/* Visual Preview Area - Full Width */}
-      <div className="aspect-[16/10] w-full bg-gradient-to-br from-text-main/5 to-text-main/10 relative overflow-hidden border-b border-border-subtle transition-colors duration-slow group-hover:from-text-main/[0.07] group-hover:to-text-main/[0.12]">
+      <div className="aspect-[16/10] w-full bg-gradient-to-br from-text-main/5 to-text-main/10 relative overflow-hidden border-b border-border-subtle transition-colors duration-normal group-hover:from-text-main/[0.07] group-hover:to-text-main/[0.12]">
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)] opacity-40 transition-opacity duration-slow group-hover:opacity-60" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)] opacity-40 transition-opacity duration-normal group-hover:opacity-60" />
 
           <div className="relative flex flex-col items-center gap-2">
-            <span className="text-lg font-bold tracking-tighter text-text-main/10 group-hover:text-text-main/20 transition-all duration-slow ease-out">
+            <span className="text-lg font-bold tracking-tighter text-text-main/10 group-hover:text-text-main/20 transition-all duration-normal ease-out">
               {project.title}
             </span>
-            <div className="px-3 py-1 bg-text-main/5 border border-text-main/10 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-slow delay-75">
+            <div className="px-3 py-1 bg-text-main/5 border border-text-main/10 opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-normal">
               <span className="text-xs font-bold uppercase tracking-widest text-text-main/40">
                 {t("dev.view_project")}
               </span>
             </div>
           </div>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-slow" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-normal" />
       </div>
 
       <div className="p-6 space-y-4">
@@ -71,12 +70,9 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
             </p>
           </div>
 
-          <motion.div
-            whileHover={{ x: 4 }}
-            className="mt-1 size-8 border border-border-subtle flex items-center justify-center text-text-muted/40 group-hover:border-text-main/20 group-hover:text-text-main/60 transition-all duration-normal"
-          >
+          <div className="mt-1 size-8 border border-border-subtle flex items-center justify-center text-text-muted/40 group-hover:border-text-main/20 group-hover:text-text-main/60 group-hover:translate-x-1 transition-all duration-normal">
             <ArrowRightIcon />
-          </motion.div>
+          </div>
         </div>
 
         <div className="flex flex-wrap gap-2">
