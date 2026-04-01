@@ -7,6 +7,24 @@
   --color-text-main: #37352f;
   --color-text-muted: #6b7280;
   --color-border-subtle: #f3f4f6;
+
+  /* Typography */
+  --font-size-tiny: 9px;
+  --font-size-xs-tight: 10px;
+  --font-size-small: 11px;
+  --font-size-base-tight: 13px;
+  --font-size-paragraph: 15px;
+
+  /* Tracking */
+  --tracking-widest: 0.3em;
+  --tracking-wider: 0.15em;
+  --tracking-wide: 0.1em;
+
+  /* Durations */
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 1000ms;
 }
 
 :root.dark {
