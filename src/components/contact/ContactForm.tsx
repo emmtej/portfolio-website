@@ -41,16 +41,15 @@ export function ContactForm() {
     setSubmitError(null);
 
     // Prepare Netlify form submission
-    const formData = new FormData();
-    formData.append("form-name", "contact");
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
+    const payload = new URLSearchParams({
+      "form-name": "contact",
+      ...data,
     });
 
     try {
       const response = await fetch("/", {
         method: "POST",
-        body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
+        body: payload.toString(),
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       });
 

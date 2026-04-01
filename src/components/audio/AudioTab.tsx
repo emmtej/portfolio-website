@@ -15,7 +15,7 @@ export function AudioTab() {
     const command = isPlaying ? "pauseVideo" : "playVideo";
     iframeRef.current.contentWindow?.postMessage(
       JSON.stringify({ event: "command", func: command, args: "" }),
-      "*"
+      "https://www.youtube-nocookie.com"
     );
     setIsPlaying(!isPlaying);
   };
