@@ -6,11 +6,12 @@ interface SocialLinkProps {
 }
 
 export function SocialLink({ label, href, value, icon }: SocialLinkProps) {
+  const isMailto = href.startsWith("mailto:");
   return (
     <a
       href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+      target={isMailto ? undefined : "_blank"}
+      rel={isMailto ? undefined : "noopener noreferrer"}
       className="group flex items-center justify-between py-4 border-b border-border-subtle hover:border-text-main/40 transition-colors duration-500"
     >
       <div className="flex items-center gap-5">

@@ -47,7 +47,9 @@
     "about": "About",
     "development": "Development",
     "audio": "Audio Mixing & Mastering",
-    "contact": "Contact"
+    "contact": "Contact",
+    "toggle_theme": "Toggle theme",
+    "toggle_language": "Toggle language"
   },
   "dev": {
     "intro": "I focus on building high-performance web applications using modern technologies like React, TypeScript, and Tailwind CSS. My goal is to create intuitive user experiences that solve real-world problems for creatives and small businesses.",

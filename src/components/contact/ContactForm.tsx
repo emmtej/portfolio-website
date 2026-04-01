@@ -50,7 +50,7 @@ export function ContactForm() {
     try {
       const response = await fetch("/", {
         method: "POST",
-        body: new URLSearchParams(formData as any).toString(),
+        body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       });
 
@@ -96,7 +96,7 @@ export function ContactForm() {
                 label={t("contact.form.name")}
                 {...register("name")}
                 error={
-                  errors.name?.message ? t(errors.name.message as any) : undefined
+                  errors.name?.message ? t(errors.name.message as any) /* eslint-disable-line @typescript-eslint/no-explicit-any */ : undefined
                 }
                 placeholder="John Doe"
                 disabled={isSubmitting || isSubmitted}
@@ -106,7 +106,7 @@ export function ContactForm() {
                 {...register("email")}
                 error={
                   errors.email?.message
-                    ? t(errors.email.message as any)
+                    ? t(errors.email.message as any) /* eslint-disable-line @typescript-eslint/no-explicit-any */
                     : undefined
                 }
                 placeholder="john@example.com"
@@ -119,7 +119,7 @@ export function ContactForm() {
               {...register("message")}
               error={
                 errors.message?.message
-                  ? t(errors.message.message as any)
+                  ? t(errors.message.message as any) /* eslint-disable-line @typescript-eslint/no-explicit-any */
                   : undefined
               }
               rows={4}

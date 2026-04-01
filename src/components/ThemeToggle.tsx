@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export function ThemeToggle() {
+  const { t } = useTranslation();
+
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("theme");
@@ -26,7 +29,7 @@ export function ThemeToggle() {
     <button
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
       className="p-2 rounded-full hover:bg-border-subtle transition-colors duration-200 flex items-center justify-center"
-      aria-label="Toggle theme"
+      aria-label={t("nav.toggle_theme", { defaultValue: "Toggle theme" })}
     >
       {theme === "light" ? (
         <svg

@@ -47,7 +47,9 @@
     "about": "Chi Sono",
     "development": "Sviluppo",
     "audio": "Mixaggio e Mastering Audio",
-    "contact": "Contatti"
+    "contact": "Contatti",
+    "toggle_theme": "Cambia tema",
+    "toggle_language": "Cambia lingua"
   },
   "dev": {
     "intro": "Mi occupo della realizzazione di interfacce utente (UI) intuitive e performanti, offrendo soluzioni concrete a problemi complessi per creativi e piccole imprese attraverso tecnologie come React, TypeScript e Tailwind CSS.",

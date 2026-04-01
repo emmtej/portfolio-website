@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { cn } from "../../utils/cn";
+import { useEffect } from "react";
 
 export interface Project {
   id: string;
@@ -22,7 +23,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
   const { t } = useTranslation();
 
   return (
-    <motion.div
+    <motion.button
       layoutId={`card-${project.id}`}
       onClick={onClick}
       whileHover={{
@@ -31,7 +32,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
       }}
       whileTap={{ scale: 0.98 }}
       className={cn(
-        "group relative cursor-pointer overflow-hidden border border-border-subtle bg-bg-app",
+        "text-left w-full group relative cursor-pointer overflow-hidden border border-border-subtle bg-bg-app",
         "hover:border-text-main/20 hover:shadow-2xl hover:shadow-text-main/[0.04] transition-all duration-normal",
       )}
     >
@@ -97,7 +98,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
           ))}
         </div>
       </div>
-    </motion.div>
+    </motion.button>
   );
 }
 
@@ -108,6 +109,16 @@ interface ProjectModalProps {
 
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const { t } = useTranslation();
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
@@ -121,10 +132,14 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
       <motion.div
         layoutId={`card-${project.id}`}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
         className="relative w-full max-w-2xl bg-bg-app rounded-2xl overflow-hidden shadow-2xl border border-border-subtle"
       >
         <button
           onClick={onClose}
+          aria-label={t("dev.close_modal", { defaultValue: "Close modal" })}
           className="absolute top-4 right-4 z-10 p-2 rounded-full bg-bg-app/80 backdrop-blur-md border border-border-subtle text-text-muted hover:text-text-main transition-colors"
         >
           <svg
@@ -146,7 +161,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         <div className="flex flex-col h-full max-h-[90vh] overflow-y-auto">
           <div className="h-64 shrink-0 bg-gradient-to-br from-text-main/5 to-text-main/10 flex items-center justify-center relative">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)] opacity-50" />
-            <h2 className="text-xl font-bold tracking-tighter text-text-main/30">
+            <h2 id="modal-title" className="text-xl font-bold tracking-tighter text-text-main/30">
               {project.title}
             </h2>
           </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, lazy, Suspense, useCallback } from "react";
+import { useEffect, useState, useMemo, lazy, Suspense, useCallback, useRef } from "react";
 import type React from "react";
 import { useTranslation } from "react-i18next";
 import { motion, type Variants } from "framer-motion";
@@ -65,6 +65,8 @@ export function Tabs({ header }: { header?: React.ReactNode }) {
     return TABS[0].id;
   });
 
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
   // Track which tabs have been "visited" to implement lazy loading
   const [visitedTabs, setVisitedTabs] = useState<Set<string>>(
     new Set([activeTabId]),
@@ -107,6 +109,28 @@ export function Tabs({ header }: { header?: React.ReactNode }) {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    const currentIndex = TABS.findIndex(t => t.id === activeTabId);
+    let nextIndex = currentIndex;
+
+    if (e.key === 'ArrowRight') {
+      nextIndex = (currentIndex + 1) % TABS.length;
+    } else if (e.key === 'ArrowLeft') {
+      nextIndex = (currentIndex - 1 + TABS.length) % TABS.length;
+    } else if (e.key === 'Home') {
+      nextIndex = 0;
+    } else if (e.key === 'End') {
+      nextIndex = TABS.length - 1;
+    }
+
+    if (nextIndex !== currentIndex) {
+      e.preventDefault();
+      const nextTab = TABS[nextIndex];
+      handleTabChange(nextTab.id);
+      tabRefs.current[nextIndex]?.focus();
+    }
+  };
+
   const handlePrefetch = useCallback((id: string) => {
     const loader = TAB_LOADERS[id as keyof typeof TAB_LOADERS];
     if (loader) {
@@ -127,10 +151,12 @@ export function Tabs({ header }: { header?: React.ReactNode }) {
           initial="hidden"
           animate="visible"
           variants={fadeInRest}
+          onKeyDown={handleKeyDown}
         >
-          {TABS.map((tab) => (
+          {TABS.map((tab, index) => (
             <TabButton
               key={tab.id}
+              ref={(el) => { tabRefs.current[index] = el; }}
               id={tab.id}
               label={tab.label}
               isActive={activeTabId === tab.id}
