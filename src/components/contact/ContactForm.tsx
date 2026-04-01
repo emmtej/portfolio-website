@@ -101,6 +101,7 @@ export function ContactForm() {
                 onChange={handleChange}
                 placeholder="John Doe"
                 className="py-3"
+                disabled={isSubmitting || isSubmitted}
                 required
               />
               <Input
@@ -111,6 +112,7 @@ export function ContactForm() {
                 onChange={handleChange}
                 placeholder="john@example.com"
                 className="py-3"
+                disabled={isSubmitting || isSubmitted}
                 required
               />
             </div>
@@ -123,22 +125,23 @@ export function ContactForm() {
               rows={4}
               placeholder="Tell me more about your project..."
               className="py-3"
+              disabled={isSubmitting || isSubmitted}
               required
             />
 
             <div className="flex flex-col md:flex-row items-center gap-6">
               <motion.button
                 initial="initial"
-                whileHover={!isSubmitting ? "hover" : ""}
-                whileTap={!isSubmitting ? "tap" : ""}
+                whileHover={!isSubmitting && !isSubmitted ? "hover" : ""}
+                whileTap={!isSubmitting && !isSubmitted ? "tap" : ""}
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || isSubmitted}
                 className={cn(
                   "group relative flex items-center justify-center gap-4 w-full md:w-fit px-8 py-4 bg-text-main text-bg-app text-xs font-bold uppercase tracking-[0.2em] overflow-hidden transition-opacity duration-300",
-                  isSubmitting && "opacity-70 cursor-not-allowed",
+                  (isSubmitting || isSubmitted) && "opacity-70 cursor-not-allowed",
                 )}
               >
-                {!isSubmitting && (
+                {!isSubmitting && !isSubmitted && (
                   <motion.div
                     variants={{
                       initial: { y: "100%" },
@@ -152,10 +155,12 @@ export function ContactForm() {
                 <span className="relative z-10">
                   {isSubmitting
                     ? t("contact.form.sending")
-                    : t("contact.form.send")}
+                    : isSubmitted
+                      ? t("contact.form.success")
+                      : t("contact.form.send")}
                 </span>
 
-                {!isSubmitting && (
+                {!isSubmitting && !isSubmitted && (
                   <motion.svg
                     variants={{
                       initial: { x: 0 },
@@ -178,16 +183,6 @@ export function ContactForm() {
                   </motion.svg>
                 )}
               </motion.button>
-
-              {isSubmitted && (
-                <motion.span
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="text-xs font-mono text-it-green uppercase tracking-widest"
-                >
-                  {t("contact.form.success")}
-                </motion.span>
-              )}
 
               {error && (
                 <motion.span

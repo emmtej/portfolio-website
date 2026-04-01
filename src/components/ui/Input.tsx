@@ -21,11 +21,11 @@ export const Input = ({ label, className, id, ...props }: InputProps) => {
           id={inputId}
           {...props}
           className={cn(
-            "w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-md text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40",
+            "w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-md text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40 disabled:opacity-50 disabled:cursor-not-allowed",
             className,
           )}
         />
-        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-text-main scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left opacity-20" />
+        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-text-main scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left opacity-20 group-has-[:disabled]:hidden" />
       </div>
     </div>
   );
@@ -52,11 +52,11 @@ export const TextArea = ({ label, className, id, ...props }: TextAreaProps) => {
           id={inputId}
           {...props}
           className={cn(
-            "w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-md text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40 resize-none",
+            "w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-md text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40 resize-none disabled:opacity-50 disabled:cursor-not-allowed",
             className,
           )}
         />
-        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-text-main scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left opacity-20" />
+        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-text-main scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left opacity-20 group-has-[:disabled]:hidden" />
       </div>
     </div>
   );
