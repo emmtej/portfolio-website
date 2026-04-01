@@ -17,7 +17,7 @@ const fadeIn = {
 
 export function Layout({ children }: LayoutProps) {
   return (
-    <main className="min-h-screen px-8 pb-8 md:px-16 md:pb-16 lg:px-24 lg:pb-24 flex justify-center">
+    <main className="min-h-screen px-6 pb-6 md:px-12 md:pb-12 lg:px-16 lg:pb-16 flex justify-center">
       <div className="w-full max-w-4xl flex flex-col relative">
         <motion.div 
           className="fixed top-6 right-6 flex items-center gap-4 z-50"

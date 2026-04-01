@@ -104,18 +104,18 @@ export function Tabs({ header }: { header?: ReactNode }) {
     <div className="w-full">
       <motion.div 
         className={cn(
-          "border-b border-border-subtle bg-bg-app z-40",
-          header ? "sticky top-0 pt-8 md:pt-16 lg:pt-24" : "sticky top-0 pt-4"
+          "border-b border-border-subtle bg-bg-app/95 backdrop-blur-sm z-40",
+          header ? "sticky top-0 pt-6 md:pt-10 lg:pt-12" : "sticky top-0 pt-4"
         )}
         initial="hidden"
         animate="visible"
         variants={fadeInBorder}
       >
 
-        {header && <div className="mb-8 md:mb-12">{header}</div>}
+        {header && <div className="mb-6 md:mb-8">{header}</div>}
         <motion.nav 
           role="tablist" 
-          className="flex gap-6"
+          className="flex gap-4 md:gap-6"
           initial="hidden"
           animate="visible"
           variants={fadeInRestTabs}
@@ -135,7 +135,7 @@ export function Tabs({ header }: { header?: ReactNode }) {
       </motion.div>
 
       <motion.div 
-        className="mt-8" 
+        className="mt-6 md:mt-8" 
         initial="hidden"
         animate="visible"
         variants={fadeInRestTabs}
