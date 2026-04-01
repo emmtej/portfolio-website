@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Input, TextArea } from "../ui/Input";
 import { Text, Title } from "../ui/Text";
 import { SOCIALS, SocialLink } from "./ContactSocials";
 
 // TODO: Implement validation and loading and sent state.
 export function ContactForm() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,11 +25,9 @@ export function ContactForm() {
     <div className="space-y-12 lg:space-y-16">
       {/* Header Section - Full Width */}
       <div className="space-y-6 max-w-3xl">
-        <Title>Get in touch</Title>
+        <Title>{t("contact.title")}</Title>
         <Text className="text-sm md:text-base leading-relaxed">
-          I'm currently available for freelance work and open to new
-          opportunities. If you have a project in mind or just want to say
-          hello, feel free to reach out.
+          {t("contact.intro")}
         </Text>
       </div>
 
@@ -37,7 +37,7 @@ export function ContactForm() {
           <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <Input
-                label="Name"
+                label={t("contact.form.name")}
                 type="text"
                 name="name"
                 value={formData.name}
@@ -46,7 +46,7 @@ export function ContactForm() {
                 className="py-3"
               />
               <Input
-                label="Email"
+                label={t("contact.form.email")}
                 type="email"
                 name="email"
                 value={formData.email}
@@ -57,7 +57,7 @@ export function ContactForm() {
             </div>
 
             <TextArea
-              label="Message"
+              label={t("contact.form.message")}
               name="message"
               value={formData.message}
               onChange={handleChange}
@@ -82,7 +82,7 @@ export function ContactForm() {
                 className="absolute inset-0 bg-white/5"
               />
 
-              <span className="relative z-10">Send Message</span>
+              <span className="relative z-10">{t("contact.form.send")}</span>
 
               <motion.svg
                 variants={{
@@ -110,8 +110,8 @@ export function ContactForm() {
 
         {/* Socials Column */}
         <div className="lg:col-span-5 space-y-6 order-1 lg:order-2">
-          <Title>Find me on</Title>
-          <div className="flex flex-col">
+          <Title>{t("contact.find_me_title")}</Title>
+...          <div className="flex flex-col">
             {SOCIALS.map((social) => (
               <SocialLink
                 key={social.label}

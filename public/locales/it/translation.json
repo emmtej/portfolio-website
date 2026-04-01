@@ -1,0 +1,79 @@
+{
+  "about": {
+    "hero_description_1": "Sviluppatore web full-stack attualmente basato a ",
+    "hero_location_italy": "Palagianello, Italia",
+    "hero_and_previously": ", e precedentemente di ",
+    "hero_location_nyc": "New York City",
+    "hero_description_2": "La mia passione per i viaggi mi ha spinto a lavorare come freelance, dandomi la flessibilità di esplorare nuovi posti aiutando al contempo piccole imprese e aziende a stabilire la propria presenza online.",
+    "hero_description_3": "Mi occupo della creazione di siti web moderni e reattivi utilizzando le ultime tecnologie per garantire che i miei clienti si connettano efficacemente con il loro pubblico.",
+    "hero_description_4": "Negli ultimi 4 anni, mi sono dedicato all'ecosistema React, unendo l'esperienza frontend con la logica backend necessaria per aiutare le piccole imprese a superare i propri siti statici.",
+    "experience_title": "Esperienza",
+    "experiences": {
+      "greative": {
+        "title": "Ingegneria Audio e Mastering Audio",
+        "company": "Greative Media (Collaboratore)",
+        "location": "Remoto | Bologna, Italia",
+        "description": "Standardizzato diverse registrazioni di talenti vocali per ottenere un suono da studio unificato e ad alta fedeltà utilizzando i moduli di de-noising spettrale e de-plosive di iZotope RX. Utilizzato Reaper per l'editing di precisione e DaVinci Resolve per la sincronizzazione finale audio-video, il bilanciamento spaziale e l'adesione a rigorosi standard di volume (LUFS) per diverse piattaforme online."
+      },
+      "consultant": {
+        "title": "Sviluppo Frontend",
+        "company": "Consulente",
+        "location": "Remoto | Brooklyn, New York",
+        "description": "Negli ultimi anni, ho lavorato con vari clienti per costruire applicazioni web moderne e reattive, concentrandomi sull'ecosistema React e sull'ottimizzazione delle prestazioni."
+      },
+      "it_desk": {
+        "title": "IT Service Desk",
+        "company": "Brooklyn College",
+        "location": "Brooklyn, NY",
+        "description": "Fornito supporto tecnico e risoluzione dei problemi per studenti e docenti, gestendo la distribuzione di hardware e software in tutto il campus."
+      }
+    }
+  },
+  "nav": {
+    "about": "About",
+    "development": "Development",
+    "audio": "Mixaggio e Mastering Audio",
+    "contact": "Contatti"
+  },
+  "dev": {
+    "intro": "Mi concentro sulla creazione di applicazioni web ad alte prestazioni utilizzando tecnologie moderne come React, TypeScript e Tailwind CSS. Il mio obiettivo è creare esperienze utente intuitive che risolvano problemi del mondo reale per creativi e piccole imprese.",
+    "projects_title": "Progetti",
+    "view_project": "Visualizza Progetto",
+    "tech_stack": "Stack Tecnologico",
+    "features_title": "Caratteristiche",
+    "projects": {
+      "invoice": {
+        "title": "InVoice",
+        "shortDesc": "Un'applicazione di fatturazione moderna e snella progettata per i doppiatori.",
+        "fullDesc": "InVoice è un software di produttività e fatturazione altamente specializzato per doppiatori. Automatizza il complicato processo di controllo manuale del copione analizzando i dialoghi dei personaggi, contando accuratamente le parole e producendo fatture ordinate e professionali con dettagli dettagliati e tariffe personalizzabili. Trasformando un documento creativo in uno finanziario, InVoice consente agli artisti di dedicare meno tempo alle scartoffie e più tempo davanti al microfono.",
+        "features": [
+          "Utilizzati i componenti MantineUI per sviluppare rapidamente componenti accessibili.",
+          "Implementato Zustand per consentire all'utente di utilizzare uno o più documenti tra i vari strumenti in modo fluido.",
+          "Permesso all'utente di impostare rapidamente tariffe personalizzate e salvarle come preimpostate per il riutilizzo.",
+          "Permesso all'utente di esportare fatture personalizzate in PDF, DOCX o anche semplice testo per la condivisibilità copia-incolla."
+        ]
+      }
+    }
+  },
+  "audio": {
+    "intro": "Specializzato in restauro audio, editing dei dialoghi e post-produzione per i media digitali. Mi concentro sul raggiungimento di standard di volume professionali e su una chiarezza cristallina per i doppiatori.",
+    "tools_title": "Software e Strumenti Audio",
+    "restoration_title": "Demo di Restauro",
+    "restoration_desc": "Dimostrazione del processo di pulizia dei dialoghi registrati sul campo, passando dalla cattura grezza a un risultato lucido e professionale."
+  },
+  "contact": {
+    "title": "Contattami",
+    "intro": "Al momento sono disponibile per lavori freelance e aperto a nuove opportunità. Se hai un progetto in mente o vuoi semplicemente salutarmi, non esitare a contattarmi.",
+    "find_me_title": "Trovami su",
+    "form": {
+      "name": "Nome",
+      "email": "Email",
+      "subject": "Oggetto",
+      "message": "Messaggio",
+      "send": "Invia Messaggio",
+      "sending": "Invio in corso...",
+      "success": "Messaggio inviato con successo!",
+      "error": "Impossibile inviare il messaggio. Riprova."
+    }
+  }
+}

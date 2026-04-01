@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { AboutTab } from "./about/AboutTab";
 import { DevelopmentTab } from "./development/DevelopmentTab";
 import { AudioTab } from "./audio/AudioTab";
@@ -6,31 +7,33 @@ import { ContactTab } from "./contact/ContactTab";
 import { cn } from "../utils/cn";
 import { TabButton } from "./ui/Tabs";
 
-const TABS = [
-  {
-    id: "about",
-    label: "About",
-    Component: AboutTab,
-  },
-  {
-    id: "development",
-    label: "Development",
-    Component: DevelopmentTab,
-    wrapperClass: "animate-in fade-in duration-slow",
-  },
-  {
-    id: "audio",
-    label: "Audio Mixing & Mastering",
-    Component: AudioTab,
-  },
-  {
-    id: "contact",
-    label: "Contact",
-    Component: ContactTab,
-  },
-];
-
 export function Tabs() {
+  const { t } = useTranslation();
+
+  const TABS = useMemo(() => [
+    {
+      id: "about",
+      label: t("nav.about"),
+      Component: AboutTab,
+    },
+    {
+      id: "development",
+      label: t("nav.development"),
+      Component: DevelopmentTab,
+      wrapperClass: "animate-in fade-in duration-slow",
+    },
+    {
+      id: "audio",
+      label: t("nav.audio"),
+      Component: AudioTab,
+    },
+    {
+      id: "contact",
+      label: t("nav.contact"),
+      Component: ContactTab,
+    },
+  ], [t]);
+
   const [activeTabId, setActiveTabId] = useState(() => {
     if (typeof window !== "undefined") {
       const path = window.location.pathname.replace(/^\//, "");
@@ -61,7 +64,7 @@ export function Tabs() {
 
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
-  }, []);
+  }, [TABS]);
 
   const handleTabChange = (id: string) => {
     setActiveTabId(id);

@@ -1,21 +1,22 @@
+import { useTranslation } from "react-i18next";
 import { Text, Title } from "../ui/Text";
 
 const audioSoftware = ["iZotope RX", "Reaper", "DaVinci Resolve"];
 
 export function AudioTab() {
+  const { t } = useTranslation();
+
   return (
     <div className="space-y-10">
       <section className="max-w-4xl">
         <Text>
-          Specializing in audio restoration, dialogue editing, and
-          post-production for digital media. I focus on achieving professional
-          loudness standards and crystal-clear clarity for voice actors.
+          {t("audio.intro")}
         </Text>
       </section>
 
       {/* Software Expertise */}
       <section className="space-y-8">
-        <Title>Audio Software & Tools</Title>
+        <Title>{t("audio.tools_title")}</Title>
         <div className="flex flex-wrap gap-3">
           {audioSoftware.map((software) => (
             <span
@@ -30,13 +31,12 @@ export function AudioTab() {
 
       <section className="space-y-12">
         <div className="flex flex-col gap-4 max-w-4xl">
-          <Title>Restoration Demo</Title>
+          <Title>{t("audio.restoration_title")}</Title>
           <Text>
-            Demonstration of the process of cleaning up field-recorded dialogue,
-            moving from the raw capture to a polished, professional result.
+            {t("audio.restoration_desc")}
           </Text>
         </div>
-
+...
         <div className="max-w-4xl">
           <div className="group relative aspect-video w-full overflow-hidden border border-text-main/10 bg-black/5 shadow-2xl shadow-text-main/[0.01] transition-all duration-500 hover:border-text-main/20 hover:shadow-text-main/[0.04]">
             <iframe

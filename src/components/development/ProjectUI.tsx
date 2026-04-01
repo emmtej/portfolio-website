@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { cn } from "../../utils/cn";
 
 export interface Project {
@@ -18,6 +19,8 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, onClick }: ProjectCardProps) {
+  const { t } = useTranslation();
+
   return (
     <motion.div
       layoutId={`card-${project.id}`}
@@ -43,7 +46,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
             </span>
             <div className="px-3 py-1 rounded-full bg-text-main/5 border border-text-main/10 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-slow delay-75">
               <span className="text-xs font-bold uppercase tracking-widest text-text-main/40">
-                View Project
+                {t("dev.view_project")}
               </span>
             </div>
           </div>
@@ -104,6 +107,8 @@ interface ProjectModalProps {
 }
 
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
       <motion.div
@@ -158,7 +163,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
             <div className="space-y-4">
               <h4 className="uppercase font-semibold tracking-wide text-text-main/80 text-sm">
-                Features
+                {t("dev.features_title")}
               </h4>
               <ul className="grid grid-cols-1 gap-3">
                 {project.features.map((feature, i) => (
@@ -175,7 +180,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
             <div className="space-y-4 pt-4 border-t border-border-subtle">
               <h4 className="uppercase font-semibold tracking-wide text-text-main/80 text-sm">
-                Tech Stack
+                {t("dev.tech_stack")}
               </h4>
               <div className="flex flex-wrap gap-2">
                 {project.tech.map((t) => (
@@ -190,22 +195,12 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             </div>
 
             <div className="flex gap-4 pt-6">
-              {project.link && (
+              {project.github && (
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-2.5 bg-text-main text-bg-app rounded-full text-sm font-semibold tracking-tight hover:opacity-90 transition-opacity"
-                >
-                  Visit Project
-                </a>
-              )}
-              {project.github && (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-2.5 border border-border-subtle text-text-main rounded-full text-sm font-semibold tracking-tight hover:bg-border-subtle transition-colors"
                 >
                   View Source
                 </a>

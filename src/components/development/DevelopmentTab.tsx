@@ -1,43 +1,35 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { AnimatePresence } from "framer-motion";
 import { ProjectCard, ProjectModal, type Project } from "./ProjectUI";
 import { SkillsCarousel } from "./SkillsCarousel";
 import { Text, Title } from "../ui/Text";
 
-const PROJECTS: Project[] = [
-  {
-    id: "invoice",
-    title: "InVoice",
-    shortDesc:
-      "A modern, streamlined invoicing application designed for voice actors.",
-    fullDesc:
-      "InVoice is a voice actor's highly specialized productivity and billing software. It automates the inconvenient process of manual script check by breaking down the dialogue of characters, accurately counting words, and producing neat and professional invoices with itemized detail and at rates customizable. By making a financial document out of a creative one, InVoice enables artists to dedicate less time to paperwork and more time in front of the microphone.",
-    tech: ["React", "TypeScript", "Tailwind CSS", "Zustand", "Mantine UI"],
-    features: [
-      "Used MantineUI components to quickly developt accessible components.",
-      "Implemented Zustand to allow the user to use either a single or multiple documents accross different tools seamlessly.",
-      "Allowed for the user to quickly set custom rates and save them as preset for re-use.",
-      "Let the user export custom invoices in PDF, DOCX, or even simple text for copy-paste sharability.",
-    ],
-    link: "https://invoice-demo.example.com",
-    github: "https://github.com/example/invoice",
-  },
-];
-
 export function DevelopmentTab() {
+  const { t } = useTranslation();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  const PROJECTS: Project[] = useMemo(() => [
+    {
+      id: "invoice",
+      title: t("dev.projects.invoice.title"),
+      shortDesc: t("dev.projects.invoice.shortDesc"),
+      fullDesc: t("dev.projects.invoice.fullDesc"),
+      tech: ["React", "TypeScript", "Tailwind CSS", "Zustand", "Mantine UI"],
+      features: t("dev.projects.invoice.features", { returnObjects: true }) as string[],
+      link: "https://invoice-demo.example.com",
+      github: "https://github.com/example/invoice",
+    },
+  ], [t]);
 
   return (
     <div className="space-y-16">
       <Text className="max-w-4xl">
-        I focus on building high-performance web applications using modern
-        technologies like React, TypeScript, and Tailwind CSS. My goal is to
-        create intuitive user experiences that solve real-world problems for
-        creatives and small businesses.
+        {t("dev.intro")}
       </Text>
       <SkillsCarousel />
       <section className="max-w-5xl">
-        <Title className="mb-6">Projects</Title>
+        <Title className="mb-6">{t("dev.projects_title")}</Title>
         <div className="grid grid-cols-1 gap-10">
           {PROJECTS.map((project) => (
             <ProjectCard

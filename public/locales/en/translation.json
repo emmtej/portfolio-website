@@ -1,0 +1,79 @@
+{
+  "about": {
+    "hero_description_1": "Full-stack web developer currently based in ",
+    "hero_location_italy": "Palagianello, Italy",
+    "hero_and_previously": ", and previously from ",
+    "hero_location_nyc": "New York City",
+    "hero_description_2": "My passion for travel inspired me to work freelance, giving me the flexibility to explore new places while helping small businesses and companies establish their online presence.",
+    "hero_description_3": "I specialize in building modern, responsive websites using the latest technologies to ensure my clients effectively connect with their audience.",
+    "hero_description_4": "Over the last 4 years, I’ve dedicated myself to the React ecosystem, blending frontend expertise with the backend logic needed to help small businesses outgrow their static sites.",
+    "experience_title": "Experience",
+    "experiences": {
+      "greative": {
+        "title": "Audio Engineering & Audio Mastering",
+        "company": "Greative Media (Contractor)",
+        "location": "Remote | Bologna, Italy",
+        "description": "Standardized diverse voice talent recordings to achieve a unified, high-fidelity studio sound using iZotope RX spectral de-noising and de-plosive modules. Utilized Reaper for precision editing and DaVinci Resolve for final audio-to-video synchronization, spatial balancing and adhering to strict loudness standards (LUFS) for diverse online platforms."
+      },
+      "consultant": {
+        "title": "Frontend Development",
+        "company": "Consultant",
+        "location": "Remote | Brooklyn, New York",
+        "description": "Over the last few years, I've worked with various clients to build modern, responsive web applications, focusing on the React ecosystem and performance optimization."
+      },
+      "it_desk": {
+        "title": "IT Service Desk",
+        "company": "Brooklyn College",
+        "location": "Brooklyn, NY",
+        "description": "Provided technical support and troubleshooting for students and faculty, managing hardware and software deployments across the campus."
+      }
+    }
+  },
+  "nav": {
+    "about": "About",
+    "development": "Development",
+    "audio": "Audio Mixing & Mastering",
+    "contact": "Contact"
+  },
+  "dev": {
+    "intro": "I focus on building high-performance web applications using modern technologies like React, TypeScript, and Tailwind CSS. My goal is to create intuitive user experiences that solve real-world problems for creatives and small businesses.",
+    "projects_title": "Projects",
+    "view_project": "View Project",
+    "tech_stack": "Tech Stack",
+    "features_title": "Features",
+    "projects": {
+      "invoice": {
+        "title": "InVoice",
+        "shortDesc": "A modern, streamlined invoicing application designed for voice actors.",
+        "fullDesc": "InVoice is a voice actor's highly specialized productivity and billing software. It automates the inconvenient process of manual script check by breaking down the dialogue of characters, accurately counting words, and producing neat and professional invoices with itemized detail and at rates customizable. By making a financial document out of a creative one, InVoice enables artists to dedicate less time to paperwork and more time in front of the microphone.",
+        "features": [
+          "Used MantineUI components to quickly developt accessible components.",
+          "Implemented Zustand to allow the user to use either a single or multiple documents accross different tools seamlessly.",
+          "Allowed for the user to quickly set custom rates and save them as preset for re-use.",
+          "Let the user export custom invoices in PDF, DOCX, or even simple text for copy-paste sharability."
+        ]
+      }
+    }
+  },
+  "audio": {
+    "intro": "Specializing in audio restoration, dialogue editing, and post-production for digital media. I focus on achieving professional loudness standards and crystal-clear clarity for voice actors.",
+    "tools_title": "Audio Software & Tools",
+    "restoration_title": "Restoration Demo",
+    "restoration_desc": "Demonstration of the process of cleaning up field-recorded dialogue, moving from the raw capture to a polished, professional result."
+  },
+  "contact": {
+    "title": "Get in touch",
+    "intro": "I'm currently available for freelance work and open to new opportunities. If you have a project in mind or just want to say hello, feel free to reach out.",
+    "find_me_title": "Find me on",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully!",
+      "error": "Failed to send message. Please try again."
+    }
+  }
+}
