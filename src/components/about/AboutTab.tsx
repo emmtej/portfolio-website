@@ -4,7 +4,7 @@ import { Title, Text } from "../ui/Text";
 
 export function AboutTab() {
   const { t } = useTranslation();
-  console.log("Test");
+  const LANGUAGES = ["english", "spanish", "italian"] as const;
   return (
     <div className="space-y-12">
       <section className="max-w-4xl">
@@ -34,7 +34,7 @@ export function AboutTab() {
       <section className="space-y-10">
         <Title>{t("about.languages_title")}</Title>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {(["english", "spanish", "italian"] as const).map((lang) => (
+          {LANGUAGES.map((lang) => (
             <div
               key={lang}
               className="p-5 border border-border-subtle bg-bg-app hover:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-normal group"
