@@ -9,6 +9,7 @@ import { Input, TextArea } from "../ui/Input";
 import { Text, Title } from "../ui/Text";
 import { SocialLink } from "./ContactSocials";
 import { SOCIALS } from "./constants";
+import { translateContactFieldError } from "./contactFormErrors";
 
 const contactSchema = z.object({
   name: z.string().min(2, "contact.form.errors.name_min"),
@@ -94,21 +95,15 @@ export function ContactForm() {
               <Input
                 label={t("contact.form.name")}
                 {...register("name")}
-                error={
-                  errors.name?.message ? t(errors.name.message as any) /* eslint-disable-line @typescript-eslint/no-explicit-any */ : undefined
-                }
-                placeholder="John Doe"
+                error={translateContactFieldError(t, errors.name?.message)}
+                placeholder={t("contact.form.placeholders.name")}
                 disabled={isSubmitting || isSubmitted}
               />
               <Input
                 label={t("contact.form.email")}
                 {...register("email")}
-                error={
-                  errors.email?.message
-                    ? t(errors.email.message as any) /* eslint-disable-line @typescript-eslint/no-explicit-any */
-                    : undefined
-                }
-                placeholder="john@example.com"
+                error={translateContactFieldError(t, errors.email?.message)}
+                placeholder={t("contact.form.placeholders.email")}
                 disabled={isSubmitting || isSubmitted}
               />
             </div>
@@ -116,13 +111,9 @@ export function ContactForm() {
             <TextArea
               label={t("contact.form.message")}
               {...register("message")}
-              error={
-                errors.message?.message
-                  ? t(errors.message.message as any) /* eslint-disable-line @typescript-eslint/no-explicit-any */
-                  : undefined
-              }
+              error={translateContactFieldError(t, errors.message?.message)}
               rows={4}
-              placeholder="Tell me more about your project..."
+              placeholder={t("contact.form.placeholders.message")}
               disabled={isSubmitting || isSubmitted}
             />
 

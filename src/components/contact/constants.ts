@@ -7,7 +7,7 @@ export const SOCIALS = [
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com",
+    href: "https://www.linkedin.com/in/emmanuel-tejeda/",
     value: "emmanuel-tejeda",
     icon: "LI",
   },
