@@ -10,7 +10,7 @@
   "about": {
     "hero_description_1": "Sviluppatore web full-stack con base a ",
     "hero_location_italy": "Palagianello, Italia",
-    "hero_and_previously": ", originario di ",
+    "hero_and_previously": ", e originario di ",
     "hero_location_nyc": "New York City",
     "hero_description_2": "Grazie alla mia passione per i viaggi, ho intrapreso la carriera freelance, coniugando la scoperta di nuovi luoghi con il supporto a piccole imprese nel consolidamento della propria presenza digitale.",
     "hero_description_3": "Progetto e sviluppo siti web moderni e responsive, focalizzandomi sulle ultime tecnologie per garantire una connessione efficace tra brand e pubblico.",
@@ -30,7 +30,7 @@
         "title": "Ingegneria Audio e Mastering Audio",
         "company": "Greative Media (Collaboratore)",
         "location": "Remoto | Bologna, Italia",
-        "description": "Ottimizzazione e standardizzazione di diverse registrazioni vocali per garantire un output audio professionale ad alta fedeltà. Utilizzo di iZotope RX per il restauro spettrale, Reaper per l'editing di precisione e DaVinci Resolve for il mixaggio finale e la sincronizzazione audio-video, garantendo la conformità agli standard di loudness (LUFS)."
+        "description": "Ottimizzazione e standardizzazione di diverse registrazioni vocali per garantire un output audio professionale ad alta fedeltà. Utilizzo di iZotope RX per il restauro spettrale, Reaper per l'editing di precisione e DaVinci Resolve per il mixaggio finale e la sincronizzazione audio-video, garantendo la conformità agli standard di loudness (LUFS)."
       },
       "consultant": {
         "title": "Sviluppo Frontend",
@@ -39,10 +39,10 @@
         "description": "Sviluppo di applicazioni web moderne e responsive per diversi clienti, con un focus particolare sull'ecosistema React, sullo state management e sull'ottimizzazione delle performance."
       },
       "it_desk": {
-        "title": "IT Service Desk",
+        "title": "Help desk IT",
         "company": "Brooklyn College",
         "location": "Brooklyn, NY",
-        "description": "Supporto tecnico e risoluzione di problematiche hardware e software per studenti e docenti, gestendo il deployment di postazioni di lavoro e software in tutto il campus."
+        "description": "Supporto tecnico e risoluzione di problemi hardware e software per studenti e docenti, con installazione e distribuzione di hardware e software in tutto il campus."
       }
     }
   },
@@ -55,20 +55,20 @@
     "toggle_language": "Cambia lingua"
   },
   "dev": {
-    "intro": "Mi occupo della realizzazione di interfacce utente (UI) intuitive e performanti, offrendo soluzioni concrete a problemi complessi per creativi e piccole imprese attraverso tecnologie come React, TypeScript e Tailwind CSS.",
+    "intro": "Mi concentro sulla realizzazione di applicazioni web ad alte prestazioni con tecnologie moderne come React, TypeScript e Tailwind CSS. Il mio obiettivo è creare esperienze utente intuitive che risolvano problemi concreti per creativi e piccole imprese.",
     "projects_title": "Progetti",
     "view_project": "Visualizza Progetto",
     "tech_stack": "Tech Stack",
     "features_title": "Funzionalità",
     "skills_title": "Competenze",
-    "view_source": "Sorgente",
+    "view_source": "Codice sorgente",
     "view_demo": "Apri demo",
     "close_modal": "Chiudi dettagli progetto",
     "projects": {
       "invoice": {
         "title": "InVoice",
-        "shortDesc": "Un'applicazione di fatturazione moderna e snella progettata per i doppiatori.",
-        "fullDesc": "InVoice è un software di produttività e fatturazione altamente specializzato per doppiatori. Automatizza il processo di analisi dei copioni, contando accuratamente le parole e producendo fatture professionali con dettagli analitici e tariffe personalizzabili. Trasformando un documento creativo in uno strumento finanziario, InVoice consente agli artisti di minimizzare il carico burocratico e massimizzare il tempo dedicato alla creatività.",
+        "shortDesc": "Un'applicazione di fatturazione moderna e snella progettata per speaker, doppiatori e professionisti della voce.",
+        "fullDesc": "InVoice è un software di produttività e fatturazione altamente specializzato per chi lavora professionalmente con la voce: speaker, doppiatori e voice-over. Automatizza il processo di analisi dei copioni, contando accuratamente le parole e producendo fatture professionali con dettagli analitici e tariffe personalizzabili. Trasformando un documento creativo in uno strumento finanziario, InVoice consente agli artisti di minimizzare il carico burocratico e massimizzare il tempo dedicato alla creatività.",
         "features": [
           "Sviluppo di componenti UI accessibili tramite l'integrazione di MantineUI.",
           "Gestione dello stato dell'applicazione tramite Zustand per un'esperienza utente fluida tra diversi tool.",
@@ -79,7 +79,7 @@
     }
   },
   "audio": {
-    "intro": "Specializzato in restauro audio, dialogue editing e post-produzione per contenuti digitali. Focus sulla qualità del segnale, chiarezza sonora e rispetto dei parametri di loudness professionali.",
+    "intro": "Specializzato in restauro audio, montaggio e pulizia dei dialoghi e post-produzione per contenuti digitali. Mi concentro su qualità del segnale, chiarezza sonora e rispetto dei parametri di loudness professionali.",
     "tools_title": "Software e Strumenti Audio",
     "restoration_title": "Demo di Restauro",
     "restoration_desc": "Dimostrazione del processo di pulizia di dialoghi registrati sul campo, passando dalla cattura grezza a un output professionale impeccabile.",
@@ -91,8 +91,8 @@
     "title": "Contattami",
     "intro": "Al momento sono disponibile per collaborazioni freelance e aperto a nuove opportunità. Se hai un progetto in mente o vuoi semplicemente salutarmi, non esitare a contattarmi.",
     "availability": {
-      "available": "Di solito disponibile · {{localWindow}} ora tua ({{romeWindow}} Roma)",
-      "away": "Disponibile tra {{countdown}} · {{localNext}} ora tua (08:00 Roma)",
+      "available": "Di solito disponibile · {{localWindow}} ora locale ({{romeWindow}} Roma)",
+      "away": "Disponibile tra {{countdown}} · {{localNext}} ora locale (08:00 Roma)",
       "available_short": "Disponibile per progetti",
       "away_short": "Al momento fuori ufficio"
     },
@@ -104,7 +104,7 @@
       "message": "Messaggio",
       "send": "Invia Messaggio",
       "sending": "Invio in corso...",
-      "success": "Messaggio inviato con successo!",
+      "success": "Messaggio inviato correttamente!",
       "error": "Impossibile inviare il messaggio. Riprova.",
       "placeholders": {
         "name": "Nome e cognome",
