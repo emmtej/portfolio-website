@@ -10,18 +10,18 @@ import { Text, Title } from "../ui/Text";
 import { SocialLink } from "./ContactSocials";
 import { SOCIALS } from "./constants";
 
+const contactSchema = z.object({
+  name: z.string().min(2, "contact.form.errors.name_min"),
+  email: z.string().email("contact.form.errors.email_invalid"),
+  message: z.string().min(10, "contact.form.errors.message_min"),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
+
 export function ContactForm() {
   const { t } = useTranslation();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-
-  const contactSchema = z.object({
-    name: z.string().min(2, t("contact.form.errors.name_min")),
-    email: z.email(t("contact.form.errors.email_invalid")),
-    message: z.string().min(10, t("contact.form.errors.message_min")),
-  });
-
-  type ContactFormData = z.infer<typeof contactSchema>;
 
   const {
     register,
@@ -95,14 +95,20 @@ export function ContactForm() {
               <Input
                 label={t("contact.form.name")}
                 {...register("name")}
-                error={errors.name?.message}
+                error={
+                  errors.name?.message ? t(errors.name.message as any) : undefined
+                }
                 placeholder="John Doe"
                 disabled={isSubmitting || isSubmitted}
               />
               <Input
                 label={t("contact.form.email")}
                 {...register("email")}
-                error={errors.email?.message}
+                error={
+                  errors.email?.message
+                    ? t(errors.email.message as any)
+                    : undefined
+                }
                 placeholder="john@example.com"
                 disabled={isSubmitting || isSubmitted}
               />
@@ -111,7 +117,11 @@ export function ContactForm() {
             <TextArea
               label={t("contact.form.message")}
               {...register("message")}
-              error={errors.message?.message}
+              error={
+                errors.message?.message
+                  ? t(errors.message.message as any)
+                  : undefined
+              }
               rows={4}
               placeholder="Tell me more about your project..."
               disabled={isSubmitting || isSubmitted}
