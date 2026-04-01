@@ -4,9 +4,10 @@ import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { cn } from "../../utils/cn";
 import { Input, TextArea } from "../ui/Input";
 import { Text, Title } from "../ui/Text";
+import { Button } from "../ui/Button";
+import { ArrowRightIcon } from "../ui/icons/ArrowRightIcon";
 import { SocialLink } from "./ContactSocials";
 import { SOCIALS } from "./constants";
 import { translateContactFieldError } from "./contactFormErrors";
@@ -118,60 +119,19 @@ export function ContactForm() {
             />
 
             <div className="flex flex-col md:flex-row items-center gap-6">
-              <motion.button
-                initial="initial"
-                whileHover={!isSubmitting && !isSubmitted ? "hover" : undefined}
-                whileTap={!isSubmitting && !isSubmitted ? "tap" : undefined}
+              <Button
                 type="submit"
-                disabled={isSubmitting || isSubmitted}
-                className={cn(
-                  "group relative flex items-center justify-center gap-4 w-full md:w-fit px-8 py-4 bg-text-main text-bg-app text-xs font-bold uppercase tracking-[0.2em] overflow-hidden transition-opacity duration-300",
-                  (isSubmitting || isSubmitted) &&
-                    "opacity-70 cursor-not-allowed",
-                )}
+                isLoading={isSubmitting}
+                isSuccess={isSubmitted}
+                rightIcon={<ArrowRightIcon />}
+                className="w-full md:w-fit"
               >
-                {!isSubmitting && !isSubmitted && (
-                  <motion.div
-                    variants={{
-                      initial: { y: "100%" },
-                      hover: { y: 0 },
-                    }}
-                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute inset-0 bg-white/5"
-                  />
-                )}
-
-                <span className="relative z-10">
-                  {isSubmitting
-                    ? t("contact.form.sending")
-                    : isSubmitted
-                      ? t("contact.form.success")
-                      : t("contact.form.send")}
-                </span>
-
-                {!isSubmitting && !isSubmitted && (
-                  <motion.svg
-                    variants={{
-                      initial: { x: 0 },
-                      hover: { x: 5 },
-                    }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    width="14"
-                    height="14"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="relative z-10"
-                  >
-                    <path
-                      d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                    ></path>
-                  </motion.svg>
-                )}
-              </motion.button>
+                {isSubmitting
+                  ? t("contact.form.sending")
+                  : isSubmitted
+                    ? t("contact.form.success")
+                    : t("contact.form.send")}
+              </Button>
 
               {submitError && (
                 <motion.span

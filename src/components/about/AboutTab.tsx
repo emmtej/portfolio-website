@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { ExperienceTimeline } from "./ExperienceTimeline";
 import { Title, Text } from "../ui/Text";
+import { Surface } from "../ui/Surface";
 
 const LANGUAGE_KEYS = [
   {
@@ -49,17 +50,14 @@ export function AboutTab() {
         <Title>{t("about.languages_title")}</Title>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {LANGUAGE_KEYS.map(({ level, name }) => (
-            <div
-              key={level}
-              className="p-5 border border-border-subtle bg-bg-app hover:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-normal group"
-            >
+            <Surface key={level} variant="interactive" padding="sm">
               <p className="text-tiny font-mono uppercase tracking-widest text-text-muted mb-2 group-hover:text-text-main/60 transition-colors">
                 {t(level)}
               </p>
               <p className="text-base font-bold text-text-main tracking-tight">
                 {t(name)}
               </p>
-            </div>
+            </Surface>
           ))}
         </div>
       </section>

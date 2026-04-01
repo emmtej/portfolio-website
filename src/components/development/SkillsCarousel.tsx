@@ -2,6 +2,7 @@ import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { cn } from "../../utils/cn";
+import { Surface } from "../ui/Surface";
 
 const SKILLS = [
   "React",
@@ -90,17 +91,19 @@ export function SkillsCarousel() {
             transition={marqueeTransition}
           >
             {duplicatedSkills.map((skill, index) => (
-              <div
+              <Surface
                 key={`${skill}-${index}`}
+                variant="interactive"
+                padding="none"
                 className={cn(
-                  "flex items-center gap-2 px-5 py-2.5 border border-border-subtle bg-bg-app hover:border-text-main/20 hover:bg-text-main/[0.02] transition-colors duration-100 cursor-default",
+                  "flex items-center gap-2 px-5 py-2.5 cursor-default transition-colors duration-100",
                   isIt && matteColors[index % matteColors.length],
                 )}
               >
                 <span className="text-sm font-bold uppercase tracking-wider text-text-main/60 whitespace-nowrap">
                   {skill}
                 </span>
-              </div>
+              </Surface>
             ))}
           </motion.div>
         </div>
