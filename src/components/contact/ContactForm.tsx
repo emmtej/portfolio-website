@@ -130,8 +130,8 @@ export function ContactForm() {
             <div className="flex flex-col md:flex-row items-center gap-6">
               <motion.button
                 initial="initial"
-                whileHover={!isSubmitting && !isSubmitted ? "hover" : ""}
-                whileTap={!isSubmitting && !isSubmitted ? "tap" : ""}
+                whileHover={!isSubmitting && !isSubmitted ? "hover" : undefined}
+                whileTap={!isSubmitting && !isSubmitted ? "tap" : undefined}
                 type="submit"
                 disabled={isSubmitting || isSubmitted}
                 className={cn(

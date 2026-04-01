@@ -88,12 +88,12 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
         </div>
 
         <div className="flex flex-wrap gap-2">
-          {project.tech.map((t) => (
+          {project.tech.map((techItem) => (
             <span
-              key={t}
+              key={techItem}
               className="text-xs font-bold px-2.5 py-1 rounded-md bg-border-subtle text-text-muted/80 uppercase tracking-wider group-hover:bg-text-main/5 group-hover:text-text-main/60 transition-colors duration-normal"
             >
-              {t}
+              {techItem}
             </span>
           ))}
         </div>
@@ -181,9 +181,9 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {t("dev.features_title")}
               </h4>
               <ul className="grid grid-cols-1 gap-3">
-                {project.features.map((feature, i) => (
+                {project.features.map((feature) => (
                   <li
-                    key={i}
+                    key={feature}
                     className="flex items-start gap-3 text-sm text-text-muted tracking-tight"
                   >
                     <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-text-main/20" />
@@ -198,12 +198,12 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {t("dev.tech_stack")}
               </h4>
               <div className="flex flex-wrap gap-2">
-                {project.tech.map((t) => (
+                {project.tech.map((techItem) => (
                   <span
-                    key={t}
+                    key={techItem}
                     className="text-sm font-semibold px-3 py-1 rounded-full bg-border-subtle text-text-main/60 uppercase tracking-wider"
                   >
-                    {t}
+                    {techItem}
                   </span>
                 ))}
               </div>

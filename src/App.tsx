@@ -61,7 +61,7 @@ function App() {
                   .split(" ")
                   .map((word, i) => (
                     <span
-                      key={i}
+                      key={`${word}-${i}`}
                       className={cn(
                         "transition-all duration-slow mr-3",
                         isIt && i === 0 && "text-it-green",
