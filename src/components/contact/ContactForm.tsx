@@ -17,20 +17,44 @@ export function ContactForm() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    setFormData({ name: "", email: "", message: "" });
-    
-    // Reset success message after 5 seconds
-    setTimeout(() => setIsSubmitted(false), 5000);
+    setError(null);
+
+    const form = e.target as HTMLFormElement;
+    const formDataObj = new FormData(form);
+    const searchParams = new URLSearchParams();
+
+    formDataObj.forEach((value, key) => {
+      searchParams.append(key, value.toString());
+    });
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: searchParams.toString(),
+      });
+
+      if (!response.ok) {
+        throw new Error("Form submission failed");
+      }
+
+      setIsSubmitted(true);
+      setFormData({ name: "", email: "", message: "" });
+      form.reset();
+
+      // Reset success message after 5 seconds
+      setTimeout(() => setIsSubmitted(false), 5000);
+    } catch (err) {
+      console.error("Netlify form error:", err);
+      setError(t("contact.form.error"));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -53,7 +77,21 @@ export function ContactForm() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
         {/* Form Column */}
         <div className="lg:col-span-7 order-2 lg:order-1">
-          <form className="space-y-5" onSubmit={handleSubmit}>
+          <form
+            className="space-y-5"
+            onSubmit={handleSubmit}
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+          >
+            <p className="hidden">
+              <label>
+                Don’t fill this out if you're human: <input name="bot-field" />
+              </label>
+            </p>
+            {/* Netlify - Needed for react  */}
+            <input type="hidden" name="form-name" value="contact" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <Input
                 label={t("contact.form.name")}
@@ -97,7 +135,7 @@ export function ContactForm() {
                 disabled={isSubmitting}
                 className={cn(
                   "group relative flex items-center justify-center gap-4 w-full md:w-fit px-8 py-4 bg-text-main text-bg-app text-xs font-bold uppercase tracking-[0.2em] overflow-hidden transition-opacity duration-300",
-                  isSubmitting && "opacity-70 cursor-not-allowed"
+                  isSubmitting && "opacity-70 cursor-not-allowed",
                 )}
               >
                 {!isSubmitting && (
@@ -112,7 +150,9 @@ export function ContactForm() {
                 )}
 
                 <span className="relative z-10">
-                  {isSubmitting ? t("contact.form.sending") : t("contact.form.send")}
+                  {isSubmitting
+                    ? t("contact.form.sending")
+                    : t("contact.form.send")}
                 </span>
 
                 {!isSubmitting && (
@@ -140,12 +180,22 @@ export function ContactForm() {
               </motion.button>
 
               {isSubmitted && (
-                <motion.span 
+                <motion.span
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   className="text-xs font-mono text-it-green uppercase tracking-widest"
                 >
                   {t("contact.form.success")}
+                </motion.span>
+              )}
+
+              {error && (
+                <motion.span
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="text-xs font-mono text-it-red uppercase tracking-widest"
+                >
+                  {error}
                 </motion.span>
               )}
             </div>
