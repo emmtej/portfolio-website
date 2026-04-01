@@ -1,72 +1,72 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { cn } from "../../utils/cn";
 import { Input, TextArea } from "../ui/Input";
 import { Text, Title } from "../ui/Text";
 import { SocialLink } from "./ContactSocials";
 import { SOCIALS } from "./constants";
 
-// TODO: Implement validation and loading and sent state.
 export function ContactForm() {
   const { t } = useTranslation();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
+  const contactSchema = z.object({
+    name: z.string().min(2, t("contact.form.errors.name_min")),
+    email: z.email(t("contact.form.errors.email_invalid")),
+    message: z.string().min(10, t("contact.form.errors.message_min")),
+  });
 
-    const form = e.target as HTMLFormElement;
-    const formDataObj = new FormData(form);
-    const searchParams = new URLSearchParams();
+  type ContactFormData = z.infer<typeof contactSchema>;
 
-    formDataObj.forEach((value, key) => {
-      searchParams.append(key, value.toString());
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
+    setSubmitError(null);
+
+    // Prepare Netlify form submission
+    const formData = new FormData();
+    formData.append("form-name", "contact");
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value);
     });
 
     try {
       const response = await fetch("/", {
         method: "POST",
+        body: new URLSearchParams(formData as any).toString(),
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: searchParams.toString(),
       });
 
-      if (!response.ok) {
-        throw new Error("Form submission failed");
-      }
+      if (!response.ok) throw new Error("Submission failed");
 
       setIsSubmitted(true);
-      setFormData({ name: "", email: "", message: "" });
-      form.reset();
-
-      // Reset success message after 5 seconds
+      reset();
       setTimeout(() => setIsSubmitted(false), 5000);
     } catch (err) {
       console.error("Netlify form error:", err);
-      setError(t("contact.form.error"));
-    } finally {
-      setIsSubmitting(false);
+      setSubmitError(t("contact.form.error"));
     }
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
     <div className="space-y-12 lg:space-y-16">
-      {/* Header Section - Full Width */}
       <div className="space-y-6 max-w-3xl">
         <Title>{t("contact.title")}</Title>
         <Text className="text-sm md:text-base leading-relaxed">
@@ -75,58 +75,51 @@ export function ContactForm() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-        {/* Form Column */}
         <div className="lg:col-span-7 order-2 lg:order-1">
           <form
             className="space-y-5"
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             name="contact"
             method="POST"
             data-netlify="true"
             data-netlify-honeypot="bot-field"
           >
+            <input
+              type="hidden"
+              {...register("name")}
+              value="contact"
+              name="form-name"
+            />
             <p className="hidden">
               <label>
                 Don’t fill this out if you're human: <input name="bot-field" />
               </label>
             </p>
-            {/* Netlify - Needed for react  */}
-            <input type="hidden" name="form-name" value="contact" />
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <Input
                 label={t("contact.form.name")}
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
+                {...register("name")}
+                error={errors.name?.message}
                 placeholder="John Doe"
-                className="py-3"
                 disabled={isSubmitting || isSubmitted}
-                required
               />
               <Input
                 label={t("contact.form.email")}
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
+                {...register("email")}
+                error={errors.email?.message}
                 placeholder="john@example.com"
-                className="py-3"
                 disabled={isSubmitting || isSubmitted}
-                required
               />
             </div>
 
             <TextArea
               label={t("contact.form.message")}
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
+              {...register("message")}
+              error={errors.message?.message}
               rows={4}
               placeholder="Tell me more about your project..."
-              className="py-3"
               disabled={isSubmitting || isSubmitted}
-              required
             />
 
             <div className="flex flex-col md:flex-row items-center gap-6">
@@ -138,7 +131,8 @@ export function ContactForm() {
                 disabled={isSubmitting || isSubmitted}
                 className={cn(
                   "group relative flex items-center justify-center gap-4 w-full md:w-fit px-8 py-4 bg-text-main text-bg-app text-xs font-bold uppercase tracking-[0.2em] overflow-hidden transition-opacity duration-300",
-                  (isSubmitting || isSubmitted) && "opacity-70 cursor-not-allowed",
+                  (isSubmitting || isSubmitted) &&
+                    "opacity-70 cursor-not-allowed",
                 )}
               >
                 {!isSubmitting && !isSubmitted && (
@@ -184,20 +178,19 @@ export function ContactForm() {
                 )}
               </motion.button>
 
-              {error && (
+              {submitError && (
                 <motion.span
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   className="text-xs font-mono text-it-red uppercase tracking-widest"
                 >
-                  {error}
+                  {submitError}
                 </motion.span>
               )}
             </div>
           </form>
         </div>
 
-        {/* Socials Column */}
         <div className="lg:col-span-5 space-y-6 order-1 lg:order-2">
           <Title>{t("contact.find_me_title")}</Title>
           <div className="flex flex-col">

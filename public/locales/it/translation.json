@@ -87,7 +87,12 @@
       "send": "Invia Messaggio",
       "sending": "Invio in corso...",
       "success": "Messaggio inviato con successo!",
-      "error": "Impossibile inviare il messaggio. Riprova."
+      "error": "Impossibile inviare il messaggio. Riprova.",
+      "errors": {
+        "name_min": "Il nome deve contenere almeno 2 caratteri",
+        "email_invalid": "Inserisci un indirizzo email valido",
+        "message_min": "Il messaggio deve contenere almeno 10 caratteri"
+      }
     }
   }
 }
