@@ -1,13 +1,23 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, lazy, Suspense, useCallback } from "react";
 import type React from "react";
 import { useTranslation } from "react-i18next";
 import { motion, type Variants } from "framer-motion";
-import { AboutTab } from "./about/AboutTab";
-import { DevelopmentTab } from "./development/DevelopmentTab";
-import { AudioTab } from "./audio/AudioTab";
-import { ContactTab } from "./contact/ContactTab";
 import { cn } from "../utils/cn";
 import { TabButton } from "./ui/Tabs";
+
+// Define dynamic loaders for each tab
+const TAB_LOADERS = {
+  about: () => import("./about/AboutTab").then((m) => ({ default: m.AboutTab })),
+  development: () => import("./development/DevelopmentTab").then((m) => ({ default: m.DevelopmentTab })),
+  audio: () => import("./audio/AudioTab").then((m) => ({ default: m.AudioTab })),
+  contact: () => import("./contact/ContactTab").then((m) => ({ default: m.ContactTab })),
+};
+
+// Create lazy components
+const AboutTab = lazy(TAB_LOADERS.about);
+const DevelopmentTab = lazy(TAB_LOADERS.development);
+const AudioTab = lazy(TAB_LOADERS.audio);
+const ContactTab = lazy(TAB_LOADERS.contact);
 
 const fadeInRest: Variants = {
   hidden: { opacity: 0, y: 10 },
@@ -97,6 +107,13 @@ export function Tabs({ header }: { header?: React.ReactNode }) {
     }
   };
 
+  const handlePrefetch = useCallback((id: string) => {
+    const loader = TAB_LOADERS[id as keyof typeof TAB_LOADERS];
+    if (loader) {
+      loader();
+    }
+  }, []);
+
   return (
     <div className="w-full">
       <div className={cn(
@@ -118,6 +135,7 @@ export function Tabs({ header }: { header?: React.ReactNode }) {
               label={tab.label}
               isActive={activeTabId === tab.id}
               onClick={handleTabChange}
+              onPrefetch={handlePrefetch}
             />
           ))}
         </motion.nav>
@@ -144,7 +162,9 @@ export function Tabs({ header }: { header?: React.ReactNode }) {
               aria-labelledby={`tab-${tab.id}`}
               className={cn(isActive ? "block" : "hidden", tab.wrapperClass)}
             >
-              <tab.Component />
+              <Suspense fallback={<div className="h-40 flex items-center justify-center animate-pulse text-text-muted/40 font-mono text-xs uppercase tracking-widest">Loading...</div>}>
+                <tab.Component />
+              </Suspense>
             </div>
           );
         })}

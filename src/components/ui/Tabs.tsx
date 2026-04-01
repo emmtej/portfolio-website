@@ -4,11 +4,13 @@ export const TabButton = ({
   id,
   label,
   onClick,
+  onPrefetch,
   isActive,
 }: {
   id: string;
   label: string;
   onClick: (id: string) => void;
+  onPrefetch?: (id: string) => void;
   isActive: boolean;
 }) => (
   <button
@@ -21,6 +23,7 @@ export const TabButton = ({
       "aria-selected:border-text-main aria-selected:text-text-main",
     )}
     onClick={() => onClick(id)}
+    onPointerEnter={() => onPrefetch?.(id)}
   >
     {label}
   </button>
