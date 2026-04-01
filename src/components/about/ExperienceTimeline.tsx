@@ -1,4 +1,4 @@
-import { Text } from "../../ui/Text";
+import { Text } from "../ui/Text";
 import { cn } from "../../utils/cn";
 
 const experiences = [
@@ -32,14 +32,13 @@ export function ExperienceTimeline() {
   return (
     <ol className="relative space-y-12 before:absolute before:left-[4.5px] before:h-full before:w-px before:bg-border-subtle">
       {experiences.map((exp, index) => (
-        <li
-          key={index}
-          className={cn("group relative flex items-start gap-6")}
-        >
-          <span className={cn(
-            "mt-1.5 size-2.5 shrink-0 rounded-full border border-border-subtle bg-bg-app ring-4 ring-bg-app transition-colors duration-slower",
-            "group-hover:bg-text-main group-hover:border-text-main"
-          )}></span>
+        <li key={index} className={cn("group relative flex items-start gap-6")}>
+          <span
+            className={cn(
+              "mt-1.5 size-2.5 shrink-0 rounded-full border border-border-subtle bg-bg-app ring-4 ring-bg-app transition-colors duration-slower",
+              "group-hover:bg-text-main group-hover:border-text-main",
+            )}
+          ></span>
 
           <div className="flex-1">
             <time className="block mb-1 text-small font-semibold tracking-wider uppercase text-text-muted/60">

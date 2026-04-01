@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { ProjectCard, ProjectModal, type Project } from "./ProjectUI";
 import { SkillsCarousel } from "./SkillsCarousel";
-import { Text, Title } from "../../ui/Text";
+import { Text, Title } from "../ui/Text";
 
 const PROJECTS: Project[] = [
   {

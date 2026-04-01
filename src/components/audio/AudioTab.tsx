@@ -1,4 +1,4 @@
-import { Text, Title } from "../../ui/Text";
+import { Text, Title } from "../ui/Text";
 
 const audioSoftware = ["iZotope RX", "Reaper", "DaVinci Resolve"];
 

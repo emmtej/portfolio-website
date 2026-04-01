@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { TabButton } from "../ui/Tabs";
 import { AboutTab } from "./about/AboutTab";
 import { DevelopmentTab } from "./development/DevelopmentTab";
 import { AudioTab } from "./audio/AudioTab";
 import { ContactTab } from "./contact/ContactTab";
 import { cn } from "../utils/cn";
+import { TabButton } from "./ui/Tabs";
 
 const TABS = [
   {

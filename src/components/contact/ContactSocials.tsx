@@ -1,5 +1,6 @@
-import { LinkCard } from "../../ui/LinkCard";
-import { Title } from "../../ui/Text";
+import { LinkCard } from "../ui/LinkCard";
+import { Title } from "../ui/Text";
+
 const SOCIALS = [
   {
     label: "GitHub",

@@ -1,5 +1,5 @@
 import { ExperienceTimeline } from "./ExperienceTimeline";
-import { Title, Text } from "../../ui/Text";
+import { Title, Text } from "../ui/Text";
 
 export function AboutTab() {
   return (
