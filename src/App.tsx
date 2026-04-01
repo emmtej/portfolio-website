@@ -15,12 +15,12 @@ function App() {
       <div className="w-full">
         <Tabs
           header={
-            <header className="space-y-8 md:space-y-12">
+            <header className="space-y-6 md:space-y-8">
               <motion.div
                 initial="hidden"
                 animate="visible"
                 variants={fadeInRest}
-                className="flex items-center gap-4 text-xs font-mono uppercase tracking-widest text-text-muted"
+                className="flex items-center gap-4 text-[10px] md:text-xs font-mono uppercase tracking-widest text-text-muted"
               >
                 <HeaderLink
                   href="https://github.com/emmtej"
@@ -38,7 +38,7 @@ function App() {
                 initial="hidden"
                 animate="visible"
                 variants={fadeInUp}
-                className="text-6xl font-bold tracking-tight text-text-main leading-[0.85]"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text-main leading-[0.85]"
               >
                 {t("app.title.greeting")
                   .split(" ")
