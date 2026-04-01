@@ -6,7 +6,7 @@ import { cn } from "./utils/cn";
 import { HeaderLink, HeaderSeparator } from "./components/ui/HeaderLink";
 
 const fadeInUp: Variants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
@@ -63,7 +63,7 @@ function App() {
                     <span
                       key={`${word}-${i}`}
                       className={cn(
-                        "transition-all duration-slow mr-3",
+                        "mr-3 transition-colors duration-slow",
                         isIt && i === 0 && "text-it-green",
                         isIt && i === 1 && "text-it-red",
                       )}

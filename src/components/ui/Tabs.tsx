@@ -5,13 +5,11 @@ export const TabButton = forwardRef<HTMLButtonElement, {
   id: string;
   label: string;
   onClick: (id: string) => void;
-  onPrefetch?: (id: string) => void;
   isActive: boolean;
 }>(({
   id,
   label,
   onClick,
-  onPrefetch,
   isActive,
 }, ref) => (
   <button
@@ -26,7 +24,6 @@ export const TabButton = forwardRef<HTMLButtonElement, {
       "aria-selected:border-text-main aria-selected:text-text-main",
     )}
     onClick={() => onClick(id)}
-    onPointerEnter={() => onPrefetch?.(id)}
   >
     {label}
   </button>
