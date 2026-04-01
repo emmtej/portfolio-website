@@ -34,7 +34,7 @@ export function AboutTab() {
       <section className="space-y-10">
         <Title>{t("about.languages_title")}</Title>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {["english", "spanish", "italian"].map((lang) => (
+          {(["english", "spanish", "italian"] as const).map((lang) => (
             <div
               key={lang}
               className="p-5 border border-border-subtle bg-bg-app hover:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-normal group"
