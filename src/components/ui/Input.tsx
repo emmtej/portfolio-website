@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import { cn } from "../../utils/cn";
 import { FormField } from "./FormField";
 
@@ -10,7 +10,8 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, className, id, containerClassName, ...props }, ref) => {
-    const inputId = id || label.toLowerCase().replace(/\s+/g, "-");
+    const generatedId = useId();
+    const inputId = id || generatedId;
 
     return (
       <FormField label={label} error={error} id={inputId} className={containerClassName}>
@@ -38,7 +39,8 @@ interface TextAreaProps
 
 export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ({ label, error, className, id, containerClassName, ...props }, ref) => {
-    const inputId = id || label.toLowerCase().replace(/\s+/g, "-");
+    const generatedId = useId();
+    const inputId = id || generatedId;
 
     return (
       <FormField label={label} error={error} id={inputId} className={containerClassName}>
