@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import { ExperienceTimeline } from "./ExperienceTimeline";
 import { Title, Text, Label } from "../ui/Text";
 import { Surface } from "../ui/Surface";
@@ -25,15 +25,13 @@ export function AboutTab() {
       <section className="max-w-4xl">
         <div className="space-y-4 md:space-y-5">
           <Text>
-            {t("about.hero_description_1")}
-            <span className="font-semibold text-text-main">
-              {t("about.hero_location_italy")}
-            </span>
-            {t("about.hero_and_previously")}
-            <span className="font-semibold text-text-main">
-              {t("about.hero_location_nyc")}
-            </span>
-            .
+            <Trans
+              i18nKey="about.hero_intro"
+              components={{
+                1: <span className="font-semibold text-text-main" />,
+                2: <span className="font-semibold text-text-main" />,
+              }}
+            />
           </Text>
           <Text>{t("about.hero_description_2")}</Text>
           <Text>{t("about.hero_description_3")}</Text>

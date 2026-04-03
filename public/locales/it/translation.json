@@ -13,10 +13,7 @@
     }
   },
   "about": {
-    "hero_description_1": "Sviluppatore web full-stack con base a ",
-    "hero_location_italy": "Palagianello, Italia",
-    "hero_and_previously": ", e originario di ",
-    "hero_location_nyc": "New York City",
+    "hero_intro": "Sviluppatore web full-stack con base a <1>Palagianello, Italia</1>, e originario di <2>New York City</2>.",
     "hero_description_2": "Grazie alla mia passione per i viaggi, ho intrapreso la carriera freelance, coniugando la scoperta di nuovi luoghi con il supporto a piccole imprese nel consolidamento della propria presenza digitale.",
     "hero_description_3": "Progetto e sviluppo siti web moderni e responsive, focalizzandomi sulle ultime tecnologie per garantire una connessione efficace tra brand e pubblico.",
     "hero_description_4": "Negli ultimi 4 anni, mi sono dedicato all'ecosistema React, integrando competenze frontend con logiche backend per supportare l'evoluzione digitale delle piccole imprese, superando i limiti dei siti statici.",
