@@ -70,6 +70,17 @@ export function Tabs({ header }: { header?: ReactNode }) {
     }
   }, [activeTabId, TABS]);
 
+  useEffect(() => {
+    const activeIndex = TABS.findIndex((t) => t.id === activeTabId);
+    if (activeIndex !== -1 && tabRefs.current[activeIndex]) {
+      tabRefs.current[activeIndex]?.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
+  }, [activeTabId, TABS]);
+
   const handleTabChange = (id: string) => {
     setActiveTabId(id);
     const newPath = `/${id}`;
