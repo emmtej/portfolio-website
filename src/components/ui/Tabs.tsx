@@ -20,9 +20,9 @@ export const TabButton = forwardRef<HTMLButtonElement, {
     aria-controls={`panel-${id}`}
     tabIndex={isActive ? 0 : -1}
     className={cn(
-      "whitespace-nowrap shrink-0 snap-start -mb-px border-b-2 py-4 text-sm transition-colors uppercase font-bold tracking-widest border-transparent text-text-muted/40 hover:text-text-main/80",
+      "whitespace-nowrap shrink-0 snap-center -mb-px border-b-2 py-4 text-sm transition-colors uppercase font-bold tracking-widest border-transparent text-text-muted/40 hover:text-text-main/80",
       "aria-selected:border-text-main aria-selected:text-text-main",
-    )}
+    ) }
     onClick={() => onClick(id)}
   >
     {label}
