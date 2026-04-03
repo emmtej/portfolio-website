@@ -70,7 +70,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
             </p>
           </div>
 
-          <div className="mt-1 size-8 border border-border-subtle flex items-center justify-center text-text-muted/40 group-hover:border-text-main/20 group-hover:text-text-main/60 group-hover:translate-x-1 transition-all duration-normal">
+          <div className="mt-1 size-8 border border-text-main/20 flex items-center justify-center text-text-main/60 group-hover:translate-x-1 transition-all duration-normal">
             <ArrowRightIcon />
           </div>
         </div>
