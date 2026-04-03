@@ -69,7 +69,10 @@ export function RomeAvailability({ className }: RomeAvailabilityProps) {
       </div>
 
       {/* Availability Status */}
-      <div className="flex flex-1 min-w-[200px] items-center gap-3 border-l border-border-subtle pl-6 h-8">
+      <div
+        role="status"
+        className="flex flex-1 min-w-[200px] items-center gap-3 border-l border-border-subtle pl-6 h-8"
+      >
         <span
           className={cn(
             "size-1.5 shrink-0",
