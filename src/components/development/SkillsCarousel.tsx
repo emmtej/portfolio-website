@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { cn } from "../../utils/cn";
 import { Surface } from "../ui/Surface";
+import { Label, Title } from "../ui/Text";
 
 const SKILLS = [
   "React",
@@ -75,9 +76,9 @@ export function SkillsCarousel() {
 
   return (
     <section className="w-full overflow-hidden py-2 select-none">
-      <h2 className="uppercase font-semibold tracking-[0.1em] text-text-main/80 text-xs mb-4 px-0">
+      <Title as="h2" className="mb-4 px-0 text-text-main/80">
         {t("dev.skills_title")}
-      </h2>
+      </Title>
       <div className="relative group">
         <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-bg-app to-transparent z-10 pointer-events-none max-md:hidden" />
         <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-bg-app to-transparent z-10 pointer-events-none max-md:hidden" />
@@ -100,9 +101,13 @@ export function SkillsCarousel() {
                   isIt && matteColors[index % matteColors.length],
                 )}
               >
-                <span className="text-sm font-bold uppercase tracking-wider text-text-main/60 whitespace-nowrap">
+                <Label
+                  size="sm"
+                  mono={false}
+                  className="font-bold tracking-wider text-text-main/60 whitespace-nowrap"
+                >
                   {skill}
-                </span>
+                </Label>
               </Surface>
             ))}
           </motion.div>

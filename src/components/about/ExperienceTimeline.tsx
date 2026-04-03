@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Text } from "../ui/Text";
+import { Text, Label } from "../ui/Text";
 import { cn } from "../../utils/cn";
 
 export function ExperienceTimeline() {
@@ -45,22 +45,22 @@ export function ExperienceTimeline() {
 
           <div className="flex-1 -mt-0.5">
             <div className="flex flex-wrap items-center gap-2 mb-2">
-              <time className="text-xs font-mono uppercase tracking-widest text-text-muted/80">
+              <Label as="time" className="text-text-muted/80">
                 {exp.time}
-              </time>
+              </Label>
               <span className="size-1 bg-border-subtle" />
-              <span className="text-xs font-mono uppercase tracking-widest text-text-muted/80">
+              <Label className="text-text-muted/80">
                 {exp.location}
-              </span>
+              </Label>
             </div>
 
             <div className="flex flex-col md:flex-row md:items-baseline gap-1 md:gap-3">
               <h3 className="text-base font-bold text-text-main tracking-tight">
                 {exp.title}
               </h3>
-              <span className="text-xs font-mono uppercase tracking-widest text-text-muted/80 group-hover:text-text-main transition-colors duration-normal">
+              <Label className="text-text-muted/80 group-hover:text-text-main">
                 [{exp.company}]
-              </span>
+              </Label>
             </div>
 
             <Text className="mt-3 text-text-muted/80 leading-relaxed">

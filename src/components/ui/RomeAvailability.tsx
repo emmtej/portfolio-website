@@ -6,6 +6,7 @@ import {
   useRomeAvailability,
 } from "../../hooks/useRomeAvailability";
 import { RomeSky } from "./RomeSky";
+import { Label, Caption } from "./Text";
 
 type RomeAvailabilityProps = {
   className?: string;
@@ -35,28 +36,35 @@ export function RomeAvailability({ className }: RomeAvailabilityProps) {
       {/* Time & Sky Phase */}
       <div className="flex items-center gap-3">
         <div className="relative flex size-8 shrink-0 items-center justify-center border border-border-subtle bg-bg-app">
-          <RomeSky phase={skyPhase} className="scale-75 opacity-70 group-hover:opacity-100 transition-opacity" />
-          
+          <RomeSky
+            phase={skyPhase}
+            className="scale-75 opacity-70 group-hover:opacity-100 transition-opacity"
+          />
+
           {/* Progress Indicator (Minimalist) */}
           <div className="absolute bottom-0 left-0 h-[2px] bg-border-subtle w-full">
-            <motion.div 
+            <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${progress * 100}%` }}
               className={cn(
                 "h-full transition-colors duration-500",
-                available ? "bg-it-green" : "bg-it-red"
+                available ? "bg-it-green" : "bg-it-red",
               )}
             />
           </div>
         </div>
-        
-        <div className="space-y-0.5">
-          <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-text-muted leading-none">
-            Rome IT
-          </p>
-          <p className="font-mono text-xs font-medium tabular-nums text-text-main leading-none">
+
+        <div className="flex flex-col">
+          <Label size="tiny" className="font-bold leading-none mb-1">
+            Palagianello, IT
+          </Label>
+          <Label
+            size="xs"
+            color="main"
+            className="font-medium tabular-nums leading-none"
+          >
             {romeTime}
-          </p>
+          </Label>
         </div>
       </div>
 
@@ -70,8 +78,13 @@ export function RomeAvailability({ className }: RomeAvailabilityProps) {
               : "bg-it-red/60",
           )}
         />
-        <div className="space-y-0.5 overflow-hidden">
-          <p className="text-[11px] font-bold uppercase tracking-wider text-text-main leading-none">
+        <div className="flex flex-col overflow-hidden">
+          <Label
+            size="tiny"
+            color="main"
+            className="font-bold tracking-wider leading-none mb-1"
+            mono={false}
+          >
             <AnimatePresence mode="wait">
               <motion.span
                 key={available ? "available" : "away"}
@@ -79,21 +92,20 @@ export function RomeAvailability({ className }: RomeAvailabilityProps) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -5 }}
               >
-                {available 
+                {available
                   ? t("contact.availability.available_short")
-                  : t("contact.availability.away_short")
-                }
+                  : t("contact.availability.away_short")}
               </motion.span>
             </AnimatePresence>
-          </p>
-          <p className="text-[10px] text-text-muted/80 truncate leading-none">
+          </Label>
+          <Caption className="truncate leading-none">
             {available
               ? t("contact.availability.available", {
                   localWindow: localRange,
                   romeWindow: romeRange,
                 })
               : t("contact.availability.away", { localNext, countdown })}
-          </p>
+          </Caption>
         </div>
       </div>
     </div>

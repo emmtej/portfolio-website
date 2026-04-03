@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { ExperienceTimeline } from "./ExperienceTimeline";
-import { Title, Text } from "../ui/Text";
+import { Title, Text, Label } from "../ui/Text";
 import { Surface } from "../ui/Surface";
 
 const LANGUAGE_KEYS = [
@@ -51,9 +51,13 @@ export function AboutTab() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {LANGUAGE_KEYS.map(({ level, name }) => (
             <Surface key={level} variant="interactive" padding="sm">
-              <p className="text-tiny font-mono uppercase tracking-widest text-text-muted mb-2 group-hover:text-text-main/60 transition-colors">
+              <Label
+                as="p"
+                size="tiny"
+                className="mb-2 group-hover:text-text-main/60"
+              >
                 {t(level)}
-              </p>
+              </Label>
               <p className="text-base font-bold text-text-main tracking-tight">
                 {t(name)}
               </p>

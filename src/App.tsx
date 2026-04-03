@@ -5,6 +5,7 @@ import { Tabs } from "./components/Tabs";
 import { cn } from "./utils/cn";
 import { HeaderLink, HeaderSeparator } from "./components/ui/HeaderLink";
 import { fadeInRest, fadeInUp } from "./utils/motion-variants";
+import { Label } from "./components/ui/Text";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -20,19 +21,21 @@ function App() {
                 initial="hidden"
                 animate="visible"
                 variants={fadeInRest}
-                className="flex items-center gap-4 text-[10px] md:text-xs font-mono uppercase tracking-widest text-text-muted"
+                className="flex items-center gap-4"
               >
-                <HeaderLink
-                  href="https://github.com/emmtej"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  [GH].EMMTEJ
-                </HeaderLink>
-                <HeaderSeparator />
-                <HeaderLink href="mailto:contact@emmanueltejeda.com">
-                  [EMAIL].CONTACT
-                </HeaderLink>
+                <Label className="text-[10px] md:text-xs flex items-center gap-4">
+                  <HeaderLink
+                    href="https://github.com/emmtej"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    [GH].EMMTEJ
+                  </HeaderLink>
+                  <HeaderSeparator />
+                  <HeaderLink href="mailto:contact@emmanueltejeda.com">
+                    [EMAIL].CONTACT
+                  </HeaderLink>
+                </Label>
               </motion.div>
               <motion.h1
                 initial="hidden"
