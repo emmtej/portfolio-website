@@ -1,10 +1,10 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
-import enTranslation from "../public/locales/en/translation.json";
-import itTranslation from "../public/locales/it/translation.json";
+import HttpBackend from "i18next-http-backend";
 
 i18n
+  .use(HttpBackend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
@@ -14,9 +14,8 @@ i18n
     interpolation: {
       escapeValue: false, // React already protects from XSS
     },
-    resources: {
-      en: { translation: enTranslation },
-      it: { translation: itTranslation },
+    backend: {
+      loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
     detection: {
       order: ["querystring", "cookie", "localStorage", "navigator", "htmlTag"],
