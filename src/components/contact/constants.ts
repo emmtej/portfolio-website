@@ -15,6 +15,6 @@ export const SOCIALS = [
     label: "Email",
     href: "mailto:contact@emmanueltejeda.com",
     value: "contact@emmanueltejeda.com",
-    icon: "@",
+    icon: "EM",
   },
 ];
