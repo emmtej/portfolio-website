@@ -1,6 +1,9 @@
 import { vi } from "vitest";
 import "@testing-library/react"; // Just making sure imports exist
 
+// Mock scrollIntoView since it's not implemented in the test environment
+window.HTMLElement.prototype.scrollIntoView = vi.fn();
+
 // We must mock react-i18next so that we don't trigger React Suspense during tests 
 // because HttpBackend requires asynchronous network fetching which is unavailable/mocked.
 import enTranslations from "../../public/locales/en/translation.json";
