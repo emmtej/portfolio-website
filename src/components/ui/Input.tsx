@@ -1,105 +1,61 @@
 import React from "react";
 import { cn } from "../../utils/cn";
-import { Label } from "./Text";
+import { FormField } from "./FormField";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   error?: string;
+  containerClassName?: string;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, className, id, ...props }, ref) => {
+  ({ label, error, className, id, containerClassName, ...props }, ref) => {
     const inputId = id || label.toLowerCase().replace(/\s+/g, "-");
 
     return (
-      <div className="space-y-3 group w-full">
-        <Label
-          as="label"
-          htmlFor={inputId}
-          color={error ? "error" : "muted"}
-          className="block group-hover:text-text-main/60"
-        >
-          {label}
-        </Label>
-        <div className="relative overflow-hidden">
-          <input
-            id={inputId}
-            ref={ref}
-            {...props}
-            className={cn(
-              "w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-md text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40 disabled:opacity-50 disabled:cursor-not-allowed",
-              error && "border-it-red/30 focus:border-it-red/50",
-              className,
-            )}
-          />
-          <div
-            className={cn(
-              "absolute bottom-0 left-0 w-full h-[1px] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left opacity-20 group-has-[:disabled]:hidden",
-              error ? "bg-it-red" : "bg-text-main",
-            )}
-          />
-        </div>
-        {error && (
-          <Label
-            size="tiny"
-            color="error"
-            className="block animate-in fade-in slide-in-from-top-1"
-          >
-            {error}
-          </Label>
-        )}
-      </div>
+      <FormField label={label} error={error} id={inputId} className={containerClassName}>
+        <input
+          id={inputId}
+          ref={ref}
+          {...props}
+          className={cn(
+            "w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-md text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40 disabled:opacity-50 disabled:cursor-not-allowed",
+            error && "border-it-red/30 focus:border-it-red/50",
+            className,
+          )}
+        />
+      </FormField>
     );
   },
 );
 
-interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface TextAreaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
   error?: string;
+  containerClassName?: string;
 }
 
 export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  ({ label, error, className, id, ...props }, ref) => {
+  ({ label, error, className, id, containerClassName, ...props }, ref) => {
     const inputId = id || label.toLowerCase().replace(/\s+/g, "-");
 
     return (
-      <div className="space-y-3 group w-full">
-        <Label
-          as="label"
-          htmlFor={inputId}
-          color={error ? "error" : "muted"}
-          className="block group-hover:text-text-main/60"
-        >
-          {label}
-        </Label>
-        <div className="relative overflow-hidden">
-          <textarea
-            id={inputId}
-            ref={ref}
-            {...props}
-            className={cn(
-              "w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-md text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40 resize-none disabled:opacity-50 disabled:cursor-not-allowed",
-              error && "border-it-red/30 focus:border-it-red/50",
-              className,
-            )}
-          />
-          <div
-            className={cn(
-              "absolute bottom-0 left-0 w-full h-[1px] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left opacity-20 group-has-[:disabled]:hidden",
-              error ? "bg-it-red" : "bg-text-main",
-            )}
-          />
-        </div>
-        {error && (
-          <Label
-            size="tiny"
-            color="error"
-            className="block animate-in fade-in slide-in-from-top-1"
-          >
-            {error}
-          </Label>
-        )}
-      </div>
+      <FormField label={label} error={error} id={inputId} className={containerClassName}>
+        <textarea
+          id={inputId}
+          ref={ref}
+          {...props}
+          className={cn(
+            "w-full bg-bg-app border border-border-subtle px-4 py-3.5 text-md text-text-main focus:outline-none focus:border-text-main/20 hover:bg-text-main/[0.02] transition-all duration-300 placeholder:text-text-muted/40 resize-none disabled:opacity-50 disabled:cursor-not-allowed",
+            error && "border-it-red/30 focus:border-it-red/50",
+            className,
+          )}
+        />
+      </FormField>
     );
   },
 );
+
+Input.displayName = "Input";
+TextArea.displayName = "TextArea";
