@@ -1,6 +1,11 @@
 {
   "common": {
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "error": {
+      "title": "Something went wrong",
+      "description": "The application encountered an unexpected error. This might be due to a calculation error or a temporary issue.",
+      "retry": "Try again"
+    }
   },
   "app": {
     "title": {

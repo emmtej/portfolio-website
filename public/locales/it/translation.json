@@ -1,6 +1,11 @@
 {
   "common": {
-    "loading": "Caricamento..."
+    "loading": "Caricamento...",
+    "error": {
+      "title": "Qualcosa è andato storto",
+      "description": "L'applicazione ha riscontrato un errore inaspettato. Potrebbe trattarsi di un errore di calcolo o di un problema temporaneo.",
+      "retry": "Riprova"
+    }
   },
   "app": {
     "title": {

@@ -12,6 +12,7 @@ import { SocialLink } from "./ContactSocials";
 import { SOCIALS } from "./constants";
 import { translateContactFieldError } from "./contactFormErrors";
 import { RomeAvailability } from "../ui/RomeAvailability";
+import { ErrorBoundary } from "../ui/ErrorBoundary";
 
 const contactSchema = z.object({
   name: z.string().min(2, "contact.form.errors.name_min"),
@@ -76,7 +77,9 @@ export function ContactForm() {
             {t("contact.intro")}
           </Text>
         </div>
-        <RomeAvailability />
+        <ErrorBoundary>
+          <RomeAvailability />
+        </ErrorBoundary>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
