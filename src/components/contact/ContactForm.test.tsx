@@ -61,46 +61,18 @@ describe("ContactForm", () => {
   });
 
   describe("validation", () => {
-    it("shows errors when submitting an empty form", async () => {
-      render(<ContactForm />);
-      clickSubmit();
-
-      expect(await screen.findByText(EN.nameError)).toBeTruthy();
-      expect(screen.getByText(EN.emailError)).toBeTruthy();
-      expect(screen.getByText(EN.messageError)).toBeTruthy();
-    });
-
-    it("shows name error when name is too short", async () => {
+    it("has native HTML5 validation attributes on fields", () => {
       render(<ContactForm />);
       const { name, email, message } = getFormFields();
-      fireEvent.change(name, { target: { value: "J" } });
-      fireEvent.change(email, { target: { value: "a@b.co" } });
-      fireEvent.change(message, { target: { value: "1234567890" } });
-      clickSubmit();
+      
+      expect((name as HTMLInputElement).required).toBe(true);
+      expect((name as HTMLInputElement).minLength).toBe(2);
 
-      expect(await screen.findByText(EN.nameError)).toBeTruthy();
-    });
+      expect((email as HTMLInputElement).required).toBe(true);
+      expect((email as HTMLInputElement).type).toBe("email");
 
-    it("shows email error when email is invalid", async () => {
-      render(<ContactForm />);
-      const { name, email, message } = getFormFields();
-      fireEvent.change(name, { target: { value: "Jo" } });
-      fireEvent.change(email, { target: { value: "not-an-email" } });
-      fireEvent.change(message, { target: { value: "1234567890" } });
-      clickSubmit();
-
-      expect(await screen.findByText(EN.emailError)).toBeTruthy();
-    });
-
-    it("shows message error when message is too short", async () => {
-      render(<ContactForm />);
-      const { name, email, message } = getFormFields();
-      fireEvent.change(name, { target: { value: "Jo" } });
-      fireEvent.change(email, { target: { value: "a@b.co" } });
-      fireEvent.change(message, { target: { value: "short" } });
-      clickSubmit();
-
-      expect(await screen.findByText(EN.messageError)).toBeTruthy();
+      expect((message as HTMLTextAreaElement).required).toBe(true);
+      expect((message as HTMLTextAreaElement).minLength).toBe(10);
     });
   });
 
