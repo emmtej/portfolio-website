@@ -115,7 +115,7 @@ export function Tabs({ header }: { header?: ReactNode }) {
         {header && <div className="mb-6 md:mb-8">{header}</div>}
         <motion.nav 
           role="tablist" 
-          className="flex gap-4 md:gap-6"
+          className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2 -mb-2"
           initial="hidden"
           animate="visible"
           variants={fadeInRestTabs}
