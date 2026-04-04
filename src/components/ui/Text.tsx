@@ -39,6 +39,7 @@ interface LabelProps extends React.HTMLAttributes<HTMLElement> {
   size?: "tiny" | "xs" | "sm";
   color?: "muted" | "main" | "error";
   mono?: boolean;
+  htmlFor?: string;
 }
 
 /**
