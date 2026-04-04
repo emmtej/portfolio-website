@@ -9,9 +9,20 @@ import { SocialLink } from "./ContactSocials";
 import { SOCIALS } from "./constants";
 import { RomeAvailability } from "../ui/RomeAvailability";
 import { ErrorBoundary } from "../ui/ErrorBoundary";
+import type { ParseKeys } from "i18next";
 
-async function submitContactForm(prevState: unknown, formData: FormData) {
-  const payload = new URLSearchParams(formData as unknown as Record<string, string>);
+interface FormState {
+  success: boolean;
+  error: ParseKeys | null;
+}
+
+async function submitContactForm(
+  _prevState: unknown,
+  formData: FormData,
+): Promise<FormState> {
+  const payload = new URLSearchParams(
+    formData as unknown as Record<string, string>,
+  );
   payload.set("form-name", "contact");
 
   try {
@@ -29,9 +40,9 @@ async function submitContactForm(prevState: unknown, formData: FormData) {
 
 export function ContactForm() {
   const { t } = useTranslation();
-  const [state, formAction, isPending] = useActionState(submitContactForm, { 
-    success: false, 
-    error: null 
+  const [state, formAction, isPending] = useActionState(submitContactForm, {
+    success: false,
+    error: null,
   });
 
   return (
