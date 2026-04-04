@@ -27,10 +27,10 @@ export const FormField = ({
       >
         {label}
       </Label>
-      
+
       <div className="relative overflow-hidden">
         {children}
-        
+
         {/* Animated focus/hover line */}
         <div
           className={cn(

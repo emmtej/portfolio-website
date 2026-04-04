@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo, ReactNode } from "react";
+import { Component, type ErrorInfo, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "./Button";
 import { Text, Title } from "./Text";
@@ -46,9 +46,9 @@ class ErrorBoundaryClass extends Component<Props & { t: any }, State> {
           <Text className="text-sm max-w-md">
             {t("common.error.description")}
           </Text>
-          <Button 
-            variant="outline" 
-            size="sm" 
+          <Button
+            variant="outline"
+            size="sm"
             onClick={this.handleReset}
             className="mt-4 border-it-red/20 hover:border-it-red/40 text-it-red/60"
           >
