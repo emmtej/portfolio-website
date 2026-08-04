@@ -84,6 +84,11 @@
     "links_private": "Source and demo are not public for this project.",
     "source_only_note": "No separate live demo — the repository is the production codebase for this site.",
     "demo_only_note": "Live demo is available; source is not public.",
+    "repo_transfer_notice": {
+      "title": "Repository links temporarily unavailable",
+      "body": "Project source links are offline while repositories move from GitHub to GitLab. They will be updated shortly.",
+      "links_unavailable": "Source link unavailable during the GitHub to GitLab transfer."
+    },
     "close_modal": "Close project details",
     "projects": {
       "invoice": {

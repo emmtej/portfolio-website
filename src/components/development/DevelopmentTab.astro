@@ -3,8 +3,10 @@ import { getServerT, resolveLocale } from "../../utils/server-t";
 import SkillsCarousel from "./SkillsCarousel.astro";
 import Text from "../ui/Text.astro";
 import Section from "../ui/Section.astro";
+import RepoTransferNotice from "./RepoTransferNotice.astro";
 import { ProjectGallery } from "./ProjectGallery";
 import type { Project } from "./ProjectUI";
+import { REPO_TRANSFER_NOTICE_ENABLED } from "./repo-transfer-notice";
 
 const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
 const t = getServerT(locale);
@@ -72,7 +74,13 @@ const projects: Project[] = PROJECTS_CONFIG.map((p) => ({
     <SkillsCarousel locale={locale} />
   </Section>
 
+  <RepoTransferNotice locale={locale} />
+
   <Section title={t("dev.projects_title") as string} width="wide">
-    <ProjectGallery client:load projects={projects} />
+    <ProjectGallery
+      client:load
+      projects={projects}
+      repoLinksUnavailable={REPO_TRANSFER_NOTICE_ENABLED}
+    />
   </Section>
 </div>

@@ -2,7 +2,13 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { ProjectCard, ProjectModal, type Project } from "./ProjectUI";
 
-export function ProjectGallery({ projects }: { projects: Project[] }) {
+export function ProjectGallery({
+  projects,
+  repoLinksUnavailable = false,
+}: {
+  projects: Project[];
+  repoLinksUnavailable?: boolean;
+}) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
@@ -22,6 +28,7 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
           <ProjectModal
             project={selectedProject}
             onClose={() => setSelectedProject(null)}
+            repoLinksUnavailable={repoLinksUnavailable}
           />
         ) : null}
       </AnimatePresence>

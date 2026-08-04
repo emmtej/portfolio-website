@@ -98,15 +98,17 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
   );
 }
 
-interface ProjectModalProps {
+function ProjectModalLinks({
+  project,
+  repoLinksUnavailable,
+}: {
   project: Project;
-  onClose: () => void;
-}
-
-function ProjectModalLinks({ project }: { project: Project }) {
+  repoLinksUnavailable: boolean;
+}) {
   const { t } = useTranslation();
   const hasGithub = Boolean(project.github);
   const hasDemo = Boolean(project.link);
+  const githubUnavailable = repoLinksUnavailable && hasGithub;
 
   if (!hasGithub && !hasDemo) {
     return (
@@ -119,17 +121,29 @@ function ProjectModalLinks({ project }: { project: Project }) {
   return (
     <div className="space-y-3">
       <div className="flex flex-wrap gap-4">
-        {project.github ? (
-          <Button
-            as="a"
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="primary"
-            size="md"
-          >
-            {t("dev.view_source")}
-          </Button>
+        {hasGithub ? (
+          githubUnavailable ? (
+            <Button
+              type="button"
+              variant="primary"
+              size="md"
+              disabled
+              aria-disabled="true"
+            >
+              {t("dev.view_source")}
+            </Button>
+          ) : (
+            <Button
+              as="a"
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="primary"
+              size="md"
+            >
+              {t("dev.view_source")}
+            </Button>
+          )
         ) : null}
         {project.link ? (
           <Button
@@ -144,7 +158,12 @@ function ProjectModalLinks({ project }: { project: Project }) {
           </Button>
         ) : null}
       </div>
-      {hasGithub && !hasDemo ? (
+      {githubUnavailable ? (
+        <Text size="sm" className="text-secondary">
+          {t("dev.repo_transfer_notice.links_unavailable")}
+        </Text>
+      ) : null}
+      {hasGithub && !hasDemo && !githubUnavailable ? (
         <Text size="sm" className="text-secondary">
           {t("dev.source_only_note")}
         </Text>
@@ -158,7 +177,15 @@ function ProjectModalLinks({ project }: { project: Project }) {
   );
 }
 
-export function ProjectModal({ project, onClose }: ProjectModalProps) {
+export function ProjectModal({
+  project,
+  onClose,
+  repoLinksUnavailable = false,
+}: {
+  project: Project;
+  onClose: () => void;
+  repoLinksUnavailable?: boolean;
+}) {
   const { t } = useTranslation();
 
   return (
@@ -222,7 +249,10 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           <Title as="h3" className="text-text-main">
             {t("dev.links_title")}
           </Title>
-          <ProjectModalLinks project={project} />
+          <ProjectModalLinks
+            project={project}
+            repoLinksUnavailable={repoLinksUnavailable}
+          />
         </div>
       </div>
     </Modal>

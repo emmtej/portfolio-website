@@ -84,6 +84,11 @@
     "links_private": "Codice sorgente e demo non sono pubblici per questo progetto.",
     "source_only_note": "Nessuna demo live separata — il repository è il codice di produzione di questo sito.",
     "demo_only_note": "Demo live disponibile; il codice sorgente non è pubblico.",
+    "repo_transfer_notice": {
+      "title": "Link ai repository temporaneamente non disponibili",
+      "body": "I link al codice sorgente dei progetti sono offline durante il trasferimento da GitHub a GitLab. Verranno aggiornati a breve.",
+      "links_unavailable": "Link al codice sorgente non disponibile durante il trasferimento da GitHub a GitLab."
+    },
     "close_modal": "Chiudi dettagli progetto",
     "projects": {
       "invoice": {
