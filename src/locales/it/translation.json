@@ -139,8 +139,11 @@
       },
       "errors": {
         "name": "Il nome deve avere almeno 2 caratteri",
+        "name_max": "Il nome deve contenere al massimo 100 caratteri",
         "email": "Indirizzo email non valido",
-        "message": "Il messaggio deve avere almeno 10 caratteri"
+        "email_max": "L'indirizzo email deve contenere al massimo 254 caratteri",
+        "message": "Il messaggio deve avere almeno 10 caratteri",
+        "message_max": "Il messaggio deve contenere al massimo 5.000 caratteri"
       }
     }
   },

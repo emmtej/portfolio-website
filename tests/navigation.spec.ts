@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 
 const PAGES = [
   { path: '/', title: /Emmanuel T\. || Software Developer/ },
@@ -33,9 +33,10 @@ test.describe('Navigation & Metadata', () => {
   });
 });
 
-async function waitForInteractiveContactForm(page: import('@playwright/test').Page) {
+async function waitForInteractiveContactForm(page: Page) {
   const form = page.locator('form[data-contact-form="interactive"]');
-  await form.waitFor({ state: 'visible' });
+  await expect(form).toBeVisible();
+  await expect(form).toHaveAttribute('data-hydrated', 'true');
   return form;
 }
 
@@ -45,10 +46,8 @@ test.describe('Contact Form', () => {
     const form = await waitForInteractiveContactForm(page);
     const submit = form.getByRole('button', { name: /Send Message/i });
 
-    await expect(async () => {
-      await submit.click();
-      await expect(form.getByText(/Name must be at least 2 characters/i)).toBeVisible();
-    }).toPass({ timeout: 20_000 });
+    await submit.click();
+    await expect(form.getByText(/Name must be at least 2 characters/i)).toBeVisible();
 
     await expect(form.getByText(/Invalid email address/i)).toBeVisible();
     await expect(form.getByText(/Message must be at least 10 characters/i)).toBeVisible();
@@ -58,11 +57,43 @@ test.describe('Contact Form', () => {
     await page.goto('/contact');
     const form = await waitForInteractiveContactForm(page);
 
-    await expect(async () => {
-      await form.getByRole('textbox', { name: /Name/i }).fill('John Doe');
-      await form.getByRole('textbox', { name: /^Email$/i }).fill('john@example.com');
-      await form.getByRole('textbox', { name: /Message/i }).fill('This is a test message that is long enough.');
-      await expect(form.getByRole('button', { name: /Send Message/i })).toBeEnabled();
-    }).toPass({ timeout: 20_000 });
+    await form.getByRole('textbox', { name: /Name/i }).fill('John Doe');
+    await form.getByRole('textbox', { name: /^Email$/i }).fill('john@example.com');
+    await form.getByRole('textbox', { name: /Message/i }).fill('This is a test message that is long enough.');
+    await expect(form.getByRole('button', { name: /Send Message/i })).toBeEnabled();
+  });
+
+  test('should preserve native validation without JavaScript', async ({ browser }) => {
+    const context = await browser.newContext({
+      baseURL: 'http://localhost:3000',
+      javaScriptEnabled: false,
+    });
+    const page = await context.newPage();
+    await page.goto('/contact');
+
+    const form = page.locator('form[data-contact-form="interactive"]');
+    await expect(form).toHaveAttribute('data-hydrated', 'false');
+    await expect(form).not.toHaveAttribute('novalidate', '');
+
+    const initialUrl = page.url();
+    await form.getByRole('button', { name: /Send Message/i }).click();
+
+    await expect(page).toHaveURL(initialUrl);
+    const nameIsMissing = await form
+      .getByRole('textbox', { name: /Name/i })
+      .evaluate((input: HTMLInputElement) => input.validity.valueMissing);
+    expect(nameIsMissing).toBe(true);
+    await context.close();
+  });
+
+  test('should show Italian validation errors', async ({ page }) => {
+    await page.goto('/it/contact');
+    const form = await waitForInteractiveContactForm(page);
+
+    await form.getByRole('button', { name: /Invia Messaggio/i }).click();
+
+    await expect(form.getByText(/Il nome deve avere almeno 2 caratteri/i)).toBeVisible();
+    await expect(form.getByText(/Indirizzo email non valido/i)).toBeVisible();
+    await expect(form.getByText(/Il messaggio deve avere almeno 10 caratteri/i)).toBeVisible();
   });
 });

@@ -1,4 +1,10 @@
-import { useState, useId, useEffect, type ReactNode } from "react";
+import {
+  useState,
+  useId,
+  useEffect,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
 import { useTranslation } from "react-i18next";
 import "../../i18n";
 import { useForm, type FieldErrors, type UseFormRegister } from "react-hook-form";
@@ -7,16 +13,31 @@ import { cn } from "../../utils/cn";
 import { Text } from "../ui/Typography";
 import { Section } from "../ui/ReactLayout";
 import {
+  CONTACT_FORM_LIMITS,
   contactSchema,
   type ContactErrorKey,
   type ContactFormData,
 } from "./contact-schema";
 import { submitContactForm } from "./submit-contact-form";
 
-type FormStatus = "idle" | "submitting" | "success" | "error";
+type FormStatus = "idle" | "success" | "error";
+type ContactFormTranslationKey =
+  | ContactErrorKey
+  | "contact.form.name"
+  | "contact.form.email"
+  | "contact.form.message"
+  | "contact.form.message_helper"
+  | "contact.form.placeholders.name"
+  | "contact.form.placeholders.email"
+  | "contact.form.placeholders.message";
+type ContactFormTranslator = (key: ContactFormTranslationKey) => string;
+
+const subscribeToHydration = () => () => undefined;
+const getClientHydrationSnapshot = () => true;
+const getServerHydrationSnapshot = () => false;
 
 function getErrorMessage(
-  t: (key: string) => string,
+  t: ContactFormTranslator,
   key: string | undefined,
 ): string | null {
   if (!key) return null;
@@ -64,6 +85,9 @@ function ContactFormField({
   hint?: string;
   children: ReactNode;
 }) {
+  const errorId = `${id}-error`;
+  const hintId = `${id}-hint`;
+
   return (
     <div className="space-y-2">
       <label
@@ -74,12 +98,18 @@ function ContactFormField({
       </label>
       {children}
       {hint && !error ? (
-        <Text size="sm" className="text-tertiary">
+        <Text id={hintId} size="sm" className="text-tertiary">
           {hint}
         </Text>
       ) : null}
       {error ? (
-        <Text color="error" size="sm" className="font-mono" role="alert">
+        <Text
+          id={errorId}
+          color="error"
+          size="sm"
+          className="font-mono"
+          role="alert"
+        >
           {error}
         </Text>
       ) : null}
@@ -96,7 +126,7 @@ function ContactFormFields({
   id: string;
   register: UseFormRegister<ContactFormData>;
   errors: FieldErrors<ContactFormData>;
-  t: (key: string) => string;
+  t: ContactFormTranslator;
 }) {
   const fieldClass = (hasError: boolean) =>
     cn(
@@ -116,7 +146,10 @@ function ContactFormFields({
           {...register("name")}
           required
           minLength={2}
+          maxLength={CONTACT_FORM_LIMITS.name}
           autoComplete="name"
+          aria-invalid={errors.name ? "true" : undefined}
+          aria-describedby={errors.name ? `${id}-name-error` : undefined}
           placeholder={t("contact.form.placeholders.name")}
           className={fieldClass(!!errors.name)}
         />
@@ -132,7 +165,10 @@ function ContactFormFields({
           type="email"
           {...register("email")}
           required
+          maxLength={CONTACT_FORM_LIMITS.email}
           autoComplete="email"
+          aria-invalid={errors.email ? "true" : undefined}
+          aria-describedby={errors.email ? `${id}-email-error` : undefined}
           placeholder={t("contact.form.placeholders.email")}
           className={fieldClass(!!errors.email)}
         />
@@ -149,7 +185,12 @@ function ContactFormFields({
           {...register("message")}
           required
           minLength={10}
+          maxLength={CONTACT_FORM_LIMITS.message}
           rows={5}
+          aria-invalid={errors.message ? "true" : undefined}
+          aria-describedby={
+            errors.message ? `${id}-message-error` : `${id}-message-hint`
+          }
           placeholder={t("contact.form.placeholders.message")}
           className={cn(fieldClass(!!errors.message), "resize-y min-h-[8rem]")}
         />
@@ -164,6 +205,12 @@ type ContactFormProps = {
 
 export function ContactForm({ locale = "en" }: ContactFormProps) {
   const { t, i18n } = useTranslation();
+  const isHydrated = useSyncExternalStore(
+    subscribeToHydration,
+    getClientHydrationSnapshot,
+    getServerHydrationSnapshot,
+  );
+
   useEffect(() => {
     if (i18n.language !== locale) {
       void i18n.changeLanguage(locale);
@@ -177,13 +224,13 @@ export function ContactForm({ locale = "en" }: ContactFormProps) {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    setStatus("submitting");
+    setStatus("idle");
     const result = await submitContactForm(data);
     if (result === "success") {
       setStatus("success");
@@ -200,13 +247,15 @@ export function ContactForm({ locale = "en" }: ContactFormProps) {
   return (
     <Section width="full">
       <form
-        noValidate
+        noValidate={isHydrated}
         name="contact"
         data-contact-form="interactive"
+        data-hydrated={isHydrated ? "true" : "false"}
         method="POST"
         data-netlify="true"
         netlify-honeypot="bot-field"
         onSubmit={handleSubmit(onSubmit)}
+        aria-busy={isSubmitting}
         className="space-y-6"
       >
         <input type="hidden" name="form-name" value="contact" />
@@ -221,11 +270,14 @@ export function ContactForm({ locale = "en" }: ContactFormProps) {
         <div className="space-y-3">
           <button
             type="submit"
-            disabled={status === "submitting"}
+            disabled={isSubmitting}
             className="group relative bg-text-main px-6 py-3 text-xs font-bold uppercase tracking-widest text-bg-app transition-all hover:pr-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-main/30 disabled:opacity-50"
           >
-            {status === "submitting" ? t("contact.form.sending") : t("contact.form.send")}
-            <span className="absolute right-4 opacity-0 transition-opacity group-hover:opacity-100">
+            {isSubmitting ? t("contact.form.sending") : t("contact.form.send")}
+            <span
+              aria-hidden="true"
+              className="absolute right-4 opacity-0 transition-opacity group-hover:opacity-100"
+            >
               &gt;
             </span>
           </button>
@@ -239,7 +291,7 @@ export function ContactForm({ locale = "en" }: ContactFormProps) {
               <Text color="error" size="sm" className="font-bold">
                 {t("contact.form.error")}
               </Text>
-              <Text color="error" size="sm" className="mt-1 text-it-red/90">
+              <Text color="error" size="sm" className="mt-1 text-it-red">
                 {t("contact.form.error_detail")}
               </Text>
             </div>
