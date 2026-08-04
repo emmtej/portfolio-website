@@ -1,0 +1,22 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import AboutTab from '../../components/about/AboutTab.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { locale: undefined } },
+    { params: { locale: 'it' } },
+  ];
+}
+---
+
+<MainLayout 
+	title="Emmanuel T. || Software Developer" 
+	description="Full-stack web developer based in Italy. React specialist with 4 years of experience building modern, responsive websites."
+>
+	<SiteHeader />
+	<div id="main-content" class="mt-6 md:mt-8">
+		<AboutTab />
+	</div>
+</MainLayout>

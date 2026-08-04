@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+
+# Build (Netlify publishes dist/)
+dist/
+.astro/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Tool caches
+.vite/
+.vitest.cache/
+*.tsbuildinfo
+.netlify/
+.fallow/
+
+# Test output
+coverage/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+playwright/.auth/
+
+# Editor & OS
+.vscode/*
+!.vscode/extensions.json
+.cursor/
+.idea/
+.DS_Store
+*.sw?
+
+# Local agent tooling
+.agents/
+skills-lock.json
+
+docs/
+.impeccable

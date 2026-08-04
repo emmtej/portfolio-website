@@ -1,0 +1,36 @@
+---
+import { getServerT, resolveLocale } from "../../utils/server-t";
+import ExperienceTimeline from "./ExperienceTimeline.astro";
+import Text from "../ui/Text.astro";
+import Section from "../ui/Section.astro";
+
+const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
+const t = getServerT(locale);
+
+const heroIntro = (t("about.hero_intro") as string)
+  .replace("<1>", '<span class="font-semibold text-text-main">')
+  .replace("</1>", "</span>")
+  .replace("<2>", '<span class="font-semibold text-text-main">')
+  .replace("</2>", "</span>");
+---
+
+<div class="space-y-10 md:space-y-12">
+  <Section>
+    <div class="space-y-4 md:space-y-5">
+      <Text set:html={heroIntro} />
+      <Text>{t("about.hero_description_2")}</Text>
+      <Text>{t("about.hero_description_3")}</Text>
+      <Text>{t("about.hero_description_4")}</Text>
+    </div>
+  </Section>
+
+  <Section title={t("about.experience_title") as string}>
+    <ExperienceTimeline locale={locale} />
+  </Section>
+
+  <Section title={t("about.languages_title") as string}>
+    <Text size="sm" className="text-secondary">
+      {t("about.languages_inline")}
+    </Text>
+  </Section>
+</div>

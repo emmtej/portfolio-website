@@ -1,0 +1,47 @@
+---
+import { getServerT, resolveLocale } from "../../utils/server-t";
+import Text from "../ui/Text.astro";
+import Badge from "../ui/Badge.astro";
+import Section from "../ui/Section.astro";
+import { AudioPlayer } from "./AudioPlayer";
+
+const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
+const t = getServerT(locale);
+const audioSoftware = ["iZotope RX", "Reaper", "DaVinci Resolve"];
+---
+
+<div class="space-y-10 md:space-y-12">
+  <Section>
+    <Text className="max-w-3xl">{t("audio.intro")}</Text>
+  </Section>
+
+  <Section title={t("audio.tools_title") as string}>
+    <div class="flex flex-wrap gap-2 md:gap-3">
+      {audioSoftware.map((software) => (
+        <Badge
+          variant="subtle"
+          className="px-4 py-2 hover:bg-text-main/5 hover:text-text-main/60 transition-colors"
+        >
+          {software}
+        </Badge>
+      ))}
+    </div>
+  </Section>
+
+  <Section title={t("audio.restoration_title") as string} width="wide">
+    <div class="max-w-3xl space-y-6">
+      <Text>{t("audio.restoration_desc")}</Text>
+
+      <AudioPlayer
+        client:load
+        playLabel={t("audio.play") as string}
+        pauseLabel={t("audio.pause") as string}
+        iframeTitle={t("audio.iframe_title") as string}
+      />
+
+      <Text variant="caption" className="text-secondary">
+        {t("audio.restoration_video_caption")}
+      </Text>
+    </div>
+  </Section>
+</div>

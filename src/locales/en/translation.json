@@ -1,0 +1,153 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": {
+      "title": "Something went wrong",
+      "description": "The application encountered an unexpected error. This might be due to a calculation error or a temporary issue.",
+      "retry": "Try again"
+    }
+  },
+  "app": {
+    "title": {
+      "greeting": "Hello, I'm"
+    }
+  },
+  "about": {
+    "hero_intro": "Full-stack web developer currently based in <1>Palagianello, Italy</1>, and originally from <2>New York City</2>.",
+    "hero_description_2": "My passion for travel inspired me to work freelance, giving me the flexibility to explore new places while helping small businesses and companies establish their online presence.",
+    "hero_description_3": "I specialize in building modern, responsive websites using the latest technologies to ensure my clients effectively connect with their audience.",
+    "hero_description_4": "Over the last 4 years, I’ve dedicated myself to the React ecosystem, blending frontend expertise with the backend logic needed to help small businesses outgrow their static sites.",
+    "experience_title": "Experience",
+    "languages_title": "Languages",
+    "languages_inline": "English (Native) · Spanish (Bilingual) · Italian (Conversational)",
+    "languages": {
+      "english_name": "English",
+      "english_level": "Native",
+      "spanish_name": "Spanish",
+      "spanish_level": "Bilingual",
+      "italian_name": "Italian",
+      "italian_level": "Conversational"
+    },
+    "experiences": {
+      "greative": {
+        "title": "Audio Engineering & Audio Mastering",
+        "company": "Greative Media (Contractor)",
+        "location": "Remote | Bologna, Italy",
+        "description": "Standardized diverse voice talent recordings to achieve a unified, high-fidelity studio sound using iZotope RX spectral de-noising and de-plosive modules. Utilized Reaper for precision editing and DaVinci Resolve for final audio-to-video synchronization, spatial balancing and adhering to strict loudness standards (LUFS) for diverse online platforms."
+      },
+      "consultant": {
+        "title": "Frontend Development",
+        "company": "Consultant",
+        "location": "Remote | Brooklyn, New York",
+        "description": "Over the last few years, I've worked with various clients to build modern, responsive web applications, focusing on the React ecosystem and performance optimization."
+      },
+      "it_desk": {
+        "title": "IT Service Desk",
+        "company": "Brooklyn College",
+        "location": "Brooklyn, NY",
+        "description": "Provided technical support and troubleshooting for students and faculty, managing hardware and software deployments across the campus."
+      }
+    }
+  },
+  "nav": {
+    "about": "About",
+    "development": "Development",
+    "audio": "Audio Mixing & Mastering",
+    "contact": "Contact",
+    "toggle_theme": "Toggle theme",
+    "toggle_language": "Toggle language"
+  },
+  "dev": {
+    "intro": "I build production-ready web apps for creative workflows—billing tools, bilingual portfolios, and client-facing products in React, TypeScript, and Tailwind CSS.",
+    "projects_title": "Projects",
+    "view_project": "View details",
+    "tech_stack": "Tech Stack",
+    "features_title": "What I built",
+    "skills_title": "Skills",
+    "view_source": "View Source",
+    "view_demo": "View demo",
+    "links_title": "Links",
+    "links_private": "Source and demo are not public for this project.",
+    "source_only_note": "No separate live demo — the repository is the production codebase for this site.",
+    "demo_only_note": "Live demo is available; source is not public.",
+    "close_modal": "Close project details",
+    "projects": {
+      "invoice": {
+        "title": "InVoice",
+        "shortDesc": "Turns voice-over scripts into itemized invoices with per-character word counts and exportable billing documents.",
+        "fullDesc": "InVoice helps voice actors turn scripts into accurate invoices. It parses character dialogue, counts billable words, applies reusable rate presets, and exports PDF, DOCX, and plain-text invoices so performers spend less time on admin.",
+        "features": [
+          "Parses scripts into per-character word counts for faster billing prep.",
+          "Built accessible workflows with Mantine UI components.",
+          "Used Zustand to keep single-document and multi-document tools in sync.",
+          "Added reusable rate presets and export to PDF, DOCX, and plain text."
+        ],
+        "previewAlt": "InVoice dashboard showing script parser, character word counts, and invoice preview"
+      },
+      "portfolio": {
+        "title": "Portfolio Website v2",
+        "shortDesc": "This site — bilingual Astro + React portfolio with tested navigation, contact flow, and static deploy.",
+        "fullDesc": "Portfolio Website v2 is the site you are viewing, rebuilt for production quality. It combines restrained typography with accessibility, EN/IT localization, and a static Astro architecture with React islands for interactive sections.",
+        "features": [
+          "Shipped 11 static routes with EN/IT localization and browser-language detection.",
+          "Built keyboard-accessible navigation, modals, and contact validation with Playwright coverage.",
+          "Added light/dark theme persistence with no flash on first paint.",
+          "Configured Netlify deploy, honeypot spam protection, and security headers."
+        ],
+        "previewAlt": "Portfolio site with navigation, bilingual tabs, and experience timeline"
+      }
+    }
+  },
+  "audio": {
+    "intro": "I restore field-recorded dialogue and mix voice content to streaming loudness targets — using iZotope RX for repair, Reaper for editing, and DaVinci Resolve for final delivery.",
+    "tools_title": "Tools I work in",
+    "restoration_title": "Before & after",
+    "restoration_desc": "A before/after pass on dialogue recorded on location: background noise reduced, words clarified, and levels matched for podcast and video delivery.",
+    "restoration_video_caption": "Video walkthrough of the RX repair chain, edit decisions, and final level match.",
+    "play": "Play",
+    "pause": "Pause",
+    "iframe_title": "Audio restoration demo video"
+  },
+  "contact": {
+    "title": "Get in touch",
+    "intro": "I'm currently available for freelance work and open to new opportunities. If you have a project in mind or just want to say hello, feel free to reach out.",
+    "availability": {
+      "location": "Italy",
+      "available": "Typically available · {{localWindow}} your time ({{romeWindow}} Rome)",
+      "away": "Available in {{countdown}} · {{localNext}} your time (08:00 Rome)",
+      "available_short": "Available",
+      "away_short": "Currently away"
+    },
+    "find_me_title": "Find me on",
+    "copied": "Copied!",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent",
+      "success_detail": "Thanks — I'll reply within 1–2 business days.",
+      "success_action": "Send another message",
+      "error": "Message could not be sent",
+      "error_detail": "Please try again in a moment, or email me directly.",
+      "message_helper": "Share scope, timeline, or links if helpful.",
+      "placeholders": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "message": "Tell me more about your project..."
+      },
+      "errors": {
+        "name": "Name must be at least 2 characters",
+        "email": "Invalid email address",
+        "message": "Message must be at least 10 characters"
+      }
+    }
+  },
+  "404": {
+    "title": "404 - Page Not Found",
+    "description": "The page you are looking for does not exist.",
+    "message": "It seems you've ventured into unknown territory.",
+    "back": "Return to base"
+  }
+}

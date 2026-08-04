@@ -1,0 +1,22 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import AudioTab from '../../components/audio/AudioTab.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { locale: undefined } },
+    { params: { locale: 'it' } },
+  ];
+}
+---
+
+<MainLayout 
+	title="Emmanuel T. || Audio Mixing & Mastering" 
+	description="Audio mixing, mastering, and restoration services. Specializing in dialogue editing and post-production for digital media."
+>
+	<SiteHeader />
+	<div id="main-content" class="mt-6 md:mt-8">
+		<AudioTab />
+	</div>
+</MainLayout>

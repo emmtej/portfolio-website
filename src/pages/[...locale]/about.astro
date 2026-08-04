@@ -1,0 +1,11 @@
+---
+export function getStaticPaths() {
+  return [
+    { params: { locale: undefined } },
+    { params: { locale: 'it' } },
+  ];
+}
+
+const { locale } = Astro.params;
+return Astro.redirect(locale === 'it' ? '/it' : '/', 301);
+---

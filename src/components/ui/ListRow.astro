@@ -1,0 +1,49 @@
+---
+import type { HTMLTag, Polymorphic } from "astro/types";
+import { cn } from "../../utils/cn";
+import Text from "./Text.astro";
+
+type Props<Tag extends HTMLTag = "div"> = Polymorphic<{ as?: Tag }> & {
+  title: string;
+  subtitle?: string;
+  className?: string;
+  interactive?: boolean;
+};
+
+const { 
+  title, 
+  subtitle, 
+  className, 
+  interactive = false,
+  as: Component = "div",
+  ...props
+} = Astro.props;
+---
+
+<Component 
+  class={cn(
+    "flex items-center gap-4 py-3.5 border-b border-border-subtle text-left w-full transition-colors duration-normal", 
+    interactive && "group hover:bg-text-main/[0.02] cursor-pointer", 
+    className
+  )}
+  {...props}
+>
+  <div class={cn(
+    "flex shrink-0 items-center justify-center min-w-[2rem] text-text-muted/60 transition-colors",
+    interactive && "group-hover:text-text-main",
+  )}>
+    <slot name="prefix" />
+  </div>
+  <div class="flex-1 min-w-0">
+    <Text
+      variant="h3"
+      className={cn("truncate transition-colors", interactive && "group-hover:text-text-main")}
+    >
+      {title}
+    </Text>
+    {subtitle ? <Text variant="body" size="sm" className="text-secondary truncate mt-0.5">{subtitle}</Text> : null}
+  </div>
+  <div class="flex shrink-0 items-center gap-3">
+    <slot name="trailing" />
+  </div>
+</Component>

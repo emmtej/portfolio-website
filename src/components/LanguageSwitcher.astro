@@ -1,0 +1,33 @@
+---
+import { getServerT, resolveLocale } from "../utils/server-t";
+import ChromeControl from "./ui/ChromeControl.astro";
+import { cn } from "../utils/cn";
+
+const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
+const t = getServerT(locale);
+const pathname = new URL(Astro.request.url).pathname;
+
+const nextLocale = locale === "en" ? "it" : "en";
+
+let targetUrl = pathname;
+if (locale === "en") {
+  targetUrl = `/it${pathname === "/" ? "" : pathname}`;
+} else {
+  targetUrl = pathname.replace(/^\/it/, "") || "/";
+}
+---
+
+<ChromeControl
+  as="a"
+  href={targetUrl}
+  className="hover:bg-border-subtle transition-colors duration-200"
+  aria-label={t("nav.toggle_language") as string}
+>
+  <span class={cn(locale === "en" ? "text-text-main" : "text-text-muted")}>
+    EN
+  </span>
+  <span class="text-border-subtle">/</span>
+  <span class={cn(locale === "it" ? "text-text-main" : "text-text-muted")}>
+    IT
+  </span>
+</ChromeControl>

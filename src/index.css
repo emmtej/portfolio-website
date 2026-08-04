@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans:
+    "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji";
+
+  /* OKLCH Semantic Tokens */
+  --color-bg-app: oklch(99.5% 0.005 60);
+  --color-text-main: oklch(30% 0.01 60);
+  --color-text-muted: oklch(55% 0.01 60);
+  --color-border-subtle: oklch(95% 0.005 60);
+
+  /* Semantic Action Tokens */
+  --color-accent: var(--color-text-main);
+  --color-on-accent: var(--color-bg-app);
+  --color-surface-muted: oklch(97% 0.005 60);
+
+  /* Italian Matte Palette */
+  --color-it-sage: oklch(92% 0.02 145);
+  --color-it-sage-text: oklch(60% 0.03 145);
+  --color-it-green: oklch(68% 0.04 145);
+  --color-it-white: oklch(96% 0.01 60);
+  --color-it-red: oklch(65% 0.06 20);
+  --color-it-cream: oklch(97.5% 0.01 60);
+  --color-it-rose: oklch(95% 0.02 20);
+
+  /* Typography */
+  --font-size-tiny: 10px;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-base: 15px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 28px;
+  --font-size-2xl: 42px;
+  --font-size-3xl: 56px;
+  --font-size-4xl: 72px;
+  --font-size-5xl: 96px;
+
+  /* Tracking */
+  --tracking-widest: 0.3em;
+  --tracking-wider: 0.15em;
+  --tracking-wide: 0.1em;
+
+  /* Durations */
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 1000ms;
+
+  /* Layout — shared chrome band (fixed corners + sticky nav) */
+  --spacing-chrome-inset: 1rem;
+  --spacing-chrome-control: 2.25rem;
+  --spacing-chrome-height: calc(var(--spacing-chrome-inset) + var(--spacing-chrome-control));
+
+  /* Contact: Rome availability dot (when in window) */
+  --animate-rome-availability-pulse: rome-availability-pulse 2.8s ease-in-out
+    infinite;
+
+  @keyframes rome-availability-pulse {
+    0%,
+    100% {
+      opacity: 0.5;
+      box-shadow: 0 0 2px var(--color-it-green);
+    }
+    50% {
+      opacity: 1;
+      box-shadow:
+        0 0 6px var(--color-it-green),
+        0 0 14px var(--color-it-green);
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  @theme {
+    --spacing-chrome-inset: 1.5rem;
+  }
+}
+
+:root.dark {
+  --color-bg-app: oklch(20% 0.01 60);
+  --color-text-main: oklch(90% 0.01 60);
+  --color-text-muted: oklch(65% 0.01 60);
+  --color-border-subtle: oklch(30% 0.01 60);
+
+  --color-surface-muted: oklch(25% 0.01 60);
+
+  /* Italian Matte Palette (Dark) */
+  --color-it-sage: oklch(35% 0.02 145);
+  --color-it-sage-text: oklch(75% 0.03 145);
+  --color-it-green: oklch(45% 0.04 145);
+  --color-it-white: oklch(85% 0.01 60);
+  --color-it-red: oklch(45% 0.06 20);
+  --color-it-cream: oklch(35% 0.01 60);
+  --color-it-rose: oklch(35% 0.02 20);
+}
+
+body {
+  @apply bg-bg-app text-text-main antialiased;
+}
+
+@layer utilities {
+  .text-secondary {
+    @apply text-text-muted/80;
+  }
+
+  .text-tertiary {
+    @apply text-text-muted/60;
+  }
+
+  .text-inactive {
+    @apply text-text-muted/55;
+  }
+
+  .placeholder-secondary::placeholder {
+    @apply text-text-muted/75;
+  }
+
+  .scrollbar-hide {
+    /* IE and Edge */
+    -ms-overflow-style: none;
+    /* Firefox */
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+  }
+
+  .animate-rome-availability-pulse {
+    animation: rome-availability-pulse 2.8s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

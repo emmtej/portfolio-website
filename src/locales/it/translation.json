@@ -1,0 +1,153 @@
+{
+  "common": {
+    "loading": "Caricamento...",
+    "error": {
+      "title": "Qualcosa è andato storto",
+      "description": "L'applicazione ha riscontrato un errore inaspettato. Potrebbe trattarsi di un errore di calcolo o di un problema temporaneo.",
+      "retry": "Riprova"
+    }
+  },
+  "app": {
+    "title": {
+      "greeting": "Ciao, sono"
+    }
+  },
+  "about": {
+    "hero_intro": "Sviluppatore web full-stack con base a <1>Palagianello, Italia</1>, e originario di <2>New York City</2>.",
+    "hero_description_2": "La mia passione per i viaggi mi ha spinto a lavorare come freelance, unendo il desiderio di esplorare nuovi posti alla voglia di aiutare piccole imprese e attività a costruire una solida presenza online.",
+    "hero_description_3": "Sviluppo siti web moderni e performanti, utilizzando le tecnologie più recenti per aiutare i miei clienti a comunicare in modo efficace con il proprio pubblico.",
+    "hero_description_4": "Negli ultimi 4 anni mi sono specializzato nell'ecosistema React, unendo l'esperienza frontend alla logica backend per aiutare le piccole attività a crescere e superare i limiti dei siti statici.",
+    "experience_title": "Esperienza",
+    "languages_title": "Lingue",
+    "languages_inline": "Inglese (Madrelingua) · Spagnolo (Bilingue) · Italiano (Conversazionale)",
+    "languages": {
+      "english_name": "Inglese",
+      "english_level": "Madrelingua",
+      "spanish_name": "Spagnolo",
+      "spanish_level": "Bilingue",
+      "italian_name": "Italiano",
+      "italian_level": "Conversazionale"
+    },
+    "experiences": {
+      "greative": {
+        "title": "Ingegneria Audio e Mastering Audio",
+        "company": "Greative Media (Collaboratore)",
+        "location": "Remoto | Bologna, Italia",
+        "description": "Mi sono occupato di ottimizzare e standardizzare diverse registrazioni vocali per ottenere un audio professionale ad alta fedeltà. Ho utilizzato iZotope RX per il restauro, Reaper per l'editing e DaVinci Resolve per il mixaggio finale e la sincronizzazione video, assicurando il rispetto degli standard di loudness (LUFS)."
+      },
+      "consultant": {
+        "title": "Sviluppo Frontend",
+        "company": "Consulente",
+        "location": "Remoto | Brooklyn, New York",
+        "description": "Ho lavorato con diversi clienti per costruire applicazioni web moderne e responsive, concentrandomi sull'ecosistema React, sulla gestione dello stato e sull'ottimizzazione delle performance."
+      },
+      "it_desk": {
+        "title": "Help desk IT",
+        "company": "Brooklyn College",
+        "location": "Brooklyn, NY",
+        "description": "Ho fornito assistenza tecnica a studenti e docenti, gestendo la risoluzione di problemi hardware e software e l'installazione di nuovi dispositivi in tutto il campus."
+      }
+    }
+  },
+  "nav": {
+    "about": "Chi Sono",
+    "development": "Sviluppo",
+    "audio": "Mixaggio e Mastering Audio",
+    "contact": "Contatti",
+    "toggle_theme": "Cambia tema",
+    "toggle_language": "Cambia lingua"
+  },
+  "dev": {
+    "intro": "Realizzo applicazioni web pronte per la produzione per flussi creativi: strumenti di fatturazione, portfolio bilingue e prodotti per clienti con React, TypeScript e Tailwind CSS.",
+    "projects_title": "Progetti",
+    "view_project": "Vedi dettagli",
+    "tech_stack": "Tech Stack",
+    "features_title": "Cosa ho costruito",
+    "skills_title": "Competenze",
+    "view_source": "Codice sorgente",
+    "view_demo": "Apri demo",
+    "links_title": "Link",
+    "links_private": "Codice sorgente e demo non sono pubblici per questo progetto.",
+    "source_only_note": "Nessuna demo live separata — il repository è il codice di produzione di questo sito.",
+    "demo_only_note": "Demo live disponibile; il codice sorgente non è pubblico.",
+    "close_modal": "Chiudi dettagli progetto",
+    "projects": {
+      "invoice": {
+        "title": "InVoice",
+        "shortDesc": "Trasforma copioni voice-over in fatture dettagliate con conteggio parole per personaggio ed export dei documenti di fatturazione.",
+        "fullDesc": "InVoice aiuta chi lavora con la voce a trasformare i copioni in fatture accurate. Analizza i dialoghi per personaggio, conta le parole fatturabili, applica preset tariffari riutilizzabili ed esporta fatture in PDF, DOCX e testo semplice.",
+        "features": [
+          "Analizza i copioni in conteggi parole per personaggio per accelerare la fatturazione.",
+          "Workflow accessibili costruiti con i componenti Mantine UI.",
+          "Zustand per sincronizzare strumenti a documento singolo e multi-documento.",
+          "Preset tariffari riutilizzabili ed export in PDF, DOCX e testo semplice."
+        ],
+        "previewAlt": "Dashboard InVoice con parser del copione, conteggio parole per personaggio e anteprima fattura"
+      },
+      "portfolio": {
+        "title": "Sito Portfolio v2",
+        "shortDesc": "Questo sito — portfolio bilingue Astro + React con navigazione testata, form di contatto e deploy statico.",
+        "fullDesc": "Sito Portfolio v2 è il sito che stai visitando, ricostruito con qualità da produzione. Unisce tipografia sobria ad accessibilità, localizzazione EN/IT e un'architettura statica Astro con isole React per le aree interattive.",
+        "features": [
+          "11 route statiche con localizzazione EN/IT e rilevamento automatico della lingua.",
+          "Navigazione, modali e validazione del contatto accessibili da tastiera, con copertura Playwright.",
+          "Persistenza del tema chiaro/scuro senza flash al primo caricamento.",
+          "Deploy Netlify, honeypot anti-spam e header di sicurezza configurati."
+        ],
+        "previewAlt": "Sito portfolio con navigazione, schede bilingue e timeline esperienze"
+      }
+    }
+  },
+  "audio": {
+    "intro": "Restauro dialoghi registrati sul campo e mixo contenuti voce su target di loudness per streaming — con iZotope RX per il ripristino, Reaper per il montaggio e DaVinci Resolve per la consegna finale.",
+    "tools_title": "Strumenti che uso",
+    "restoration_title": "Prima e dopo",
+    "restoration_desc": "Un passaggio prima/dopo su dialoghi registrati in location: rumore di fondo ridotto, parole rese più leggibili e livelli allineati per podcast e video.",
+    "restoration_video_caption": "Video con la catena di ripristino RX, le scelte di montaggio e il match finale dei livelli.",
+    "play": "Riproduci",
+    "pause": "Pausa",
+    "iframe_title": "Video dimostrativo di restauro audio"
+  },
+  "contact": {
+    "title": "Contattami",
+    "intro": "Sono disponibile per nuovi progetti freelance. Se hai un'idea in mente o vuoi solo salutarmi, scrivimi pure.",
+    "availability": {
+      "location": "Italia",
+      "available": "Di solito sono disponibile · {{localWindow}} ora locale ({{romeWindow}} Roma)",
+      "away": "Sarò di nuovo disponibile tra {{countdown}} · alle {{localNext}} ora locale (08:00 Roma)",
+      "available_short": "Disponibile",
+      "away_short": "Al momento non disponibile"
+    },
+    "find_me_title": "Trovami su",
+    "copied": "Copiato!",
+    "form": {
+      "name": "Nome",
+      "email": "Email",
+      "message": "Messaggio",
+      "send": "Invia Messaggio",
+      "sending": "Invio in corso...",
+      "success": "Messaggio inviato",
+      "success_detail": "Grazie — rispondo entro 1–2 giorni lavorativi.",
+      "success_action": "Invia un altro messaggio",
+      "error": "Impossibile inviare il messaggio",
+      "error_detail": "Riprova tra poco oppure scrivimi direttamente via email.",
+      "message_helper": "Indica ambito, tempistiche o link utili, se li hai.",
+      "placeholders": {
+        "name": "Nome e cognome",
+        "email": "nome@esempio.com",
+        "message": "Parlami del tuo progetto..."
+      },
+      "errors": {
+        "name": "Il nome deve avere almeno 2 caratteri",
+        "email": "Indirizzo email non valido",
+        "message": "Il messaggio deve avere almeno 10 caratteri"
+      }
+    }
+  },
+  "404": {
+    "title": "404 - Pagina non trovata",
+    "description": "La pagina che stai cercando non esiste.",
+    "message": "Sembra che tu ti sia avventurato in un territorio sconosciuto.",
+    "back": "Torna alla base"
+  }
+}

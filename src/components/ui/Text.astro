@@ -1,0 +1,46 @@
+---
+import type { HTMLTag, Polymorphic } from "astro/types";
+import { cn } from "../../utils/cn";
+import { styles } from "./primitives.tokens";
+
+type Props<Tag extends HTMLTag = "p"> = Polymorphic<{ as?: Tag }> & {
+  variant?: keyof typeof styles.text.variants;
+  size?: keyof typeof styles.text.sizes;
+  color?: keyof typeof styles.text.colors;
+  mono?: boolean;
+  className?: string;
+};
+
+const {
+  variant = "body",
+  size,
+  color,
+  mono,
+  as: Component,
+  className,
+  ...props
+} = Astro.props;
+
+const defaultAs = ["h1", "h2", "h3"].includes(variant) ? variant : (variant === "body" ? "p" : "span");
+const defaultSize = variant === "body" ? "base" : (variant === "caption" ? "tiny" : (variant === "detail" ? "sm" : (["h1", "h2", "h3"].includes(variant) ? undefined : "xs")));
+const defaultColor = variant === "caption" ? "muted" : (variant === "body" ? "main" : "muted");
+const defaultMono = variant === "meta" || variant === "detail";
+
+const FinalComponent = Component ?? defaultAs;
+const finalSize = size ?? defaultSize;
+const finalColor = color ?? defaultColor;
+const isMono = mono ?? defaultMono;
+---
+
+<FinalComponent
+  class={cn(
+    styles.text.variants[variant],
+    finalSize && styles.text.sizes[finalSize as keyof typeof styles.text.sizes],
+    finalColor && styles.text.colors[finalColor as keyof typeof styles.text.colors],
+    isMono && "font-mono",
+    className
+  )}
+  {...props}
+>
+  <slot />
+</FinalComponent>

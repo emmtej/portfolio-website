@@ -1,0 +1,128 @@
+---
+import { cn } from "../../utils/cn";
+import Text from "../ui/Text.astro";
+
+interface Props {
+  label: string;
+  href: string;
+  value: string;
+  icon: string;
+  copiedLabel: string;
+}
+
+const { label, href, value, icon, copiedLabel } = Astro.props;
+const isMailto = href.startsWith("mailto:");
+const Component = isMailto ? "button" : "a";
+---
+
+<Component
+  class={cn(
+    "social-link group flex w-full items-center gap-4 border-b border-border-subtle py-4 text-left",
+    "transition-colors duration-normal hover:bg-text-main/[0.02]",
+    "cursor-pointer appearance-none border-x-0 border-t-0 bg-transparent px-0",
+    "focus:outline-none focus-visible:ring-2 focus-visible:ring-text-main/20",
+  )}
+  href={isMailto ? undefined : href}
+  target={isMailto ? undefined : "_blank"}
+  rel={isMailto ? undefined : "noopener noreferrer"}
+  data-href={href}
+  data-is-mailto={isMailto ? "true" : "false"}
+  data-copied-label={copiedLabel}
+  type={isMailto ? "button" : undefined}
+  aria-label={isMailto ? `Copy ${label}: ${value}` : `Visit ${label}: ${value}`}
+>
+  <div
+    class="flex min-w-[2rem] shrink-0 items-center self-center text-text-muted/60 transition-colors group-hover:text-text-main"
+  >
+    <Text variant="meta" size="tiny" color="muted" className="group-hover:text-text-main/60">
+      [{icon}]
+    </Text>
+  </div>
+
+  <div class="min-w-0 flex-1">
+    <Text
+      variant="h3"
+      as="p"
+      className="transition-colors group-hover:text-text-main"
+    >
+      {label}
+    </Text>
+
+    <div class="relative mt-1 min-h-[1.25rem]">
+      <span
+        class="copy-feedback pointer-events-none absolute inset-0 text-[10px] font-mono uppercase tracking-widest text-it-green opacity-0 transition-all duration-300 translate-y-2"
+        aria-live="polite"
+      >
+        {copiedLabel}
+      </span>
+      <span
+        class="value-display block break-all font-mono text-sm leading-snug text-secondary transition-all duration-500 ease-out group-hover:text-text-main"
+      >
+        {value}
+      </span>
+    </div>
+  </div>
+
+  <div class="flex shrink-0 items-center self-center pl-2">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 15 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      class="text-tertiary transition-all duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-text-main"
+      aria-hidden="true"
+    >
+      <path
+        d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+        fill="currentColor"
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+      />
+    </svg>
+  </div>
+</Component>
+
+<script>
+  document.querySelectorAll(".social-link").forEach((el) => {
+    el.addEventListener("click", async (e) => {
+      const isMailto = el.getAttribute("data-is-mailto") === "true";
+
+      if (isMailto) {
+        e.preventDefault();
+        const href = el.getAttribute("data-href");
+        const email = href?.replace("mailto:", "") || "";
+        const copiedLabel = el.getAttribute("data-copied-label") || "Copied!";
+
+        try {
+          await navigator.clipboard.writeText(email);
+
+          const feedback = el.querySelector(".copy-feedback");
+          const display = el.querySelector(".value-display");
+
+          if (feedback && display) {
+            if (!feedback.textContent?.trim()) {
+              feedback.textContent = copiedLabel;
+            }
+            feedback.classList.remove("opacity-0", "translate-y-2", "pointer-events-none");
+            feedback.classList.add("opacity-100", "translate-y-0");
+
+            display.classList.remove("opacity-100", "translate-y-0");
+            display.classList.add("opacity-0", "-translate-y-2");
+
+            setTimeout(() => {
+              feedback.classList.add("opacity-0", "translate-y-2", "pointer-events-none");
+              feedback.classList.remove("opacity-100", "translate-y-0");
+
+              display.classList.add("opacity-100", "translate-y-0");
+              display.classList.remove("opacity-0", "-translate-y-2");
+            }, 2000);
+          }
+        } catch (err) {
+          console.error("Failed to copy email:", err);
+          if (href) window.location.href = href;
+        }
+      }
+    });
+  });
+</script>
