@@ -54,7 +54,7 @@ export const ChromeControl: React.FC<ChromeControlProps> = ({ children, classNam
 );
 
 // --- ListRow ---
-interface ListRowProps extends React.HTMLAttributes<HTMLElement> {
+interface ListRowProps extends Omit<React.HTMLAttributes<HTMLElement>, "prefix"> {
   prefix?: React.ReactNode;
   title: string;
   subtitle?: string;
@@ -76,7 +76,7 @@ export const ListRow: React.FC<ListRowProps> = ({ prefix, title, subtitle, trail
     >
       {prefix ? (
         <div className={cn(
-          "flex shrink-0 items-center justify-center min-w-[2rem] text-text-muted/60 transition-colors",
+          "flex shrink-0 items-center justify-center min-w-[2rem] text-text-tertiary transition-colors",
           interactive && "group-hover:text-text-main",
         )}>
           {prefix}
@@ -84,7 +84,7 @@ export const ListRow: React.FC<ListRowProps> = ({ prefix, title, subtitle, trail
       ) : null}
       <div className="flex-1 min-w-0">
         <Heading className={cn("truncate transition-colors", interactive && "group-hover:text-text-main")}>{title}</Heading>
-        {subtitle ? <Text className="text-sm text-text-muted/60 truncate mt-0.5">{subtitle}</Text> : null}
+        {subtitle ? <Text className="mt-0.5 truncate text-sm text-text-tertiary">{subtitle}</Text> : null}
       </div>
       {trailing ? <div className="flex shrink-0 items-center gap-3">{trailing}</div> : null}
     </Component>

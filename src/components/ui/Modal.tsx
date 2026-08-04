@@ -139,7 +139,7 @@ export const Modal = ({
               type="button"
               aria-label="Close"
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 p-2 bg-bg-app border border-border-subtle text-text-muted hover:text-text-main transition-colors"
+              className="absolute top-4 right-4 z-10 border border-border-subtle bg-bg-app p-2 text-text-secondary transition-colors hover:text-text-main"
             >
               <CloseIcon />
             </button>

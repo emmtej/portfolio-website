@@ -1,14 +1,14 @@
 export const styles = {
   text: {
     variants: {
-      body: "text-text-main/70 leading-relaxed tracking-tight whitespace-pre-line",
+      body: "leading-relaxed tracking-tight whitespace-pre-line",
       label: "uppercase tracking-widest transition-colors",
       meta: "uppercase tracking-wider font-mono",
       detail: "font-mono normal-case tracking-normal text-secondary leading-snug",
       eyebrow: "font-bold tracking-wide uppercase",
-      caption: "text-text-muted/60 leading-tight",
+      caption: "text-text-secondary leading-tight",
       h1: "font-bold text-text-main tracking-tight text-[clamp(2.5rem,10vw,6rem)] leading-[0.85]",
-      h2: "font-bold uppercase tracking-widest text-text-main/40 text-xs md:text-sm",
+      h2: "font-bold uppercase tracking-widest text-text-secondary text-xs md:text-sm",
       h3: "font-bold text-text-main tracking-tight text-base md:text-md",
     },
     sizes: {
@@ -23,15 +23,15 @@ export const styles = {
     },
     colors: {
       main: "text-text-main",
-      muted: "text-text-muted",
+      muted: "text-text-secondary",
       error: "text-it-red",
     },
   },
   badge: {
     variants: {
-      outline: "border border-border-subtle text-text-muted/80",
-      subtle: "bg-surface-muted text-text-muted/80",
-      ghost: "text-text-muted/60 hover:text-text-main transition-colors",
+      outline: "border border-border-subtle text-text-secondary",
+      subtle: "bg-surface-muted text-text-secondary",
+      ghost: "text-text-tertiary hover:text-text-main transition-colors",
     },
     sizes: {
       xs: "px-2 py-0.5 text-[10px]",

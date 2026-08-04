@@ -41,7 +41,7 @@ class ErrorBoundaryClass extends Component<Props & { t: TFunction }, State> {
 
       return (
         <div className="p-8 border border-it-red/20 bg-it-rose/10 flex flex-col items-center justify-center space-y-4 text-center">
-          <Title className="text-it-red/60 uppercase">
+          <Title className="text-it-red uppercase">
             {t("common.error.title")}
           </Title>
           <Text className="text-sm max-w-md">
@@ -51,7 +51,7 @@ class ErrorBoundaryClass extends Component<Props & { t: TFunction }, State> {
             variant="outline"
             size="sm"
             onClick={this.handleReset}
-            className="mt-4 border-it-red/20 hover:border-it-red/40 text-it-red/60"
+            className="mt-4 border-it-red/20 text-it-red hover:border-it-red/40"
           >
             {t("common.error.retry")}
           </Button>

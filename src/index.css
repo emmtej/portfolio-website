@@ -8,7 +8,11 @@
   /* OKLCH Semantic Tokens */
   --color-bg-app: oklch(99.5% 0.005 60);
   --color-text-main: oklch(30% 0.01 60);
-  --color-text-muted: oklch(55% 0.01 60);
+  --color-text-secondary: oklch(48% 0.01 60);
+  --color-text-tertiary: oklch(52% 0.01 60);
+  --color-text-inactive: oklch(54% 0.01 60);
+  --color-text-placeholder: oklch(50% 0.01 60);
+  --color-text-muted: var(--color-text-secondary);
   --color-border-subtle: oklch(95% 0.005 60);
 
   /* Semantic Action Tokens */
@@ -18,10 +22,10 @@
 
   /* Italian Matte Palette */
   --color-it-sage: oklch(92% 0.02 145);
-  --color-it-sage-text: oklch(60% 0.03 145);
-  --color-it-green: oklch(68% 0.04 145);
+  --color-it-sage-text: oklch(46% 0.08 145);
+  --color-it-green: oklch(46% 0.08 145);
   --color-it-white: oklch(96% 0.01 60);
-  --color-it-red: oklch(65% 0.06 20);
+  --color-it-red: oklch(48% 0.1 20);
   --color-it-cream: oklch(97.5% 0.01 60);
   --color-it-rose: oklch(95% 0.02 20);
 
@@ -82,17 +86,21 @@
 :root.dark {
   --color-bg-app: oklch(20% 0.01 60);
   --color-text-main: oklch(90% 0.01 60);
-  --color-text-muted: oklch(65% 0.01 60);
+  --color-text-secondary: oklch(72% 0.01 60);
+  --color-text-tertiary: oklch(68% 0.01 60);
+  --color-text-inactive: oklch(64% 0.01 60);
+  --color-text-placeholder: oklch(70% 0.01 60);
+  --color-text-muted: var(--color-text-secondary);
   --color-border-subtle: oklch(30% 0.01 60);
 
   --color-surface-muted: oklch(25% 0.01 60);
 
   /* Italian Matte Palette (Dark) */
   --color-it-sage: oklch(35% 0.02 145);
-  --color-it-sage-text: oklch(75% 0.03 145);
-  --color-it-green: oklch(45% 0.04 145);
+  --color-it-sage-text: oklch(72% 0.07 145);
+  --color-it-green: oklch(72% 0.07 145);
   --color-it-white: oklch(85% 0.01 60);
-  --color-it-red: oklch(45% 0.06 20);
+  --color-it-red: oklch(72% 0.09 20);
   --color-it-cream: oklch(35% 0.01 60);
   --color-it-rose: oklch(35% 0.02 20);
 }
@@ -103,19 +111,19 @@ body {
 
 @layer utilities {
   .text-secondary {
-    @apply text-text-muted/80;
+    @apply text-text-secondary;
   }
 
   .text-tertiary {
-    @apply text-text-muted/60;
+    @apply text-text-tertiary;
   }
 
   .text-inactive {
-    @apply text-text-muted/55;
+    @apply text-text-inactive;
   }
 
   .placeholder-secondary::placeholder {
-    @apply text-text-muted/75;
+    @apply text-text-placeholder;
   }
 
   .scrollbar-hide {

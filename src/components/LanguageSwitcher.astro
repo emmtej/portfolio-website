@@ -23,11 +23,11 @@ if (locale === "en") {
   className="hover:bg-border-subtle transition-colors duration-200"
   aria-label={t("nav.toggle_language") as string}
 >
-  <span class={cn(locale === "en" ? "text-text-main" : "text-text-muted")}>
+  <span class={cn(locale === "en" ? "text-text-main" : "text-text-inactive")}>
     EN
   </span>
   <span class="text-border-subtle">/</span>
-  <span class={cn(locale === "it" ? "text-text-main" : "text-text-muted")}>
+  <span class={cn(locale === "it" ? "text-text-main" : "text-text-inactive")}>
     IT
   </span>
 </ChromeControl>

@@ -70,7 +70,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
             </div>
 
             <div
-              className="mt-1 flex size-8 shrink-0 items-center justify-center border border-text-main/20 text-text-main/60 transition-all duration-normal group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0"
+              className="mt-1 flex size-8 shrink-0 items-center justify-center border border-text-main/20 text-text-tertiary transition-all duration-normal group-hover:translate-x-1 group-hover:text-text-main motion-reduce:group-hover:translate-x-0"
               aria-hidden="true"
             >
               <ArrowRightIcon />
@@ -81,7 +81,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
             {previewTech.map((techItem) => (
               <Badge
                 key={techItem}
-                className="bg-surface-muted text-secondary transition-colors duration-normal group-hover:bg-text-main/5 group-hover:text-text-main/60"
+                className="bg-surface-muted text-secondary transition-colors duration-normal group-hover:bg-text-main/5 group-hover:text-text-main"
               >
                 {techItem}
               </Badge>
@@ -184,7 +184,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         <Text className="max-w-2xl">{project.fullDesc}</Text>
 
         <div className="space-y-4">
-          <Title as="h3" className="text-text-main/80">
+          <Title as="h3" className="text-text-main">
             {t("dev.features_title")}
           </Title>
           <ul className="grid grid-cols-1 gap-3">
@@ -201,7 +201,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         </div>
 
         <div className="space-y-4 border-t border-border-subtle pt-4">
-          <Title as="h3" className="text-text-main/80">
+          <Title as="h3" className="text-text-main">
             {t("dev.tech_stack")}
           </Title>
           <div className="flex flex-wrap gap-2">
@@ -210,7 +210,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 key={techItem}
                 variant="subtle"
                 size="sm"
-                className="text-text-main/60"
+                className="text-text-secondary"
               >
                 {techItem}
               </Badge>
@@ -219,7 +219,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         </div>
 
         <div className="space-y-4 border-t border-border-subtle pt-6">
-          <Title as="h3" className="text-text-main/80">
+          <Title as="h3" className="text-text-main">
             {t("dev.links_title")}
           </Title>
           <ProjectModalLinks project={project} />
