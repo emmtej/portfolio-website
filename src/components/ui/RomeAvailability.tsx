@@ -51,7 +51,7 @@ function RomeAvailabilityChrome({
 }) {
   return (
     <ChromeControl
-      className={cn("max-w-[calc(100vw-8.5rem)]", className)}
+      className={cn("max-w-full", className)}
       aria-live="polite"
       aria-label={`${display.location} ${state.romeTime} ${display.statusLabel}`}
     >
@@ -61,7 +61,7 @@ function RomeAvailabilityChrome({
         <span className="text-border-subtle mx-1.5">·</span>
         {state.romeTime}
       </span>
-      <span className="hidden shrink-0 text-text-muted sm:inline">
+      <span className="hidden shrink-0 text-text-secondary sm:inline">
         <span className="text-border-subtle mx-1.5">·</span>
         {display.statusLabel}
       </span>

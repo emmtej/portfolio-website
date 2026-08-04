@@ -82,13 +82,13 @@ const canonical = new URL(Astro.url.pathname, "https://emmanueltejeda.com").href
 			Skip to content
 		</a>
 		<div class="min-h-screen flex flex-col">
-			<header class="fixed top-0 left-0 z-50 flex h-chrome-height w-full items-center justify-between bg-bg-app px-chrome-inset pointer-events-none">
-				<div>
+			<header class="pointer-events-none fixed top-0 left-0 z-50 flex h-chrome-height w-full items-center gap-1 bg-bg-app px-chrome-inset sm:gap-3">
+				<div class="min-w-0 flex-1">
 					<ErrorBoundary client:idle>
 						<RomeAvailability variant="chrome" client:idle />
 					</ErrorBoundary>
 				</div>
-				<div class="flex items-center gap-2 md:gap-4 pointer-events-auto">
+				<div class="pointer-events-auto flex shrink-0 items-center gap-1 sm:gap-2 md:gap-4">
 					<LanguageSwitcher />
 					<ThemeToggle />
 				</div>

@@ -9,6 +9,6 @@ type Props<Tag extends HTMLTag = "div"> = Polymorphic<{ as?: Tag }> & {
 const { as: Component = "div", className, ...props } = Astro.props;
 ---
 
-<Component class={cn("inline-flex items-center gap-2 px-3 h-chrome-control min-h-chrome-control text-xs font-bold uppercase tracking-widest text-text-main pointer-events-auto", className)} {...props}>
+<Component class={cn("inline-flex h-chrome-control min-h-chrome-control items-center gap-2 px-2 text-xs font-bold uppercase tracking-wider text-text-main pointer-events-auto sm:px-3 sm:tracking-widest", className)} {...props}>
   <slot />
 </Component>
