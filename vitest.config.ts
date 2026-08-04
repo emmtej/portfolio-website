@@ -30,12 +30,17 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "html", "lcov"],
+      include: ["src/**/*.{ts,tsx}"],
       thresholds: {
         lines: 60,
         functions: 60,
         branches: 50,
       },
-      exclude: ["**/node_modules/**", "**/dist/**", "src/test/**", "**/*.d.ts", "astro.config.mjs", "vitest.config.ts", "eslint.config.js"],
+      exclude: [
+        "src/**/*.test.{ts,tsx}",
+        "src/test/**",
+        "src/**/*.d.ts",
+      ],
     },
   },
 });

@@ -88,7 +88,12 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run build` | Production build (Astro) |
 | `npm run preview` | Preview the production build locally |
 | `npm run lint` | Run ESLint |
-| `npm test` | Run all tests (Vitest) |
+| `npm run typecheck` | Check Astro, TypeScript, and component diagnostics |
+| `npm test` | Run the Vitest suite once |
+| `npm run test:watch` | Run Vitest in watch mode |
+| `npm run test:coverage` | Run unit tests with coverage thresholds |
+| `npm run test:e2e:install` | Install Chromium for browser tests |
+| `npm run test:e2e` | Run the Playwright browser suite |
 
 ---
 
@@ -99,9 +104,3 @@ The site is deployed automatically to Netlify on every push to `main`. Configura
 - Build command: `npm run build`
 - Publish directory: `dist/`
 - Security headers: CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy
-
----
-
-## License
-
-[MIT](LICENSE) © Emmanuel Tejeda

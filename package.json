@@ -15,11 +15,12 @@
     "build": "astro build",
     "preview": "astro preview",
     "lint": "eslint .",
-    "test": "vitest",
+    "typecheck": "astro check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install chromium",
-    "postinstall": "playwright install chromium",
-    "test:cov": "vitest run --coverage",
     "fallow": "fallow",
     "fallow:health": "fallow health",
     "fallow:audit": "fallow audit"
@@ -43,6 +44,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
     "@astrojs/react": "^5.0.5",
     "@astrojs/sitemap": "^3.7.2",
     "@babel/core": "^7.29.0",
