@@ -16,7 +16,7 @@
     "hero_intro": "Full-stack web developer currently based in <1>Palagianello, Italy</1>, and originally from <2>New York City</2>.",
     "hero_description_2": "My passion for travel inspired me to work freelance, giving me the flexibility to explore new places while helping small businesses and companies establish their online presence.",
     "hero_description_3": "I specialize in building modern, responsive websites using the latest technologies to ensure my clients effectively connect with their audience.",
-    "hero_description_4": "Over the last 4 years, I’ve dedicated myself to the React ecosystem, blending frontend expertise with the backend logic needed to help small businesses outgrow their static sites.",
+    "hero_description_4": "Since 2020, I’ve dedicated myself to the React ecosystem, blending frontend expertise with the backend logic needed to help small businesses outgrow their static sites.",
     "experience_title": "Experience",
     "languages_title": "Languages",
     "languages_inline": "English (Native) · Spanish (Bilingual) · Italian (Conversational)",
@@ -29,23 +29,37 @@
       "italian_level": "Conversational"
     },
     "experiences": {
-      "greative": {
-        "title": "Audio Engineering & Audio Mastering",
-        "company": "Greative Media (Contractor)",
-        "location": "Remote | Bologna, Italy",
-        "description": "Standardized diverse voice talent recordings to achieve a unified, high-fidelity studio sound using iZotope RX spectral de-noising and de-plosive modules. Utilized Reaper for precision editing and DaVinci Resolve for final audio-to-video synchronization, spatial balancing and adhering to strict loudness standards (LUFS) for diverse online platforms."
+      "frontend": {
+        "time": "2020 - Present",
+        "title": "Front-End Developer",
+        "company": "Independent Contractor",
+        "location": "Remote",
+        "bullets": [
+          "Delivered and maintained 12+ responsive websites and React applications, development, deployment, and ongoing support.",
+          "Modernized legacy HTML, CSS, and JavaScript codebases using React, Next.js, and TypeScript, improving maintainability and accelerating feature delivery.",
+          "Built reusable, accessible components with Tailwind CSS and implemented quality checks using Vitest, React Testing Library and Playwright.",
+          "Integrated REST APIs and headless CMS platforms, enabling non-technical clients to manage content independently and reducing routine support needs."
+        ]
       },
-      "consultant": {
-        "title": "Frontend Development",
-        "company": "Consultant",
-        "location": "Remote | Brooklyn, New York",
-        "description": "Over the last few years, I've worked with various clients to build modern, responsive web applications, focusing on the React ecosystem and performance optimization."
+      "audio_mastering": {
+        "time": "2024 - 2026",
+        "title": "Audio Mastering Consultant",
+        "company": "Independent Contractor",
+        "location": "Remote",
+        "bullets": [
+          "Edited, restored, mastered, and synchronized voice-over audio for five YouTube videos per week using iZotope RX, Reaper, and DaVinci Resolve to deliver quality consistency and meet recurring publishing deadlines.",
+          "Mastered raw voice-over to meet ACX requirements and produced audio assets for public-service announcements used by a U.S. state government and educational language-learning applications."
+        ]
       },
-      "it_desk": {
-        "title": "IT Service Desk",
-        "company": "Brooklyn College",
-        "location": "Brooklyn, NY",
-        "description": "Provided technical support and troubleshooting for students and faculty, managing hardware and software deployments across the campus."
+      "it_intern": {
+        "time": "2017 - 2018",
+        "title": "IT Support I Intern",
+        "company": "Mosholu Montefiore Community Center",
+        "location": "New York City, USA",
+        "bullets": [
+          "Executed Windows 7 to 10 OS deployment upgrades and hardware setups across staff PCs, computer labs, and networked peripherals.",
+          "Resolved Tier-1 technical support tickets using G Suite, Microsoft 365, and remote tools while managing Active Directory accounts and local networking."
+        ]
       }
     }
   },

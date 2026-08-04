@@ -16,7 +16,7 @@
     "hero_intro": "Sviluppatore web full-stack con base a <1>Palagianello, Italia</1>, e originario di <2>New York City</2>.",
     "hero_description_2": "La mia passione per i viaggi mi ha spinto a lavorare come freelance, unendo il desiderio di esplorare nuovi posti alla voglia di aiutare piccole imprese e attività a costruire una solida presenza online.",
     "hero_description_3": "Sviluppo siti web moderni e performanti, utilizzando le tecnologie più recenti per aiutare i miei clienti a comunicare in modo efficace con il proprio pubblico.",
-    "hero_description_4": "Negli ultimi 4 anni mi sono specializzato nell'ecosistema React, unendo l'esperienza frontend alla logica backend per aiutare le piccole attività a crescere e superare i limiti dei siti statici.",
+    "hero_description_4": "Dal 2020 mi sono specializzato nell'ecosistema React, unendo l'esperienza frontend alla logica backend per aiutare le piccole attività a crescere e superare i limiti dei siti statici.",
     "experience_title": "Esperienza",
     "languages_title": "Lingue",
     "languages_inline": "Inglese (Madrelingua) · Spagnolo (Bilingue) · Italiano (Conversazionale)",
@@ -29,23 +29,37 @@
       "italian_level": "Conversazionale"
     },
     "experiences": {
-      "greative": {
-        "title": "Ingegneria Audio e Mastering Audio",
-        "company": "Greative Media (Collaboratore)",
-        "location": "Remoto | Bologna, Italia",
-        "description": "Mi sono occupato di ottimizzare e standardizzare diverse registrazioni vocali per ottenere un audio professionale ad alta fedeltà. Ho utilizzato iZotope RX per il restauro, Reaper per l'editing e DaVinci Resolve per il mixaggio finale e la sincronizzazione video, assicurando il rispetto degli standard di loudness (LUFS)."
+      "frontend": {
+        "time": "2020 - Presente",
+        "title": "Sviluppatore Front-End",
+        "company": "Collaboratore indipendente",
+        "location": "Remoto",
+        "bullets": [
+          "Ho consegnato e mantenuto oltre 12 siti web responsive e applicazioni React, occupandomi di sviluppo, deploy e supporto continuo.",
+          "Ho modernizzato codebase legacy in HTML, CSS e JavaScript con React, Next.js e TypeScript, migliorando la manutenibilità e accelerando il rilascio delle funzionalità.",
+          "Ho costruito componenti riutilizzabili e accessibili con Tailwind CSS e implementato controlli qualità con Vitest, React Testing Library e Playwright.",
+          "Ho integrato API REST e piattaforme CMS headless, permettendo ai clienti non tecnici di gestire i contenuti in autonomia e riducendo le richieste di supporto di routine."
+        ]
       },
-      "consultant": {
-        "title": "Sviluppo Frontend",
-        "company": "Consulente",
-        "location": "Remoto | Brooklyn, New York",
-        "description": "Ho lavorato con diversi clienti per costruire applicazioni web moderne e responsive, concentrandomi sull'ecosistema React, sulla gestione dello stato e sull'ottimizzazione delle performance."
+      "audio_mastering": {
+        "time": "2024 - 2026",
+        "title": "Consulente di Mastering Audio",
+        "company": "Collaboratore indipendente",
+        "location": "Remoto",
+        "bullets": [
+          "Ho modificato, restaurato, masterizzato e sincronizzato audio voice-over per cinque video YouTube a settimana usando iZotope RX, Reaper e DaVinci Resolve, garantendo coerenza qualitativa e il rispetto ricorrente delle scadenze di pubblicazione.",
+          "Ho masterizzato voice-over grezzi per soddisfare i requisiti ACX e prodotto asset audio per annunci di servizio pubblico utilizzati da un ente governativo statale statunitense e da applicazioni educative per l'apprendimento delle lingue."
+        ]
       },
-      "it_desk": {
-        "title": "Help desk IT",
-        "company": "Brooklyn College",
-        "location": "Brooklyn, NY",
-        "description": "Ho fornito assistenza tecnica a studenti e docenti, gestendo la risoluzione di problemi hardware e software e l'installazione di nuovi dispositivi in tutto il campus."
+      "it_intern": {
+        "time": "2017 - 2018",
+        "title": "Tirocinante Supporto IT I",
+        "company": "Mosholu Montefiore Community Center",
+        "location": "New York City, USA",
+        "bullets": [
+          "Ho eseguito aggiornamenti di deployment da Windows 7 a 10 e configurazioni hardware su PC del personale, laboratori informatici e periferiche di rete.",
+          "Ho risolto ticket di supporto tecnico di primo livello con G Suite, Microsoft 365 e strumenti remoti, gestendo account Active Directory e reti locali."
+        ]
       }
     }
   },

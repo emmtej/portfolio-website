@@ -6,31 +6,23 @@ interface Props {
   locale: string;
 }
 
+const experienceKeys = ["frontend", "audio_mastering", "it_intern"] as const;
+
 const t = getServerT(Astro.props.locale);
 
-const experiences = [
-  {
-    time: "2024 - 2025",
-    company: t("about.experiences.greative.company"),
-    location: t("about.experiences.greative.location"),
-    title: t("about.experiences.greative.title"),
-    description: t("about.experiences.greative.description"),
-  },
-  {
-    time: "2021 - 2024",
-    company: t("about.experiences.consultant.company"),
-    location: t("about.experiences.consultant.location"),
-    title: t("about.experiences.consultant.title"),
-    description: t("about.experiences.consultant.description"),
-  },
-  {
-    time: "2015 - 2017",
-    company: t("about.experiences.it_desk.company"),
-    location: t("about.experiences.it_desk.location"),
-    title: t("about.experiences.it_desk.title"),
-    description: t("about.experiences.it_desk.description"),
-  },
-];
+function getBullets(key: (typeof experienceKeys)[number]): string[] {
+  const value = t(`about.experiences.${key}.bullets`, { returnObjects: true });
+  if (!Array.isArray(value)) return [];
+  return value.filter((item): item is string => typeof item === "string");
+}
+
+const experiences = experienceKeys.map((key) => ({
+  time: t(`about.experiences.${key}.time`) as string,
+  company: t(`about.experiences.${key}.company`) as string,
+  location: t(`about.experiences.${key}.location`) as string,
+  title: t(`about.experiences.${key}.title`) as string,
+  bullets: getBullets(key),
+}));
 ---
 
 <ol class="relative space-y-8 md:space-y-10 before:absolute before:left-[4.5px] before:h-full before:w-px before:bg-border-subtle">
@@ -60,9 +52,15 @@ const experiences = [
           </Text>
         </div>
 
-        <Text variant="body" className="mt-3 text-secondary leading-relaxed">
-          {exp.description}
-        </Text>
+        <ul class="mt-3 space-y-2 list-disc pl-5 marker:text-secondary">
+          {exp.bullets.map((bullet) => (
+            <li>
+              <Text variant="body" className="text-secondary leading-relaxed">
+                {bullet}
+              </Text>
+            </li>
+          ))}
+        </ul>
       </div>
     </li>
   ))}
