@@ -1,15 +1,10 @@
-import {
-  useState,
-  useId,
-  useEffect,
-  useSyncExternalStore,
-  type ReactNode,
-} from "react";
+import { useState, useId, useEffect, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import "../../i18n";
 import { useForm, type FieldErrors, type UseFormRegister } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "../../utils/cn";
+import { useIsHydrated } from "../../hooks/useIsHydrated";
 import { Text } from "../ui/Typography";
 import { Section } from "../ui/ReactLayout";
 import {
@@ -31,10 +26,6 @@ type ContactFormTranslationKey =
   | "contact.form.placeholders.email"
   | "contact.form.placeholders.message";
 type ContactFormTranslator = (key: ContactFormTranslationKey) => string;
-
-const subscribeToHydration = () => () => undefined;
-const getClientHydrationSnapshot = () => true;
-const getServerHydrationSnapshot = () => false;
 
 function getErrorMessage(
   t: ContactFormTranslator,
@@ -205,11 +196,7 @@ type ContactFormProps = {
 
 export function ContactForm({ locale = "en" }: ContactFormProps) {
   const { t, i18n } = useTranslation();
-  const isHydrated = useSyncExternalStore(
-    subscribeToHydration,
-    getClientHydrationSnapshot,
-    getServerHydrationSnapshot,
-  );
+  const isHydrated = useIsHydrated();
 
   useEffect(() => {
     if (i18n.language !== locale) {

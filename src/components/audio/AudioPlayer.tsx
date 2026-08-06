@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { cn } from "../../utils/cn";
+import { useIsHydrated } from "../../hooks/useIsHydrated";
 import {
   YOUTUBE_NOCOOKIE_ORIGIN,
   buildPlayerCommand,
@@ -8,6 +9,7 @@ import {
 } from "./youtube-player";
 
 export function AudioPlayer({ playLabel, pauseLabel, iframeTitle }: { playLabel: string; pauseLabel: string; iframeTitle: string }) {
+  const isHydrated = useIsHydrated();
   const [isPlaying, setIsPlaying] = useState(false);
   const [showIframe, setShowIframe] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -47,7 +49,11 @@ export function AudioPlayer({ playLabel, pauseLabel, iframeTitle }: { playLabel:
   };
 
   return (
-    <div className="group relative aspect-video w-full min-h-48 overflow-hidden border border-border-subtle bg-black/5 sm:min-h-0">
+    <div
+      className="group relative aspect-video w-full min-h-48 overflow-hidden border border-border-subtle bg-black/5 sm:min-h-0"
+      data-island="audio-player"
+      data-hydrated={isHydrated ? "true" : "false"}
+    >
       {showIframe ? (
         <iframe
           ref={iframeRef}

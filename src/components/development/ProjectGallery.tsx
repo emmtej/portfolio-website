@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { AnimatePresence, MotionConfig } from "framer-motion";
+import { useIsHydrated } from "../../hooks/useIsHydrated";
 import { ProjectCard } from "./ProjectCard";
 import { ProjectModal } from "./ProjectModal";
 import type { Project } from "./types";
@@ -11,6 +12,7 @@ export function ProjectGallery({
   projects: Project[];
   repoLinksUnavailable?: boolean;
 }) {
+  const isHydrated = useIsHydrated();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
 
@@ -28,7 +30,11 @@ export function ProjectGallery({
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="grid grid-cols-1 gap-6 md:gap-8">
+      <div
+        className="grid grid-cols-1 gap-6 md:gap-8"
+        data-island="project-gallery"
+        data-hydrated={isHydrated ? "true" : "false"}
+      >
         {projects.map((project) => (
           <ProjectCard
             key={project.id}
