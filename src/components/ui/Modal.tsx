@@ -8,7 +8,7 @@ import {
   EASE_IN_QUART,
   EASE_OUT_QUART,
   MODAL_DURATIONS,
-} from "../../utils/motion-variants";
+} from "../../utils/motion-tokens";
 
 const backdropVariants = {
   hidden: {

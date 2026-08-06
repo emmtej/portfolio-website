@@ -1,21 +1,27 @@
 import { useTranslation } from "react-i18next";
+import { createPortal } from "react-dom";
+import { useState } from "react";
 import { cn } from "../../utils/cn";
+import "../../i18n";
 import {
   intlLocaleFromLanguage,
   useRomeAvailability,
   type RomeAvailabilityState,
 } from "../../hooks/useRomeAvailability";
 import { MetaLabel } from "./Typography";
-import { ChromeControl, ListRow } from "./ReactLayout";
+import { ChromeControl } from "./ReactLayout";
+import { ErrorBoundary } from "./ErrorBoundary";
 import { RomeAvailabilityDotIndicator } from "./RomeAvailabilityDot";
 import {
   buildRomeAvailabilityDisplay,
   type RomeAvailabilityDisplay,
 } from "./rome-availability-display";
+import { ROME_NAV_DOT_HOST_ID } from "./rome-availability-ids";
+
+export { ROME_NAV_DOT_HOST_ID } from "./rome-availability-ids";
 
 type RomeAvailabilityProps = {
   className?: string;
-  variant?: "row" | "chrome";
 };
 
 function StatusPrefix({ emoji }: { emoji: RomeAvailabilityDisplay["statusEmoji"] }) {
@@ -76,62 +82,48 @@ function RomeAvailabilityChrome({
   );
 }
 
-function RomeAvailabilityRow({
-  display,
-  state,
-  className,
-}: {
-  display: RomeAvailabilityDisplay;
-  state: RomeAvailabilityState;
-  className?: string;
-}) {
-  const trailing = (
-    <div className="flex items-center gap-4">
-      {state.showLocalRange ? (
-        <LocalRangeLabel
-          localRange={state.localRange}
-          className="text-inactive group-hover:text-secondary"
-        />
-      ) : null}
-      <RomeAvailabilityDotIndicator available={state.available} />
-    </div>
-  );
-
-  return (
-    <ListRow
-      prefix={<StatusPrefix emoji={display.statusEmoji} />}
-      title={display.location}
-      subtitle={display.subtitle}
-      trailing={trailing}
-      className={className}
-    />
-  );
-}
-
-export function RomeAvailability({
-  className,
-  variant = "row",
-}: RomeAvailabilityProps) {
+function RomeAvailabilityLive({ className }: RomeAvailabilityProps) {
   const { t, i18n } = useTranslation();
   const intlLocale = intlLocaleFromLanguage(i18n.language);
   const state = useRomeAvailability(intlLocale);
   const display = buildRomeAvailabilityDisplay(t, state.available, state.romeTime);
+  const [navDotHost] = useState(() => {
+    const host = document.getElementById(ROME_NAV_DOT_HOST_ID);
+    if (!host) return null;
+    // Drop SSR placeholder so the portal owns the host exclusively.
+    host.replaceChildren();
+    return host;
+  });
 
-  if (variant === "chrome") {
-    return (
+  return (
+    <>
       <RomeAvailabilityChrome
         display={display}
         state={state}
         className={className}
       />
-    );
-  }
+      {navDotHost
+        ? createPortal(
+            <RomeAvailabilityDotIndicator available={state.available} />,
+            navDotHost,
+          )
+        : null}
+    </>
+  );
+}
 
+function ChromeFallback() {
   return (
-    <RomeAvailabilityRow
-      display={display}
-      state={state}
-      className={className}
-    />
+    <ChromeControl className="max-w-full text-inactive" aria-hidden="true">
+      —
+    </ChromeControl>
+  );
+}
+
+export function RomeAvailability(props: RomeAvailabilityProps) {
+  return (
+    <ErrorBoundary fallback={<ChromeFallback />}>
+      <RomeAvailabilityLive {...props} />
+    </ErrorBoundary>
   );
 }

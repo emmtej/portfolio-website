@@ -6,8 +6,8 @@ import "@testing-library/react"; // Just making sure imports exist
 // Mock scrollIntoView since it's not implemented in the test environment
 window.HTMLElement.prototype.scrollIntoView = vi.fn();
 
-// We must mock react-i18next so that we don't trigger React Suspense during tests 
-// because HttpBackend requires asynchronous network fetching which is unavailable/mocked.
+// Mock react-i18next so tests stay sync. Production `src/i18n.ts` embeds
+// locale JSON (no HttpBackend); this mock still avoids Suspense and keeps `t()` deterministic.
 import enTranslations from "../locales/en/translation.json";
 import { resolveTranslationKey } from "../utils/resolve-translation-key";
 

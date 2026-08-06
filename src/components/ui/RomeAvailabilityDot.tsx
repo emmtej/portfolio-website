@@ -1,15 +1,11 @@
-import { useTranslation } from "react-i18next";
 import { cn } from "../../utils/cn";
-import {
-  intlLocaleFromLanguage,
-  useRomeAvailability,
-} from "../../hooks/useRomeAvailability";
 
 type RomeAvailabilityDotIndicatorProps = {
   available: boolean;
   className?: string;
 };
 
+/** Presentational pulse dot — no timer. Live updates come from `RomeAvailability` portal. */
 export function RomeAvailabilityDotIndicator({
   available,
   className,
@@ -25,19 +21,5 @@ export function RomeAvailabilityDotIndicator({
       )}
       aria-hidden="true"
     />
-  );
-}
-
-type RomeAvailabilityDotProps = {
-  className?: string;
-};
-
-export function RomeAvailabilityDot({ className }: RomeAvailabilityDotProps) {
-  const { i18n } = useTranslation();
-  const intlLocale = intlLocaleFromLanguage(i18n.language);
-  const { available } = useRomeAvailability(intlLocale);
-
-  return (
-    <RomeAvailabilityDotIndicator available={available} className={className} />
   );
 }
