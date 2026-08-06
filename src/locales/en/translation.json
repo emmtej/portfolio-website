@@ -166,6 +166,24 @@
       }
     }
   },
+  "meta": {
+    "home": {
+      "title": "Emmanuel T. || Software Developer",
+      "description": "Full-stack web developer based in Italy. React specialist since 2020 building modern, responsive websites."
+    },
+    "development": {
+      "title": "Emmanuel T. || Development",
+      "description": "Frontend projects and technical skills. Specializing in React, TypeScript, and high-performance web applications."
+    },
+    "audio": {
+      "title": "Emmanuel T. || Audio Mixing & Mastering",
+      "description": "Audio mixing, mastering, and restoration services. Specializing in dialogue editing and post-production for digital media."
+    },
+    "contact": {
+      "title": "Emmanuel T. || Contact",
+      "description": "Get in touch for freelance work, project inquiries, or just to say hello. Available for remote opportunities."
+    }
+  },
   "404": {
     "title": "404 - Page Not Found",
     "description": "The page you are looking for does not exist.",

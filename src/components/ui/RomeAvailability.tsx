@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { createPortal } from "react-dom";
 import { useState } from "react";
 import { cn } from "../../utils/cn";
+import "../../i18n";
 import {
   intlLocaleFromLanguage,
   useRomeAvailability,

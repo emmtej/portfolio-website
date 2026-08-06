@@ -4,6 +4,7 @@ import '../index.css';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import { RomeAvailability } from '../components/ui/RomeAvailability';
+import NetlifyFormStub from '../components/contact/NetlifyFormStub.astro';
 
 interface Props {
 	title?: string;
@@ -53,12 +54,6 @@ const canonical = new URL(Astro.url.pathname, "https://emmanueltejeda.com").href
 		<link rel="alternate" hreflang="it" href={new URL("/it" + Astro.url.pathname.replace(/^\/it/, ""), "https://emmanueltejeda.com").href} />
 		<link rel="alternate" hreflang="x-default" href={new URL(Astro.url.pathname.replace(/^\/it/, ""), "https://emmanueltejeda.com").href} />
 
-		<script>
-			import i18n from "../i18n";
-			const lang = document.documentElement.lang || "en";
-			if (i18n.language !== lang) i18n.changeLanguage(lang);
-		</script>
-
 		<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 		<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
 
@@ -98,11 +93,6 @@ const canonical = new URL(Astro.url.pathname, "https://emmanueltejeda.com").href
 			</main>
 		</div>
 
-		<form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-			<input type="text" name="name" />
-			<input type="email" name="email" />
-			<textarea name="message"></textarea>
-			<input type="text" name="bot-field" />
-		</form>
+		<NetlifyFormStub />
 	</body>
 </html>

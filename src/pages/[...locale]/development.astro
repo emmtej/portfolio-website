@@ -2,6 +2,7 @@
 import MainLayout from '../../layouts/MainLayout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import DevelopmentTab from '../../components/development/DevelopmentTab.astro';
+import { getServerT, resolveLocale } from '../../utils/server-t';
 
 export function getStaticPaths() {
   return [
@@ -9,11 +10,14 @@ export function getStaticPaths() {
     { params: { locale: 'it' } },
   ];
 }
+
+const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
+const t = getServerT(locale);
 ---
 
 <MainLayout 
-	title="Emmanuel T. || Development" 
-	description="Frontend projects and technical skills. Specializing in React, TypeScript, and high-performance web applications."
+	title={t("meta.development.title") as string} 
+	description={t("meta.development.description") as string}
 >
 	<SiteHeader />
 	<div id="main-content" class="mt-6 md:mt-8">

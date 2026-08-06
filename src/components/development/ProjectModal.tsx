@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import "../../i18n";
 import { Button } from "../ui/Button";
 import { Text, Title } from "../ui/Typography";
 import { Badge } from "../ui/ReactLayout";

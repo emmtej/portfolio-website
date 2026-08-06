@@ -166,6 +166,24 @@
       }
     }
   },
+  "meta": {
+    "home": {
+      "title": "Emmanuel T. || Sviluppatore Software",
+      "description": "Sviluppatore web full-stack basato in Italia. Specialista React dal 2020 nella realizzazione di siti moderni e responsive."
+    },
+    "development": {
+      "title": "Emmanuel T. || Sviluppo",
+      "description": "Progetti frontend e competenze tecniche. Specializzato in React, TypeScript e applicazioni web ad alte prestazioni."
+    },
+    "audio": {
+      "title": "Emmanuel T. || Mixing e Mastering Audio",
+      "description": "Servizi di mixing, mastering e restauro audio. Specializzato in editing di dialoghi e post-produzione per media digitali."
+    },
+    "contact": {
+      "title": "Emmanuel T. || Contatti",
+      "description": "Contattami per collaborazioni freelance, richieste di progetto o semplicemente per salutare. Disponibile per opportunità remote."
+    }
+  },
   "404": {
     "title": "404 - Pagina non trovata",
     "description": "La pagina che stai cercando non esiste.",
