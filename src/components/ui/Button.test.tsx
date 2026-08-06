@@ -9,7 +9,13 @@ afterEach(() => {
 describe("Button", () => {
   it("renders children for primary button", () => {
     render(<Button>Submit</Button>);
-    expect(screen.getByRole("button", { name: "Submit" })).toBeTruthy();
+    const button = screen.getByRole("button", { name: "Submit" });
+    expect(button.tagName).toBe("BUTTON");
+    expect(
+      button.querySelector('[aria-hidden="true"]')?.classList.contains(
+        "group-hover:translate-y-0",
+      ),
+    ).toBe(true);
   });
 
   it("renders anchor when as='a'", () => {
@@ -19,6 +25,7 @@ describe("Button", () => {
       </Button>,
     );
     const link = screen.getByRole("link", { name: "Visit" });
+    expect(link.tagName).toBe("A");
     expect(link.getAttribute("href")).toBe("https://example.com");
   });
 
@@ -31,9 +38,15 @@ describe("Button", () => {
 
   it("disables button on success", () => {
     render(<Button isSuccess>Done</Button>);
-    expect((screen.getByRole("button", { name: "Done" }) as HTMLButtonElement).disabled).toBe(
-      true,
-    );
+    const button = screen.getByRole("button", {
+      name: "Done",
+    }) as HTMLButtonElement;
+    expect(button.disabled).toBe(true);
+    expect(
+      button.querySelector("svg")?.classList.contains(
+        "animate-button-success-pop",
+      ),
+    ).toBe(true);
   });
 
   it("renders outline variant without hover overlay wrapper issues", () => {

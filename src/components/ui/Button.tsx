@@ -1,7 +1,5 @@
 import React from "react";
-import { motion, type HTMLMotionProps } from "framer-motion";
 import { cn } from "../../utils/cn";
-import { DURATIONS, EASE_OUT_QUART } from "../../utils/motion-variants";
 
 type ButtonVariant = "primary" | "outline";
 type ButtonSize = "sm" | "md";
@@ -22,16 +20,19 @@ type SharedButtonProps = {
 };
 
 type ButtonAsButton = SharedButtonProps &
-  Omit<HTMLMotionProps<"button">, keyof SharedButtonProps | "children"> & {
+  Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    keyof SharedButtonProps | "children"
+  > & {
     as?: "button";
   };
 
 type ButtonAsAnchor = SharedButtonProps &
-  Omit<HTMLMotionProps<"a">, keyof SharedButtonProps | "children"> & {
+  Omit<
+    React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    keyof SharedButtonProps | "children"
+  > & {
     as: "a";
-    href?: string;
-    target?: string;
-    rel?: string;
   };
 
 type ButtonProps = ButtonAsButton | ButtonAsAnchor;
@@ -49,7 +50,11 @@ const sizeStyles: Record<ButtonSize, string> = {
 function StatusIcon({ isLoading, isSuccess }: Pick<SharedButtonProps, "isLoading" | "isSuccess">) {
   if (isLoading) {
     return (
-      <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+      <svg
+        aria-hidden="true"
+        className="size-4 animate-spin"
+        viewBox="0 0 24 24"
+      >
         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
       </svg>
@@ -58,9 +63,14 @@ function StatusIcon({ isLoading, isSuccess }: Pick<SharedButtonProps, "isLoading
 
   if (isSuccess) {
     return (
-      <motion.svg initial={{ scale: 0 }} animate={{ scale: 1 }} className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+      <svg
+        aria-hidden="true"
+        className="size-4 animate-button-success-pop motion-reduce:animate-none"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-      </motion.svg>
+      </svg>
     );
   }
 
@@ -69,11 +79,9 @@ function StatusIcon({ isLoading, isSuccess }: Pick<SharedButtonProps, "isLoading
 
 function PrimaryHoverOverlay() {
   return (
-    <motion.div
-      initial={{ y: "100%" }}
-      whileHover={{ y: 0 }}
-      transition={{ duration: DURATIONS.normal, ease: EASE_OUT_QUART }}
-      className="absolute inset-0 bg-white/5"
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 translate-y-full bg-white/5 transition-transform duration-normal ease-[cubic-bezier(0.21,0.47,0.32,0.98)] group-hover:translate-y-0 group-focus-visible:translate-y-0 motion-reduce:transition-none"
     />
   );
 }
@@ -124,10 +132,10 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
     } = allProps;
 
     const baseClassName = cn(
-      "relative flex items-center justify-center gap-2 font-bold uppercase tracking-[0.15em] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden",
+      "group relative flex items-center justify-center gap-2 overflow-hidden font-bold uppercase tracking-[0.15em] transition-[background-color,border-color,color,opacity] duration-normal disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-main",
       variantStyles[variant],
       sizeStyles[size],
-      className
+      className,
     );
 
     const content = (
@@ -142,28 +150,29 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
 
     if (as === "a") {
       return (
-        <motion.a
+        <a
           ref={ref as React.Ref<HTMLAnchorElement>}
           className={baseClassName}
-          {...(rest as Omit<HTMLMotionProps<"a">, "children">)}
+          {...(rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
         >
           {content}
-        </motion.a>
+        </a>
       );
     }
 
-    const { disabled, ...buttonRest } = rest as Omit<ButtonAsButton, keyof SharedButtonProps | "as">;
+    const { disabled, ...buttonRest } =
+      rest as React.ButtonHTMLAttributes<HTMLButtonElement>;
     const isDisabled = disabled || isLoading || isSuccess;
 
     return (
-      <motion.button
+      <button
         ref={ref as React.Ref<HTMLButtonElement>}
         className={baseClassName}
         disabled={isDisabled}
-        {...(buttonRest as Omit<HTMLMotionProps<"button">, "children" | "disabled">)}
+        {...buttonRest}
       >
         {content}
-      </motion.button>
+      </button>
     );
   }
 );
