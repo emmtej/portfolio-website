@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/Button";
 import { Heading, Text, Title } from "../ui/Typography";
@@ -23,7 +22,7 @@ export interface Project {
 
 interface ProjectCardProps {
   project: Project;
-  onClick: () => void;
+  onClick: (trigger: HTMLButtonElement) => void;
 }
 
 function ProjectPreviewWell({ preview }: { preview?: Project["preview"] }) {
@@ -48,12 +47,11 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
   const remainingTech = project.tech.length - previewTech.length;
 
   return (
-    <motion.button
+    <button
       type="button"
-      layoutId={`card-${project.id}`}
-      onClick={onClick}
+      onClick={(event) => onClick(event.currentTarget)}
       aria-label={`${project.title}. ${project.shortDesc}`}
-      className="group relative w-full overflow-hidden border border-border-subtle bg-bg-app text-left transition-all duration-normal hover:border-text-main/20 hover:bg-text-main/[0.02]"
+      className="group relative w-full overflow-hidden border border-border-subtle bg-bg-app text-left transition-[background-color,border-color] duration-normal hover:border-text-main/20 hover:bg-text-main/[0.02]"
     >
       <div className="md:grid md:grid-cols-[minmax(0,1.12fr)_minmax(0,1fr)]">
         <ProjectPreviewWell preview={project.preview} />
@@ -70,7 +68,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
             </div>
 
             <div
-              className="mt-1 flex size-8 shrink-0 items-center justify-center border border-text-main/20 text-text-tertiary transition-all duration-normal group-hover:translate-x-1 group-hover:text-text-main motion-reduce:group-hover:translate-x-0"
+              className="mt-1 flex size-8 shrink-0 items-center justify-center border border-text-main/20 text-text-tertiary transition-[color,transform] duration-normal group-hover:translate-x-1 group-hover:text-text-main motion-reduce:group-hover:translate-x-0"
               aria-hidden="true"
             >
               <ArrowRightIcon />
@@ -94,7 +92,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
           </div>
         </div>
       </div>
-    </motion.button>
+    </button>
   );
 }
 
@@ -190,10 +188,9 @@ export function ProjectModal({
 
   return (
     <Modal
-      isOpen={true}
       onClose={onClose}
-      layoutId={`card-${project.id}`}
       title={project.title}
+      closeLabel={t("dev.close_modal")}
     >
       {project.preview ? (
         <div className="relative max-h-72 shrink-0 overflow-hidden bg-surface-muted aspect-[16/10]">

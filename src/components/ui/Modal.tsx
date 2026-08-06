@@ -1,17 +1,76 @@
-import { motion, AnimatePresence } from "framer-motion";
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
+import React, { useEffect, useId, useLayoutEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { cn } from "../../utils/cn";
 import { CloseIcon } from "./icons/CloseIcon";
-import { EASE_OUT_QUART, DURATIONS } from "../../utils/motion-variants";
+import { Heading } from "./Typography";
+import {
+  EASE_IN_QUART,
+  EASE_OUT_QUART,
+  MODAL_DURATIONS,
+} from "../../utils/motion-variants";
+
+const backdropVariants = {
+  hidden: {
+    opacity: 0,
+    transition: {
+      duration: MODAL_DURATIONS.backdropExit,
+      ease: EASE_IN_QUART,
+    },
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: MODAL_DURATIONS.backdropEnter,
+      ease: EASE_OUT_QUART,
+    },
+  },
+} satisfies Variants;
+
+const panelVariants = {
+  hidden: {
+    opacity: 0,
+    y: 12,
+    scale: 0.985,
+    transition: {
+      duration: MODAL_DURATIONS.panelExit,
+      ease: EASE_IN_QUART,
+    },
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: MODAL_DURATIONS.panelEnter,
+      ease: EASE_OUT_QUART,
+    },
+  },
+} satisfies Variants;
+
+const reducedPanelVariants = {
+  hidden: {
+    opacity: 0,
+    transition: {
+      duration: MODAL_DURATIONS.panelExit,
+      ease: EASE_IN_QUART,
+    },
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: MODAL_DURATIONS.panelEnter,
+      ease: EASE_OUT_QUART,
+    },
+  },
+} satisfies Variants;
 
 interface ModalProps {
-  isOpen: boolean;
   onClose: () => void;
-  title?: string;
+  title: string;
+  closeLabel: string;
   children: React.ReactNode;
   className?: string;
-  layoutId?: string;
 }
 
 function getFocusableElements(container: HTMLElement): HTMLElement[] {
@@ -23,48 +82,37 @@ function getFocusableElements(container: HTMLElement): HTMLElement[] {
 }
 
 export const Modal = ({
-  isOpen,
   onClose,
   title,
+  closeLabel,
   children,
   className,
-  layoutId,
 }: ModalProps) => {
+  const titleId = useId();
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
-  const previousFocusRef = useRef<HTMLElement | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
-  // Focus trapping and restoration
+  // Move focus into the dialog once mounted. The presence owner restores it
+  // after the exit animation completes.
   useLayoutEffect(() => {
-    if (isOpen) {
-      previousFocusRef.current =
-        document.activeElement instanceof HTMLElement
-          ? document.activeElement
-          : null;
-      // Delay focus slightly to allow animations to start
-      const timer = setTimeout(() => {
-        closeButtonRef.current?.focus();
-      }, 50);
-      return () => {
-        clearTimeout(timer);
-        previousFocusRef.current?.focus();
-      };
-    }
-  }, [isOpen]);
+    const timer = setTimeout(() => {
+      closeButtonRef.current?.focus();
+    }, 50);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Escape key handler
   useEffect(() => {
-    if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [onClose]);
 
   // Tab trapping
   useEffect(() => {
-    if (!isOpen) return;
     const dialog = dialogRef.current;
     if (!dialog) return;
 
@@ -87,70 +135,70 @@ export const Modal = ({
 
     dialog.addEventListener("keydown", handleTabKey);
     return () => dialog.removeEventListener("keydown", handleTabKey);
-  }, [isOpen]);
+  }, []);
 
   // Lock body scroll
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, [isOpen]);
+  }, []);
 
   return createPortal(
-    <AnimatePresence>
-      {isOpen ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
-          />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+      {/* Backdrop */}
+      <motion.div
+        aria-hidden="true"
+        data-modal-backdrop=""
+        variants={backdropVariants}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        onClick={onClose}
+        className="absolute inset-0 bg-black/40"
+      />
 
-          {/* Modal Content */}
-          <motion.div
-            ref={dialogRef}
-            layoutId={layoutId}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={title ? "modal-title" : undefined}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{
-              duration: DURATIONS.normal,
-              ease: EASE_OUT_QUART,
-            }}
-            className={cn(
-              "relative w-full max-w-2xl bg-bg-app overflow-hidden shadow-2xl border border-border-subtle",
-              className,
-            )}
-          >
-            {/* Close Button */}
+      {/* Modal Content */}
+      <motion.div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        variants={shouldReduceMotion ? reducedPanelVariants : panelVariants}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        className={cn(
+          "relative w-full max-w-2xl bg-bg-app overflow-hidden shadow-2xl border border-border-subtle",
+          className,
+        )}
+      >
+        <div className="flex max-h-[90vh] flex-col">
+          <div className="flex shrink-0 items-start justify-between gap-4 border-b border-border-subtle px-6 py-4 md:px-8 md:py-5">
+            <Heading
+              as="h2"
+              id={titleId}
+              className="min-w-0 break-words pt-2"
+            >
+              {title}
+            </Heading>
+
             <button
               ref={closeButtonRef}
               type="button"
-              aria-label="Close"
+              aria-label={closeLabel}
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 border border-border-subtle bg-bg-app p-2 text-text-secondary transition-colors hover:text-text-main"
+              className="flex size-12 shrink-0 items-center justify-center border border-border-subtle bg-bg-app text-text-secondary transition-colors hover:text-text-main focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-main"
             >
               <CloseIcon />
             </button>
+          </div>
 
-            <div className="flex flex-col h-full max-h-[90vh] overflow-y-auto">
-              {children}
-            </div>
-          </motion.div>
+          <div className="min-h-0 flex-1 overflow-y-auto">{children}</div>
         </div>
-      ) : null}
-    </AnimatePresence>,
+      </motion.div>
+    </div>,
     document.body,
   );
 };

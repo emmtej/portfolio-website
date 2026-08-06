@@ -11,7 +11,12 @@ afterEach(() => {
 function renderModal(props: Partial<Parameters<typeof Modal>[0]> = {}) {
   const onClose = vi.fn();
   render(
-    <Modal isOpen={true} onClose={onClose} {...props}>
+    <Modal
+      onClose={onClose}
+      title="Test Modal"
+      closeLabel="Close test modal"
+      {...props}
+    >
       <button>First</button>
       <button>Last</button>
     </Modal>,
@@ -20,43 +25,42 @@ function renderModal(props: Partial<Parameters<typeof Modal>[0]> = {}) {
 }
 
 describe("Modal – rendering", () => {
-  it("renders children when open", () => {
+  it("renders children when mounted", () => {
     renderModal();
     expect(screen.getByText("First")).toBeTruthy();
     expect(screen.getByText("Last")).toBeTruthy();
   });
 
-  it("renders nothing when closed", () => {
-    const { onClose } = renderModal({ isOpen: false });
-    expect(screen.queryByText("First")).toBeNull();
-    expect(onClose).not.toHaveBeenCalled();
-  });
-
-  it("renders with aria-modal and role dialog", () => {
+  it("renders a named dialog with a visible heading", () => {
     renderModal();
-    const dialog = screen.getByRole("dialog");
+    const dialog = screen.getByRole("dialog", { name: "Test Modal" });
+    const heading = screen.getByRole("heading", {
+      level: 2,
+      name: "Test Modal",
+    });
     expect(dialog.getAttribute("aria-modal")).toBe("true");
+    expect(dialog.getAttribute("aria-labelledby")).toBe(heading.id);
   });
 });
 
 describe("Modal – scroll lock", () => {
-  it("sets body overflow to hidden when open", () => {
+  it("sets body overflow to hidden when mounted", () => {
     renderModal();
     expect(document.body.style.overflow).toBe("hidden");
   });
 
-  it("restores body overflow when closed", () => {
-    const { rerender } = render(
-      <Modal isOpen={true} onClose={vi.fn()}>
+  it("restores body overflow when unmounted", () => {
+    const { unmount } = render(
+      <Modal
+        onClose={vi.fn()}
+        title="Test Modal"
+        closeLabel="Close test modal"
+      >
         <button>child</button>
       </Modal>,
     );
     expect(document.body.style.overflow).toBe("hidden");
-    rerender(
-      <Modal isOpen={false} onClose={vi.fn()}>
-        <button>child</button>
-      </Modal>,
-    );
+    unmount();
     expect(document.body.style.overflow).toBe("unset");
   });
 });
@@ -71,17 +75,6 @@ describe("Modal – Escape key", () => {
   it("does not call onClose for other keys", () => {
     const { onClose } = renderModal();
     fireEvent.keyDown(window, { key: "Enter" });
-    expect(onClose).not.toHaveBeenCalled();
-  });
-
-  it("does not call onClose when closed", () => {
-    const onClose = vi.fn();
-    render(
-      <Modal isOpen={false} onClose={onClose}>
-        <button>child</button>
-      </Modal>,
-    );
-    fireEvent.keyDown(window, { key: "Escape" });
     expect(onClose).not.toHaveBeenCalled();
   });
 });
@@ -101,8 +94,10 @@ describe("Modal – backdrop click", () => {
 
 describe("Modal – close button", () => {
   it("calls onClose when the close button is clicked", () => {
-    const { onClose } = renderModal({ title: "Test Modal" });
-    const closeBtn = screen.getByRole("button", { name: /close/i });
+    const { onClose } = renderModal();
+    const closeBtn = screen.getByRole("button", {
+      name: "Close test modal",
+    });
     fireEvent.click(closeBtn);
     expect(onClose).toHaveBeenCalledTimes(1);
   });
@@ -111,33 +106,44 @@ describe("Modal – close button", () => {
 describe("Modal – focus trap", () => {
   it("traps Tab within the modal (wraps to first from last)", () => {
     render(
-      <Modal isOpen={true} onClose={vi.fn()}>
+      <Modal
+        onClose={vi.fn()}
+        title="Test Modal"
+        closeLabel="Close test modal"
+      >
         <button data-testid="btn-a">A</button>
         <button data-testid="btn-b">B</button>
       </Modal>,
     );
-    const dialog = screen.getByRole("dialog");
+    const dialog = screen.getByRole("dialog", { name: "Test Modal" });
+    const closeButton = screen.getByRole("button", {
+      name: "Close test modal",
+    });
     const btnB = screen.getByTestId("btn-b");
     btnB.focus();
 
     fireEvent.keyDown(dialog, { key: "Tab", shiftKey: false });
-    // After Tab on last element, focus wraps to first (close button or first focusable)
-    // We just verify the event is intercepted without throwing
-    expect(document.activeElement).toBeTruthy();
+    expect(document.activeElement).toBe(closeButton);
   });
 
   it("traps Shift+Tab within the modal (wraps to last from first)", () => {
     render(
-      <Modal isOpen={true} onClose={vi.fn()}>
+      <Modal
+        onClose={vi.fn()}
+        title="Test Modal"
+        closeLabel="Close test modal"
+      >
         <button data-testid="btn-a">A</button>
       </Modal>,
     );
-    const dialog = screen.getByRole("dialog");
+    const dialog = screen.getByRole("dialog", { name: "Test Modal" });
+    const closeButton = screen.getByRole("button", {
+      name: "Close test modal",
+    });
     const btnA = screen.getByTestId("btn-a");
-    btnA.focus();
+    closeButton.focus();
 
-    // Close button is first; Shift+Tab on it should wrap to last
     fireEvent.keyDown(dialog, { key: "Tab", shiftKey: true });
-    expect(document.activeElement).toBeTruthy();
+    expect(document.activeElement).toBe(btnA);
   });
 });
