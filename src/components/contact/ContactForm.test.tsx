@@ -8,26 +8,36 @@ import {
 } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { ContactForm } from "./ContactForm";
+import { buildContactFormCopy } from "./contact-form-copy";
 import { CONTACT_FORM_LIMITS } from "./contact-schema";
+import enTranslations from "../../locales/en/translation.json";
+import { resolveTranslationKey } from "../../utils/resolve-translation-key";
+
+const t = (key: string) => {
+  const value = resolveTranslationKey(enTranslations, key);
+  return typeof value === "string" ? value : key;
+};
+
+const copy = buildContactFormCopy(t);
 
 const EN = {
-  nameError: "Name must be at least 2 characters",
-  emailError: "Please enter a valid email address",
-  messageError: "Message must be at least 10 characters",
-  nameMaxError: "Name must be 100 characters or fewer",
-  emailMaxError: "Email must be 254 characters or fewer",
-  messageMaxError: "Message must be 5,000 characters or fewer",
-  send: "Send Message",
-  sending: "Sending...",
-  success: "Message sent",
-  submitError: "Message could not be sent",
+  nameError: copy.errors["contact.form.errors.name"],
+  emailError: copy.errors["contact.form.errors.email"],
+  messageError: copy.errors["contact.form.errors.message"],
+  nameMaxError: copy.errors["contact.form.errors.name_max"],
+  emailMaxError: copy.errors["contact.form.errors.email_max"],
+  messageMaxError: copy.errors["contact.form.errors.message_max"],
+  send: copy.send,
+  sending: copy.sending,
+  success: copy.success,
+  submitError: copy.error,
 } as const;
 
 function getFormFields() {
   return {
-    name: screen.getByLabelText("Name"),
-    email: screen.getByLabelText("Email"),
-    message: screen.getByLabelText("Message"),
+    name: screen.getByLabelText(copy.name),
+    email: screen.getByLabelText(copy.email),
+    message: screen.getByLabelText(copy.message),
   };
 }
 
@@ -41,7 +51,7 @@ function fillValidForm() {
 }
 
 function clickSubmit() {
-  fireEvent.click(screen.getByRole("button", { name: /Send Message/i }));
+  fireEvent.click(screen.getByRole("button", { name: new RegExp(EN.send, "i") }));
 }
 
 describe("ContactForm", () => {
@@ -62,14 +72,14 @@ describe("ContactForm", () => {
 
   describe("validation", () => {
     it("keeps native validation active in server-rendered markup", () => {
-      const markup = renderToString(<ContactForm />);
+      const markup = renderToString(<ContactForm copy={copy} />);
 
       expect(markup).toContain('data-hydrated="false"');
       expect(markup).not.toContain("novalidate");
     });
 
     it("switches to custom validation after hydration", async () => {
-      render(<ContactForm />);
+      render(<ContactForm copy={copy} />);
       const form = document.querySelector(
         'form[data-contact-form="interactive"]',
       ) as HTMLFormElement;
@@ -81,7 +91,7 @@ describe("ContactForm", () => {
     });
 
     it("has native HTML5 validation attributes on fields", () => {
-      render(<ContactForm />);
+      render(<ContactForm copy={copy} />);
       const { name, email, message } = getFormFields();
 
       expect((name as HTMLInputElement).required).toBe(true);
@@ -104,11 +114,11 @@ describe("ContactForm", () => {
     });
 
     it("shows validation errors on empty submit", async () => {
-      render(<ContactForm />);
+      render(<ContactForm copy={copy} />);
       clickSubmit();
 
       expect(await screen.findByText(EN.nameError)).toBeTruthy();
-      expect(screen.getByText("Invalid email address")).toBeTruthy();
+      expect(screen.getByText(EN.emailError)).toBeTruthy();
       expect(screen.getByText(EN.messageError)).toBeTruthy();
 
       const { name, email, message } = getFormFields();
@@ -121,7 +131,7 @@ describe("ContactForm", () => {
     });
 
     it("rejects whitespace-only values after trimming", async () => {
-      render(<ContactForm />);
+      render(<ContactForm copy={copy} />);
       const { name, email, message } = getFormFields();
 
       fireEvent.change(name, { target: { value: "   " } });
@@ -133,7 +143,7 @@ describe("ContactForm", () => {
     });
 
     it("rejects oversized values", async () => {
-      render(<ContactForm />);
+      render(<ContactForm copy={copy} />);
       const { name, email, message } = getFormFields();
 
       fireEvent.change(name, { target: { value: "x".repeat(101) } });
@@ -152,14 +162,12 @@ describe("ContactForm", () => {
       const fetchMock = vi.mocked(globalThis.fetch);
       fetchMock.mockResolvedValueOnce(new Response(null, { status: 200 }));
 
-      render(<ContactForm />);
+      render(<ContactForm copy={copy} />);
       fillValidForm();
       clickSubmit();
 
       await waitFor(() => {
-        expect(
-          screen.getByText(EN.success),
-        ).toBeTruthy();
+        expect(screen.getByText(EN.success)).toBeTruthy();
       });
 
       expect(fetchMock).toHaveBeenCalled();
@@ -187,18 +195,18 @@ describe("ContactForm", () => {
       const fetchMock = vi.mocked(globalThis.fetch);
       fetchMock.mockReturnValueOnce(pending);
 
-      render(<ContactForm />);
+      render(<ContactForm copy={copy} />);
       fillValidForm();
       clickSubmit();
 
       await waitFor(() => {
         expect(
-          screen.getByRole("button", { name: /Sending\.\.\./i }),
+          screen.getByRole("button", { name: new RegExp(EN.sending, "i") }),
         ).toBeTruthy();
       });
 
       const sendingButton = screen.getByRole("button", {
-        name: /Sending\.\.\./i,
+        name: new RegExp(EN.sending, "i"),
       });
       expect((sendingButton as HTMLButtonElement).disabled).toBe(true);
       fireEvent.click(sendingButton);
@@ -207,9 +215,7 @@ describe("ContactForm", () => {
       resolveFetch(new Response(null, { status: 200 }));
 
       await waitFor(() => {
-        expect(
-          screen.getByText(EN.success),
-        ).toBeTruthy();
+        expect(screen.getByText(EN.success)).toBeTruthy();
       });
     });
   });
@@ -219,7 +225,7 @@ describe("ContactForm", () => {
       const fetchMock = vi.mocked(globalThis.fetch);
       fetchMock.mockResolvedValueOnce(new Response(null, { status: 500 }));
 
-      render(<ContactForm />);
+      render(<ContactForm copy={copy} />);
       fillValidForm();
       clickSubmit();
 
@@ -230,7 +236,7 @@ describe("ContactForm", () => {
       const fetchMock = vi.mocked(globalThis.fetch);
       fetchMock.mockRejectedValueOnce(new Error("network"));
 
-      render(<ContactForm />);
+      render(<ContactForm copy={copy} />);
       fillValidForm();
       clickSubmit();
 

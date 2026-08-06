@@ -1,6 +1,4 @@
-import { useState, useId, useEffect, type ReactNode } from "react";
-import { useTranslation } from "react-i18next";
-import "../../i18n";
+import { useState, useId, type ReactNode } from "react";
 import { useForm, type FieldErrors, type UseFormRegister } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "../../utils/cn";
@@ -13,31 +11,26 @@ import {
   type ContactErrorKey,
   type ContactFormData,
 } from "./contact-schema";
+import type { ContactFormCopy } from "./contact-form-copy";
 import { submitContactForm } from "./submit-contact-form";
 
 type FormStatus = "idle" | "success" | "error";
-type ContactFormTranslationKey =
-  | ContactErrorKey
-  | "contact.form.name"
-  | "contact.form.email"
-  | "contact.form.message"
-  | "contact.form.message_helper"
-  | "contact.form.placeholders.name"
-  | "contact.form.placeholders.email"
-  | "contact.form.placeholders.message";
-type ContactFormTranslator = (key: ContactFormTranslationKey) => string;
 
 function getErrorMessage(
-  t: ContactFormTranslator,
+  errors: ContactFormCopy["errors"],
   key: string | undefined,
 ): string | null {
   if (!key) return null;
-  return t(key as ContactErrorKey);
+  return errors[key as ContactErrorKey] ?? key;
 }
 
-function ContactFormSuccess({ onReset }: { onReset: () => void }) {
-  const { t } = useTranslation();
-
+function ContactFormSuccess({
+  copy,
+  onReset,
+}: {
+  copy: ContactFormCopy;
+  onReset: () => void;
+}) {
   return (
     <Section className="animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div
@@ -46,17 +39,17 @@ function ContactFormSuccess({ onReset }: { onReset: () => void }) {
         aria-live="polite"
       >
         <Text color="main" size="lg" className="font-bold uppercase tracking-widest">
-          {t("contact.form.success")}
+          {copy.success}
         </Text>
         <Text size="sm" className="text-secondary">
-          {t("contact.form.success_detail")}
+          {copy.successDetail}
         </Text>
         <button
           type="button"
           onClick={onReset}
           className="text-xs font-bold uppercase tracking-widest text-text-main underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-main/30"
         >
-          {t("contact.form.success_action")}
+          {copy.successAction}
         </button>
       </div>
     </Section>
@@ -112,12 +105,12 @@ function ContactFormFields({
   id,
   register,
   errors,
-  t,
+  copy,
 }: {
   id: string;
   register: UseFormRegister<ContactFormData>;
   errors: FieldErrors<ContactFormData>;
-  t: ContactFormTranslator;
+  copy: ContactFormCopy;
 }) {
   const fieldClass = (hasError: boolean) =>
     cn(
@@ -129,8 +122,8 @@ function ContactFormFields({
     <div className="space-y-5">
       <ContactFormField
         id={`${id}-name`}
-        label={t("contact.form.name")}
-        error={getErrorMessage(t, errors.name?.message)}
+        label={copy.name}
+        error={getErrorMessage(copy.errors, errors.name?.message)}
       >
         <input
           id={`${id}-name`}
@@ -141,15 +134,15 @@ function ContactFormFields({
           autoComplete="name"
           aria-invalid={errors.name ? "true" : undefined}
           aria-describedby={errors.name ? `${id}-name-error` : undefined}
-          placeholder={t("contact.form.placeholders.name")}
+          placeholder={copy.placeholders.name}
           className={fieldClass(!!errors.name)}
         />
       </ContactFormField>
 
       <ContactFormField
         id={`${id}-email`}
-        label={t("contact.form.email")}
-        error={getErrorMessage(t, errors.email?.message)}
+        label={copy.email}
+        error={getErrorMessage(copy.errors, errors.email?.message)}
       >
         <input
           id={`${id}-email`}
@@ -160,16 +153,16 @@ function ContactFormFields({
           autoComplete="email"
           aria-invalid={errors.email ? "true" : undefined}
           aria-describedby={errors.email ? `${id}-email-error` : undefined}
-          placeholder={t("contact.form.placeholders.email")}
+          placeholder={copy.placeholders.email}
           className={fieldClass(!!errors.email)}
         />
       </ContactFormField>
 
       <ContactFormField
         id={`${id}-message`}
-        label={t("contact.form.message")}
-        error={getErrorMessage(t, errors.message?.message)}
-        hint={t("contact.form.message_helper")}
+        label={copy.message}
+        error={getErrorMessage(copy.errors, errors.message?.message)}
+        hint={copy.messageHelper}
       >
         <textarea
           id={`${id}-message`}
@@ -182,7 +175,7 @@ function ContactFormFields({
           aria-describedby={
             errors.message ? `${id}-message-error` : `${id}-message-hint`
           }
-          placeholder={t("contact.form.placeholders.message")}
+          placeholder={copy.placeholders.message}
           className={cn(fieldClass(!!errors.message), "resize-y min-h-[8rem]")}
         />
       </ContactFormField>
@@ -191,19 +184,11 @@ function ContactFormFields({
 }
 
 type ContactFormProps = {
-  locale?: string;
+  copy: ContactFormCopy;
 };
 
-export function ContactForm({ locale = "en" }: ContactFormProps) {
-  const { t, i18n } = useTranslation();
+export function ContactForm({ copy }: ContactFormProps) {
   const isHydrated = useIsHydrated();
-
-  useEffect(() => {
-    if (i18n.language !== locale) {
-      void i18n.changeLanguage(locale);
-    }
-  }, [i18n, locale]);
-
   const id = useId();
   const [status, setStatus] = useState<FormStatus>("idle");
 
@@ -228,7 +213,7 @@ export function ContactForm({ locale = "en" }: ContactFormProps) {
   };
 
   if (status === "success") {
-    return <ContactFormSuccess onReset={() => setStatus("idle")} />;
+    return <ContactFormSuccess copy={copy} onReset={() => setStatus("idle")} />;
   }
 
   return (
@@ -252,7 +237,7 @@ export function ContactForm({ locale = "en" }: ContactFormProps) {
           </label>
         </div>
 
-        <ContactFormFields id={id} register={register} errors={errors} t={t} />
+        <ContactFormFields id={id} register={register} errors={errors} copy={copy} />
 
         <div className="space-y-3">
           <button
@@ -260,7 +245,7 @@ export function ContactForm({ locale = "en" }: ContactFormProps) {
             disabled={isSubmitting}
             className="group relative bg-text-main px-6 py-3 text-xs font-bold uppercase tracking-widest text-bg-app transition-all hover:pr-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-main/30 disabled:opacity-50"
           >
-            {isSubmitting ? t("contact.form.sending") : t("contact.form.send")}
+            {isSubmitting ? copy.sending : copy.send}
             <span
               aria-hidden="true"
               className="absolute right-4 opacity-0 transition-opacity group-hover:opacity-100"
@@ -276,10 +261,10 @@ export function ContactForm({ locale = "en" }: ContactFormProps) {
               aria-live="assertive"
             >
               <Text color="error" size="sm" className="font-bold">
-                {t("contact.form.error")}
+                {copy.error}
               </Text>
               <Text color="error" size="sm" className="mt-1 text-it-red">
-                {t("contact.form.error_detail")}
+                {copy.errorDetail}
               </Text>
             </div>
           ) : null}
