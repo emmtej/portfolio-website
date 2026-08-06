@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import { AnimatePresence, MotionConfig } from "framer-motion";
-import { ProjectCard, ProjectModal, type Project } from "./ProjectUI";
+import { ProjectCard } from "./ProjectCard";
+import { ProjectModal } from "./ProjectModal";
+import type { Project } from "./types";
 
 export function ProjectGallery({
   projects,

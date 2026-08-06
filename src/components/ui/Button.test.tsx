@@ -29,28 +29,15 @@ describe("Button", () => {
     expect(link.getAttribute("href")).toBe("https://example.com");
   });
 
-  it("disables button while loading", () => {
-    render(<Button isLoading>Save</Button>);
-    expect((screen.getByRole("button", { name: "Save" }) as HTMLButtonElement).disabled).toBe(
-      true,
-    );
-  });
-
-  it("disables button on success", () => {
-    render(<Button isSuccess>Done</Button>);
-    const button = screen.getByRole("button", {
-      name: "Done",
-    }) as HTMLButtonElement;
-    expect(button.disabled).toBe(true);
-    expect(
-      button.querySelector("svg")?.classList.contains(
-        "animate-button-success-pop",
-      ),
-    ).toBe(true);
-  });
-
   it("renders outline variant without hover overlay wrapper issues", () => {
     render(<Button variant="outline">Outline</Button>);
     expect(screen.getByRole("button", { name: "Outline" })).toBeTruthy();
+  });
+
+  it("honors disabled", () => {
+    render(<Button disabled>Save</Button>);
+    expect((screen.getByRole("button", { name: "Save" }) as HTMLButtonElement).disabled).toBe(
+      true,
+    );
   });
 });

@@ -1,13 +1,15 @@
 ---
 import { getServerT, resolveLocale } from "../utils/server-t";
 import { cn } from "../utils/cn";
-import { RomeAvailabilityDot } from "./ui/RomeAvailabilityDot";
+import { getRomeAvailabilitySnapshot } from "../utils/rome-sky-phase";
+import { ROME_NAV_DOT_HOST_ID } from "./ui/rome-availability-ids";
 
 const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
 const t = getServerT(locale);
 const { pathname } = Astro.url;
 const segments = pathname.split("/").filter(Boolean);
 const activeTabId = (locale === "it" ? segments[1] : segments[0]) || "about";
+const { available: romeAvailable } = getRomeAvailabilitySnapshot(new Date());
 
 const TABS = [
   { id: "about", label: t("nav.about"), shortLabel: t("nav.about") },
@@ -41,7 +43,24 @@ const tabLinkClass =
       >
         <span class="md:hidden">{tab.shortLabel}</span>
         <span class="hidden md:inline">{tab.label}</span>
-        {tab.id === "contact" && <RomeAvailabilityDot client:idle />}
+        {tab.id === "contact" && (
+          <span
+            id={ROME_NAV_DOT_HOST_ID}
+            class="inline-flex items-center"
+            data-rome-nav-dot
+          >
+            {/* SSR placeholder; RomeAvailability portal replaces with live indicator */}
+            <span
+              class={cn(
+                "size-1.5 shrink-0 rounded-full transition-colors duration-normal",
+                romeAvailable
+                  ? "bg-it-green animate-rome-availability-pulse"
+                  : "bg-text-muted/20",
+              )}
+              aria-hidden="true"
+            />
+          </span>
+        )}
       </a>
     );
   })}

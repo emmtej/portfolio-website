@@ -5,7 +5,7 @@ import Text from "../ui/Text.astro";
 import Section from "../ui/Section.astro";
 import RepoTransferNotice from "./RepoTransferNotice.astro";
 import { ProjectGallery } from "./ProjectGallery";
-import type { Project } from "./ProjectUI";
+import type { Project } from "./types";
 import { REPO_TRANSFER_NOTICE_ENABLED } from "./repo-transfer-notice";
 
 const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
@@ -78,7 +78,7 @@ const projects: Project[] = PROJECTS_CONFIG.map((p) => ({
 
   <Section title={t("dev.projects_title") as string} width="wide">
     <ProjectGallery
-      client:load
+      client:visible
       projects={projects}
       repoLinksUnavailable={REPO_TRANSFER_NOTICE_ENABLED}
     />

@@ -50,7 +50,7 @@ src/
 ├── layouts/          # Astro layouts
 ├── locales/          # i18n translation files (en, it)
 ├── pages/            # Astro route pages
-├── utils/            # Pure utilities (cn, motion-variants, rome-sky-phase)
+├── utils/            # Pure utilities (cn, motion-tokens, rome-sky-phase)
 └── index.css         # Global styles / Tailwind layers
 public/
 ├── favicon.svg       # SVG favicon

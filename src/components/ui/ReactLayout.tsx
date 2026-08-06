@@ -1,7 +1,7 @@
 import React from "react";
 import { cn } from "../../utils/cn";
 import { sectionWidths, styles, type SectionWidth } from "./primitives.tokens";
-import { Text, Heading } from "./Typography";
+import { Text } from "./Typography";
 
 // --- Section ---
 interface SectionProps extends React.HTMLAttributes<HTMLElement> {
@@ -52,41 +52,3 @@ export const ChromeControl: React.FC<ChromeControlProps> = ({ children, classNam
     {children}
   </Component>
 );
-
-// --- ListRow ---
-interface ListRowProps extends Omit<React.HTMLAttributes<HTMLElement>, "prefix"> {
-  prefix?: React.ReactNode;
-  title: string;
-  subtitle?: string;
-  trailing?: React.ReactNode;
-  interactive?: boolean;
-}
-
-export const ListRow: React.FC<ListRowProps> = ({ prefix, title, subtitle, trailing, onClick, className, interactive = false, ...props }) => {
-  const Component = onClick ? "button" : "div";
-  return (
-    <Component
-      onClick={onClick}
-      className={cn(
-        "flex items-center gap-4 py-3.5 border-b border-border-subtle text-left w-full transition-colors duration-normal",
-        interactive && "group hover:bg-text-main/[0.02] cursor-pointer",
-        className
-      )}
-      {...props}
-    >
-      {prefix ? (
-        <div className={cn(
-          "flex shrink-0 items-center justify-center min-w-[2rem] text-text-tertiary transition-colors",
-          interactive && "group-hover:text-text-main",
-        )}>
-          {prefix}
-        </div>
-      ) : null}
-      <div className="flex-1 min-w-0">
-        <Heading className={cn("truncate transition-colors", interactive && "group-hover:text-text-main")}>{title}</Heading>
-        {subtitle ? <Text className="mt-0.5 truncate text-sm text-text-tertiary">{subtitle}</Text> : null}
-      </div>
-      {trailing ? <div className="flex shrink-0 items-center gap-3">{trailing}</div> : null}
-    </Component>
-  );
-};

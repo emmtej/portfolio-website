@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { resolveTranslationKey } from "../utils/resolve-translation-key";
+import { resolveTranslationKey } from "./resolve-translation-key";
 
 const translations = {
   contact: {
