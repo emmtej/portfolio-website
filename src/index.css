@@ -55,7 +55,8 @@
 
   /* Layout — shared chrome band (fixed corners + sticky nav) */
   --spacing-chrome-inset: 1rem;
-  --spacing-chrome-control: 2.25rem;
+  /* 2.75rem = 44px — ergonomic touch target for chrome / nav controls */
+  --spacing-chrome-control: 2.75rem;
   --spacing-chrome-height: calc(var(--spacing-chrome-inset) + var(--spacing-chrome-control));
 
   /* Contact: Rome availability dot (when in window) */
