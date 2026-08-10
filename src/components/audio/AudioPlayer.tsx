@@ -64,9 +64,11 @@ export function AudioPlayer({ playLabel, pauseLabel, iframeTitle }: { playLabel:
         ></iframe>
       ) : (
         <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-          style={{ backgroundImage: `url('https://img.youtube.com/vi/9AVBGNRMMZM/maxresdefault.jpg')` }}
-        />
+          className="absolute inset-0 bg-gradient-to-br from-black via-neutral-900 to-neutral-800"
+          aria-hidden="true"
+        >
+          <div className="absolute inset-6 border border-white/10 sm:inset-10" />
+        </div>
       )}
 
       <button

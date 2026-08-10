@@ -52,13 +52,15 @@ const t = getServerT(locale);
   </svg>
 </ChromeControl>
 
-<script is:inline>
+<script>
   (function() {
     const toggle = document.getElementById('theme-toggle');
     const sunIcon = document.getElementById('sun-icon');
     const moonIcon = document.getElementById('moon-icon');
 
-    function updateIcons(theme) {
+    if (!toggle || !sunIcon || !moonIcon) return;
+
+    function updateIcons(theme: "light" | "dark") {
       if (theme === 'dark') {
         sunIcon.classList.remove('hidden');
         moonIcon.classList.add('hidden');
@@ -68,7 +70,7 @@ const t = getServerT(locale);
       }
     }
 
-    let theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    let theme: "light" | "dark" = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
     updateIcons(theme);
 
     toggle.addEventListener('click', () => {
