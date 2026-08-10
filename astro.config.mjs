@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import reactCompiler from 'babel-plugin-react-compiler';
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,7 +12,7 @@ export default defineConfig({
   site: 'https://emmanueltejeda.com',
   integrations: [react({
     babel: {
-      plugins: [["babel-plugin-react-compiler", {}]]
+      plugins: [[reactCompiler, {}]]
     }
   }), sitemap()],
   i18n: {

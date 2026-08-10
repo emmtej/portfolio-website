@@ -72,7 +72,9 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'npm run dev',
+    // Astro 7 auto-backgrounds `astro dev` inside detected coding agents.
+    // Playwright must own a foreground process so it can await and stop it.
+    command: 'ASTRO_DEV_BACKGROUND=false npm run dev',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
   },

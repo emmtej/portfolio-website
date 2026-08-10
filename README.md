@@ -10,7 +10,7 @@ Personal portfolio of **Emmanuel Tejeda**, full-stack software developer. Built 
 
 | Layer | Technology |
 |---|---|
-| Meta-framework | Astro 6 |
+| Meta-framework | Astro 7 |
 | UI framework | React 19 (Islands) |
 | Language | TypeScript 6 (strict mode) |
 | Styling | Tailwind CSS v4 |
@@ -104,3 +104,13 @@ The site is deployed automatically to Netlify on every push to `main`. Configura
 - Build command: `npm run build`
 - Publish directory: `dist/`
 - Security headers: CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy
+
+---
+
+## License
+
+Source code is licensed under the [MIT License](LICENSE). Personal content,
+résumé text, translations, documentation, brand assets, screenshots, audio,
+video, and third-party media are excluded from that grant and remain all
+rights reserved unless explicitly stated otherwise. See
+[CONTENT-LICENSE.md](CONTENT-LICENSE.md).
