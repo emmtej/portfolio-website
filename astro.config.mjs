@@ -9,12 +9,22 @@ export default defineConfig({
   server: {
     port: 3000,
   },
-  site: 'https://emmanueltejeda.com',
+  site: 'https://www.emmanueltejeda.com',
   integrations: [react({
     babel: {
       plugins: [[reactCompiler, {}]]
     }
-  }), sitemap()],
+  }), sitemap({
+    filter: (page) => {
+      const pathname = new URL(page).pathname.replace(/\/?$/, '/');
+      return !new Set([
+        '/about/',
+        '/it/about/',
+        '/404/',
+        '/it/404/',
+      ]).has(pathname);
+    },
+  })],
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'it'],

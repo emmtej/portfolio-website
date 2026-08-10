@@ -1,28 +1,19 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
-import Text from '../components/ui/Text.astro';
-import Section from '../components/ui/Section.astro';
-import SiteHeader from '../components/SiteHeader.astro';
+import NotFoundContent from '../components/NotFoundContent.astro';
 import { getServerT, resolveLocale } from '../utils/server-t';
 
 const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
 const t = getServerT(locale);
 ---
 
-<MainLayout title={t("404.title") as string} description={t("404.description") as string}>
-	<SiteHeader />
-	<div id="main-content" class="mt-6 md:mt-8">
-		<Section className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-			<Text as="h1" size="4xl" className="mb-4">404</Text>
-			<Text size="xl" className="mb-8 text-text-secondary">
-				{t("404.message")}
-			</Text>
-			<a 
-				href={locale === "it" ? "/it" : "/"} 
-				class="text-text-main hover:underline font-mono"
-			>
-				&gt; {t("404.back")}
-			</a>
-		</Section>
-	</div>
+<MainLayout
+	title={t("404.title") as string}
+	description={t("404.description") as string}
+	noindex
+	includeCanonical={false}
+	includeAlternates={false}
+	languageSwitcherTarget="/it/"
+>
+	<NotFoundContent locale={locale} />
 </MainLayout>

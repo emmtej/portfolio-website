@@ -5,6 +5,27 @@
 [build.environment]
   NODE_VERSION = "24"
 
+# Production HTTP redirects. Astro keeps portable static fallbacks for these
+# paths, so force is required to override their generated HTML on Netlify.
+[[redirects]]
+  from = "/about"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/it/about"
+  to = "/it/"
+  status = 301
+  force = true
+
+# Netlify shadowing preserves existing Italian routes and serves this only for
+# missing /it/* paths. HTTP status still requires deploy-preview verification.
+[[redirects]]
+  from = "/it/*"
+  to = "/it/404/"
+  status = 404
+
 [[headers]]
   for = "/*"
   [headers.values]
