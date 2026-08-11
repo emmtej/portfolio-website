@@ -1,28 +1,19 @@
-import { useState, useId, type ReactNode } from "react";
-import { useForm, type FieldErrors, type UseFormRegister } from "react-hook-form";
+import { useState, useId } from "react";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { cn } from "../../utils/cn";
-import { useIsHydrated } from "../../hooks/useIsHydrated";
+import { useIsHydrated } from "../../utils/hydration";
 import { Text } from "../ui/Typography";
 import { Section } from "../ui/ReactLayout";
-import {
-  CONTACT_FORM_LIMITS,
-  contactSchema,
-  type ContactErrorKey,
-  type ContactFormData,
-} from "./contact-schema";
+import { contactSchema, type ContactFormData } from "./contact-schema";
 import type { ContactFormCopy } from "./contact-form-copy";
 import { submitContactForm } from "./submit-contact-form";
+import { ContactFormFields } from "./ContactFormFields";
+import {
+  NETLIFY_CONTACT_FORM_NAME,
+  NETLIFY_HONEYPOT_FIELD,
+} from "./netlify-form-constants";
 
 type FormStatus = "idle" | "success" | "error";
-
-function getErrorMessage(
-  errors: ContactFormCopy["errors"],
-  key: string | undefined,
-): string | null {
-  if (!key) return null;
-  return errors[key as ContactErrorKey] ?? key;
-}
 
 function ContactFormSuccess({
   copy,
@@ -56,133 +47,6 @@ function ContactFormSuccess({
   );
 }
 
-function ContactFormField({
-  id,
-  label,
-  error,
-  hint,
-  children,
-}: {
-  id: string;
-  label: string;
-  error: string | null;
-  hint?: string;
-  children: ReactNode;
-}) {
-  const errorId = `${id}-error`;
-  const hintId = `${id}-hint`;
-
-  return (
-    <div className="space-y-2">
-      <label
-        htmlFor={id}
-        className="text-xs font-bold uppercase tracking-widest text-secondary"
-      >
-        {label}
-      </label>
-      {children}
-      {hint && !error ? (
-        <Text id={hintId} size="sm" className="text-tertiary">
-          {hint}
-        </Text>
-      ) : null}
-      {error ? (
-        <Text
-          id={errorId}
-          color="error"
-          size="sm"
-          className="font-mono"
-          role="alert"
-        >
-          {error}
-        </Text>
-      ) : null}
-    </div>
-  );
-}
-
-function ContactFormFields({
-  id,
-  register,
-  errors,
-  copy,
-}: {
-  id: string;
-  register: UseFormRegister<ContactFormData>;
-  errors: FieldErrors<ContactFormData>;
-  copy: ContactFormCopy;
-}) {
-  const fieldClass = (hasError: boolean) =>
-    cn(
-      "w-full border border-border-subtle bg-bg-app p-3 text-sm text-text-main outline-none transition-colors placeholder-secondary focus:border-text-main focus-visible:ring-2 focus-visible:ring-text-main/15",
-      hasError && "border-it-red focus:border-it-red focus-visible:ring-it-red/20",
-    );
-
-  return (
-    <div className="space-y-5">
-      <ContactFormField
-        id={`${id}-name`}
-        label={copy.name}
-        error={getErrorMessage(copy.errors, errors.name?.message)}
-      >
-        <input
-          id={`${id}-name`}
-          {...register("name")}
-          required
-          minLength={2}
-          maxLength={CONTACT_FORM_LIMITS.name}
-          autoComplete="name"
-          aria-invalid={errors.name ? "true" : undefined}
-          aria-describedby={errors.name ? `${id}-name-error` : undefined}
-          placeholder={copy.placeholders.name}
-          className={fieldClass(!!errors.name)}
-        />
-      </ContactFormField>
-
-      <ContactFormField
-        id={`${id}-email`}
-        label={copy.email}
-        error={getErrorMessage(copy.errors, errors.email?.message)}
-      >
-        <input
-          id={`${id}-email`}
-          type="email"
-          {...register("email")}
-          required
-          maxLength={CONTACT_FORM_LIMITS.email}
-          autoComplete="email"
-          aria-invalid={errors.email ? "true" : undefined}
-          aria-describedby={errors.email ? `${id}-email-error` : undefined}
-          placeholder={copy.placeholders.email}
-          className={fieldClass(!!errors.email)}
-        />
-      </ContactFormField>
-
-      <ContactFormField
-        id={`${id}-message`}
-        label={copy.message}
-        error={getErrorMessage(copy.errors, errors.message?.message)}
-        hint={copy.messageHelper}
-      >
-        <textarea
-          id={`${id}-message`}
-          {...register("message")}
-          required
-          minLength={10}
-          maxLength={CONTACT_FORM_LIMITS.message}
-          rows={5}
-          aria-invalid={errors.message ? "true" : undefined}
-          aria-describedby={
-            errors.message ? `${id}-message-error` : `${id}-message-hint`
-          }
-          placeholder={copy.placeholders.message}
-          className={cn(fieldClass(!!errors.message), "resize-y min-h-[8rem]")}
-        />
-      </ContactFormField>
-    </div>
-  );
-}
-
 type ContactFormProps = {
   copy: ContactFormCopy;
 };
@@ -201,9 +65,15 @@ export function ContactForm({ copy }: ContactFormProps) {
     resolver: zodResolver(contactSchema),
   });
 
-  const onSubmit = async (data: ContactFormData) => {
+  const onSubmit: SubmitHandler<ContactFormData> = async (data, event) => {
+    const form = event?.target;
+    const honeypotEntry = form instanceof HTMLFormElement
+      ? new FormData(form).get(NETLIFY_HONEYPOT_FIELD)
+      : null;
+    const honeypotValue = typeof honeypotEntry === "string" ? honeypotEntry : "";
+
     setStatus("idle");
-    const result = await submitContactForm(data);
+    const result = await submitContactForm(data, honeypotValue);
     if (result === "success") {
       setStatus("success");
       reset();
@@ -220,20 +90,25 @@ export function ContactForm({ copy }: ContactFormProps) {
     <Section width="full">
       <form
         noValidate={isHydrated}
-        name="contact"
+        name={NETLIFY_CONTACT_FORM_NAME}
         data-contact-form="interactive"
         data-hydrated={isHydrated ? "true" : "false"}
         method="POST"
         data-netlify="true"
-        netlify-honeypot="bot-field"
+        netlify-honeypot={NETLIFY_HONEYPOT_FIELD}
         onSubmit={handleSubmit(onSubmit)}
         aria-busy={isSubmitting}
         className="space-y-6"
       >
-        <input type="hidden" name="form-name" value="contact" />
-        <div className="hidden">
+        <input type="hidden" name="form-name" value={NETLIFY_CONTACT_FORM_NAME} />
+        <div className="sr-only" aria-hidden="true">
           <label>
-            Don&apos;t fill this out if you&apos;re human: <input name="bot-field" />
+            Don&apos;t fill this out if you&apos;re human:{" "}
+            <input
+              name={NETLIFY_HONEYPOT_FIELD}
+              tabIndex={-1}
+              autoComplete="off"
+            />
           </label>
         </div>
 

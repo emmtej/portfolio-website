@@ -8,51 +8,14 @@ import {
 } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { ContactForm } from "./ContactForm";
-import { buildContactFormCopy } from "./contact-form-copy";
 import { CONTACT_FORM_LIMITS } from "./contact-schema";
-import enTranslations from "../../locales/en/translation.json";
-import { resolveTranslationKey } from "../../utils/resolve-translation-key";
-
-const t = (key: string) => {
-  const value = resolveTranslationKey(enTranslations, key);
-  return typeof value === "string" ? value : key;
-};
-
-const copy = buildContactFormCopy(t);
-
-const EN = {
-  nameError: copy.errors["contact.form.errors.name"],
-  emailError: copy.errors["contact.form.errors.email"],
-  messageError: copy.errors["contact.form.errors.message"],
-  nameMaxError: copy.errors["contact.form.errors.name_max"],
-  emailMaxError: copy.errors["contact.form.errors.email_max"],
-  messageMaxError: copy.errors["contact.form.errors.message_max"],
-  send: copy.send,
-  sending: copy.sending,
-  success: copy.success,
-  submitError: copy.error,
-} as const;
-
-function getFormFields() {
-  return {
-    name: screen.getByLabelText(copy.name),
-    email: screen.getByLabelText(copy.email),
-    message: screen.getByLabelText(copy.message),
-  };
-}
-
-function fillValidForm() {
-  const { name, email, message } = getFormFields();
-  fireEvent.change(name, { target: { value: "Jo" } });
-  fireEvent.change(email, { target: { value: "a@b.co" } });
-  fireEvent.change(message, {
-    target: { value: "1234567890" },
-  });
-}
-
-function clickSubmit() {
-  fireEvent.click(screen.getByRole("button", { name: new RegExp(EN.send, "i") }));
-}
+import {
+  clickContactFormSubmit,
+  contactFormTestCopy as copy,
+  contactFormTestLabels as EN,
+  fillValidContactForm,
+  getContactFormFields,
+} from "./contactForm.test-helpers";
 
 describe("ContactForm", () => {
   beforeEach(() => {
@@ -92,7 +55,7 @@ describe("ContactForm", () => {
 
     it("has native HTML5 validation attributes on fields", () => {
       render(<ContactForm copy={copy} />);
-      const { name, email, message } = getFormFields();
+      const { name, email, message } = getContactFormFields();
 
       expect((name as HTMLInputElement).required).toBe(true);
       expect((name as HTMLInputElement).minLength).toBe(2);
@@ -115,13 +78,13 @@ describe("ContactForm", () => {
 
     it("shows validation errors on empty submit", async () => {
       render(<ContactForm copy={copy} />);
-      clickSubmit();
+      clickContactFormSubmit();
 
       expect(await screen.findByText(EN.nameError)).toBeTruthy();
       expect(screen.getByText(EN.emailError)).toBeTruthy();
       expect(screen.getByText(EN.messageError)).toBeTruthy();
 
-      const { name, email, message } = getFormFields();
+      const { name, email, message } = getContactFormFields();
       expect(name.getAttribute("aria-invalid")).toBe("true");
       expect(email.getAttribute("aria-invalid")).toBe("true");
       expect(message.getAttribute("aria-invalid")).toBe("true");
@@ -132,24 +95,24 @@ describe("ContactForm", () => {
 
     it("rejects whitespace-only values after trimming", async () => {
       render(<ContactForm copy={copy} />);
-      const { name, email, message } = getFormFields();
+      const { name, email, message } = getContactFormFields();
 
       fireEvent.change(name, { target: { value: "   " } });
       fireEvent.change(email, { target: { value: "a@b.co" } });
       fireEvent.change(message, { target: { value: "1234567890" } });
-      clickSubmit();
+      clickContactFormSubmit();
 
       expect(await screen.findByText(EN.nameError)).toBeTruthy();
     });
 
     it("rejects oversized values", async () => {
       render(<ContactForm copy={copy} />);
-      const { name, email, message } = getFormFields();
+      const { name, email, message } = getContactFormFields();
 
       fireEvent.change(name, { target: { value: "x".repeat(101) } });
       fireEvent.change(email, { target: { value: `${"a".repeat(250)}@b.co` } });
       fireEvent.change(message, { target: { value: "x".repeat(5001) } });
-      clickSubmit();
+      clickContactFormSubmit();
 
       expect(await screen.findByText(EN.nameMaxError)).toBeTruthy();
       expect(screen.getByText(EN.emailMaxError)).toBeTruthy();
@@ -163,8 +126,8 @@ describe("ContactForm", () => {
       fetchMock.mockResolvedValueOnce(new Response(null, { status: 200 }));
 
       render(<ContactForm copy={copy} />);
-      fillValidForm();
-      clickSubmit();
+      fillValidContactForm();
+      clickContactFormSubmit();
 
       await waitFor(() => {
         expect(screen.getByText(EN.success)).toBeTruthy();
@@ -179,9 +142,31 @@ describe("ContactForm", () => {
       });
       const body = init?.body as string;
       expect(body).toContain("form-name=contact");
+      expect(body).toContain("bot-field=");
       expect(body).toContain("name=Jo");
       expect(body).toContain("email=a%40b.co");
       expect(body).toContain("message=1234567890");
+    });
+
+    it("preserves a filled honeypot value in the encoded request", async () => {
+      const fetchMock = vi.mocked(globalThis.fetch);
+      fetchMock.mockResolvedValueOnce(new Response(null, { status: 200 }));
+
+      render(<ContactForm copy={copy} />);
+      const honeypot = document.querySelector<HTMLInputElement>(
+        'input[name="bot-field"]',
+      );
+      expect(honeypot).toBeTruthy();
+      fireEvent.change(honeypot!, { target: { value: "spam bot" } });
+      fillValidContactForm();
+      clickContactFormSubmit();
+
+      await waitFor(() => {
+        expect(fetchMock).toHaveBeenCalledTimes(1);
+      });
+
+      const body = String(fetchMock.mock.calls[0][1]?.body);
+      expect(new URLSearchParams(body).get("bot-field")).toBe("spam bot");
     });
   });
 
@@ -196,8 +181,8 @@ describe("ContactForm", () => {
       fetchMock.mockReturnValueOnce(pending);
 
       render(<ContactForm copy={copy} />);
-      fillValidForm();
-      clickSubmit();
+      fillValidContactForm();
+      clickContactFormSubmit();
 
       await waitFor(() => {
         expect(
@@ -226,8 +211,8 @@ describe("ContactForm", () => {
       fetchMock.mockResolvedValueOnce(new Response(null, { status: 500 }));
 
       render(<ContactForm copy={copy} />);
-      fillValidForm();
-      clickSubmit();
+      fillValidContactForm();
+      clickContactFormSubmit();
 
       expect(await screen.findByText(EN.submitError)).toBeTruthy();
     });
@@ -237,8 +222,8 @@ describe("ContactForm", () => {
       fetchMock.mockRejectedValueOnce(new Error("network"));
 
       render(<ContactForm copy={copy} />);
-      fillValidForm();
-      clickSubmit();
+      fillValidContactForm();
+      clickContactFormSubmit();
 
       expect(await screen.findByText(EN.submitError)).toBeTruthy();
     });
