@@ -1,89 +1,10 @@
 import { useTranslation } from "react-i18next";
 import "../../i18n";
-import { Button } from "../ui/Button";
 import { Text, Title } from "../ui/Typography";
 import { Badge } from "../ui/ReactLayout";
 import { Modal } from "../ui/Modal";
+import { ProjectModalLinks } from "./ProjectModalLinks";
 import type { Project } from "./types";
-
-function ProjectModalLinks({
-  project,
-  repoLinksUnavailable,
-}: {
-  project: Project;
-  repoLinksUnavailable: boolean;
-}) {
-  const { t } = useTranslation();
-  const hasGithub = Boolean(project.github);
-  const hasDemo = Boolean(project.link);
-  const githubUnavailable = repoLinksUnavailable && hasGithub;
-
-  if (!hasGithub && !hasDemo) {
-    return (
-      <Text size="sm" className="text-secondary">
-        {t("dev.links_private")}
-      </Text>
-    );
-  }
-
-  return (
-    <div className="space-y-3">
-      <div className="flex flex-wrap gap-4">
-        {hasGithub ? (
-          githubUnavailable ? (
-            <Button
-              type="button"
-              variant="primary"
-              size="md"
-              disabled
-              aria-disabled="true"
-            >
-              {t("dev.view_source")}
-            </Button>
-          ) : (
-            <Button
-              as="a"
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="primary"
-              size="md"
-            >
-              {t("dev.view_source")}
-            </Button>
-          )
-        ) : null}
-        {project.link ? (
-          <Button
-            as="a"
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="outline"
-            size="md"
-          >
-            {t("dev.view_demo")}
-          </Button>
-        ) : null}
-      </div>
-      {githubUnavailable ? (
-        <Text size="sm" className="text-secondary">
-          {t("dev.repo_transfer_notice.links_unavailable")}
-        </Text>
-      ) : null}
-      {hasGithub && !hasDemo && !githubUnavailable ? (
-        <Text size="sm" className="text-secondary">
-          {t("dev.source_only_note")}
-        </Text>
-      ) : null}
-      {!hasGithub && hasDemo ? (
-        <Text size="sm" className="text-secondary">
-          {t("dev.demo_only_note")}
-        </Text>
-      ) : null}
-    </div>
-  );
-}
 
 export function ProjectModal({
   project,

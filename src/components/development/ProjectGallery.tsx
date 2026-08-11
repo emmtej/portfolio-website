@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { AnimatePresence, MotionConfig } from "framer-motion";
-import { useIsHydrated } from "../../hooks/useIsHydrated";
+import { useIsHydrated } from "../../utils/hydration";
 import { ProjectCard } from "./ProjectCard";
 import { ProjectModal } from "./ProjectModal";
 import type { Project } from "./types";
