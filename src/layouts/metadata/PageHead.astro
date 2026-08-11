@@ -1,0 +1,76 @@
+---
+interface Props {
+	title: string;
+	description: string;
+	noindex: boolean;
+	includeCanonical: boolean;
+	includeAlternates: boolean;
+	canonical: string;
+	ogImage: string;
+	englishUrl: string;
+	italianUrl: string;
+}
+
+const {
+	title,
+	description,
+	noindex,
+	includeCanonical,
+	includeAlternates,
+	canonical,
+	ogImage,
+	englishUrl,
+	italianUrl,
+} = Astro.props;
+---
+
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<link rel="shortcut icon" href="/favicon.ico" />
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+	<meta name="apple-mobile-web-app-title" content="ET|DEV" />
+	<link rel="manifest" href="/site.webmanifest" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<title>{title}</title>
+	<meta name="title" content={title} />
+	<meta name="description" content={description} />
+	<meta name="author" content="Emmanuel T." />
+	{noindex && <meta name="robots" content="noindex,follow" />}
+	{includeCanonical && <link rel="canonical" href={canonical} />}
+
+	{!noindex && <meta property="og:type" content="website" />}
+	{!noindex && <meta property="og:url" content={canonical} />}
+	{!noindex && <meta property="og:title" content={title} />}
+	{!noindex && <meta property="og:description" content={description} />}
+	{!noindex && <meta property="og:image" content={ogImage} />}
+
+	{!noindex && <meta property="twitter:card" content="summary_large_image" />}
+	{!noindex && <meta property="twitter:url" content={canonical} />}
+	{!noindex && <meta property="twitter:title" content={title} />}
+	{!noindex && <meta property="twitter:description" content={description} />}
+	{!noindex && <meta property="twitter:image" content={ogImage} />}
+
+	{includeAlternates && <link rel="alternate" hreflang="en" href={englishUrl} />}
+	{includeAlternates && <link rel="alternate" hreflang="it" href={italianUrl} />}
+	{includeAlternates && <link rel="alternate" hreflang="x-default" href={englishUrl} />}
+
+	<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+	<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+
+	<script is:inline>
+		try {
+			const saved = localStorage.getItem("theme");
+			const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+			if (saved === "dark" || (!saved && prefersDark)) {
+				document.documentElement.classList.add("dark");
+			} else {
+				document.documentElement.classList.remove("dark");
+			}
+		} catch {
+			// Storage can be unavailable under restrictive privacy settings.
+		}
+	</script>
+</head>

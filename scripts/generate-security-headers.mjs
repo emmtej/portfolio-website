@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -29,6 +30,17 @@ function decodeHtmlAttribute(value) {
 const scriptHashes = new Set();
 for (const file of await findHtmlFiles(dist)) {
   const html = await readFile(file, "utf8");
+  for (const script of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
+    const [, attributes, content] = script;
+    if (/(?:^|\s)src\s*=/i.test(attributes)) {
+      continue;
+    }
+
+    scriptHashes.add(
+      `'sha256-${createHash("sha256").update(content).digest("base64")}'`,
+    );
+  }
+
   const match = html.match(
     /<meta\s+http-equiv="content-security-policy"\s+content="([^"]+)">/i,
   );
@@ -74,4 +86,4 @@ await writeFile(
   "utf8",
 );
 
-console.log(`Generated Netlify CSP with ${scriptHashes.size} Astro script hashes.`);
+console.log(`Generated Netlify CSP with ${scriptHashes.size} emitted script hashes.`);

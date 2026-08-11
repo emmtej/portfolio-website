@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readdir, readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -17,6 +18,210 @@ function assertIncludes(content, expected, file) {
 
 function assertExcludes(content, unexpected, file) {
   assert.ok(!content.includes(unexpected), `${file} must not contain ${unexpected}`);
+}
+
+async function findHtmlFiles(directory) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const files = await Promise.all(
+    entries.map((entry) => {
+      const target = path.join(directory, entry.name);
+      return entry.isDirectory()
+        ? findHtmlFiles(target)
+        : Promise.resolve(entry.name.endsWith(".html") ? [target] : []);
+    }),
+  );
+  return files.flat();
+}
+
+function countMainContentIds(html) {
+  const matches = html.match(/id="main-content"/g);
+  return matches ? matches.length : 0;
+}
+
+function getAttribute(tag, name) {
+  const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return tag.match(new RegExp(`(?:^|\\s)${escapedName}="([^"]*)"`))?.[1] ?? null;
+}
+
+function hasBooleanAttribute(tag, name) {
+  const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(?:^|\\s)${escapedName}(?:\\s|>)`).test(tag);
+}
+
+function getForms(html) {
+  return html.match(/<form\b[^>]*>[\s\S]*?<\/form>/g) ?? [];
+}
+
+function getOpeningTag(form) {
+  return form.match(/^<form\b[^>]*>/)?.[0] ?? "";
+}
+
+function getNamedControls(form) {
+  return [...form.matchAll(/<(?:input|textarea|select)\b[^>]*>/g)].map(
+    ([tag]) => ({
+      tag,
+      name: getAttribute(tag, "name"),
+    }),
+  );
+}
+
+function getScripts(html) {
+  return [...html.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/g)].map(
+    (match) => {
+      const fullTag = match[0];
+      return {
+        content: fullTag.replace(/^<script\b[^>]*>|<\/script>$/g, ""),
+        index: match.index,
+        openingTag: fullTag.match(/^<script\b[^>]*>/)?.[0] ?? "",
+      };
+    },
+  );
+}
+
+function verifyThemeInitializer(html, file) {
+  const headStart = html.indexOf("<head>");
+  const headEnd = html.indexOf("</head>");
+  const bodyStart = html.indexOf("<body");
+  assert.ok(headStart >= 0 && headEnd > headStart, `${file} must contain a head element`);
+  assert.ok(bodyStart > headEnd, `${file} head must precede body`);
+
+  const themeScripts = getScripts(html).filter(({ content }) =>
+    content.includes('localStorage.getItem("theme")'),
+  );
+  assert.equal(themeScripts.length, 1, `${file} must contain one theme initializer`);
+
+  const themeScript = themeScripts[0];
+  assert.ok(
+    themeScript.index > headStart && themeScript.index < headEnd,
+    `${file} theme initializer must be inside head`,
+  );
+  for (const attribute of ["type", "src"]) {
+    assert.equal(
+      getAttribute(themeScript.openingTag, attribute),
+      null,
+      `${file} theme initializer must not have ${attribute}`,
+    );
+  }
+  for (const attribute of ["async", "defer"]) {
+    assert.equal(
+      hasBooleanAttribute(themeScript.openingTag, attribute),
+      false,
+      `${file} theme initializer must not be ${attribute}`,
+    );
+  }
+
+  const stylesheetIndex = html.indexOf('<link rel="stylesheet"', headStart);
+  assert.ok(stylesheetIndex > headStart, `${file} must contain a stylesheet in head`);
+  assert.ok(
+    themeScript.index < stylesheetIndex && themeScript.index < bodyStart,
+    `${file} theme initializer must execute before stylesheets and body content`,
+  );
+
+  const hash = `'sha256-${createHash("sha256")
+    .update(themeScript.content)
+    .digest("base64")}'`;
+  return hash;
+}
+
+function verifyNetlifyContactForm(html, file) {
+  const forms = getForms(html);
+  const blueprintForms = forms.filter((form) => {
+    const openingTag = getOpeningTag(form);
+    return (
+      getAttribute(openingTag, "data-netlify") === "true" &&
+      hasBooleanAttribute(openingTag, "hidden")
+    );
+  });
+  const interactiveForms = forms.filter(
+    (form) =>
+      getAttribute(getOpeningTag(form), "data-contact-form") === "interactive",
+  );
+
+  assert.equal(blueprintForms.length, 1, `${file} must contain one hidden Netlify blueprint`);
+  assert.equal(interactiveForms.length, 1, `${file} must contain one interactive contact form`);
+
+  const blueprint = blueprintForms[0];
+  const interactive = interactiveForms[0];
+  const blueprintTag = getOpeningTag(blueprint);
+  const interactiveTag = getOpeningTag(interactive);
+  const formName = getAttribute(blueprintTag, "name");
+  const honeypotName = getAttribute(blueprintTag, "data-netlify-honeypot");
+
+  assert.equal(formName, "contact", `${file} blueprint must use the contact form name`);
+  assert.equal(honeypotName, "bot-field", `${file} blueprint must declare bot-field`);
+  assert.equal(getAttribute(interactiveTag, "name"), formName, `${file} form names must match`);
+  assert.equal(
+    getAttribute(interactiveTag, "netlify-honeypot"),
+    honeypotName,
+    `${file} honeypot declarations must match`,
+  );
+
+  const blueprintFields = getNamedControls(blueprint)
+    .map(({ name }) => name)
+    .filter(Boolean)
+    .sort();
+  assert.deepEqual(
+    blueprintFields,
+    ["bot-field", "email", "message", "name"],
+    `${file} blueprint fields must match the contact payload`,
+  );
+
+  const interactiveControls = getNamedControls(interactive);
+  const interactiveFields = new Set(interactiveControls.map(({ name }) => name));
+  for (const field of [...blueprintFields, "form-name"]) {
+    assert.ok(interactiveFields.has(field), `${file} interactive form must contain ${field}`);
+  }
+
+  const formNameControl = interactiveControls.find(({ name }) => name === "form-name");
+  assert.equal(
+    formNameControl ? getAttribute(formNameControl.tag, "value") : null,
+    formName,
+    `${file} hidden form-name value must match the blueprint name`,
+  );
+}
+
+const layoutPageFiles = [
+  "dist/404.html",
+  "dist/audio/index.html",
+  "dist/contact/index.html",
+  "dist/development/index.html",
+  "dist/index.html",
+  "dist/it/404/index.html",
+  "dist/it/audio/index.html",
+  "dist/it/contact/index.html",
+  "dist/it/development/index.html",
+  "dist/it/index.html",
+];
+const redirectPageFiles = [
+  "dist/about/index.html",
+  "dist/it/about/index.html",
+];
+
+const distHtmlFiles = (await findHtmlFiles(dist)).map((file) =>
+  path.relative(root, file),
+);
+assert.deepEqual(
+  distHtmlFiles.toSorted(),
+  [...layoutPageFiles, ...redirectPageFiles].toSorted(),
+  "Every generated HTML file must be classified as a layout page or redirect",
+);
+
+const themeScriptHashes = new Set();
+for (const file of layoutPageFiles) {
+  const html = await read(file);
+  const count = countMainContentIds(html);
+  assert.equal(
+    count,
+    1,
+    `${file} must contain exactly one id="main-content" (found ${count})`,
+  );
+  themeScriptHashes.add(verifyThemeInitializer(html, file));
+}
+
+for (const file of redirectPageFiles) {
+  const html = await read(file);
+  assert.equal(countMainContentIds(html), 0, `${file} redirect must not contain main-content`);
+  assertIncludes(html, '<meta http-equiv="refresh"', file);
 }
 
 const sitemapIndex = await readFile(path.join(dist, "sitemap-index.xml"), "utf8");
@@ -58,6 +263,10 @@ for (const [file, canonicalPath, englishPath, italianPath] of pages) {
   assertIncludes(html, `hreflang="it" href="${primaryOrigin}${italianPath}"`, file);
   assertIncludes(html, `hreflang="x-default" href="${primaryOrigin}${englishPath}"`, file);
   assertExcludes(html, "https://emmanueltejeda.com", file);
+}
+
+for (const file of ["dist/contact/index.html", "dist/it/contact/index.html"]) {
+  verifyNetlifyContactForm(await read(file), file);
 }
 
 const errorPages = [
@@ -102,6 +311,9 @@ assertIncludes(
 assertExcludes(netlify, 'Content-Security-Policy =', "netlify.toml");
 
 const generatedHeaders = await readFile(path.join(dist, "_headers"), "utf8");
+for (const hash of themeScriptHashes) {
+  assertIncludes(generatedHeaders, hash, "dist/_headers theme initializer CSP");
+}
 for (const directive of [
   "default-src 'self'",
   "script-src 'self' 'sha256-",
@@ -140,4 +352,6 @@ for (const asset of builtAssets.filter((file) => file.endsWith(".js"))) {
   assertExcludes(source, "s.ytimg.com", `dist/_astro/${asset}`);
 }
 
-console.log("Verified metadata, routing, strict CSP, headers, and pre-activation media privacy.");
+console.log(
+  "Verified landmarks, metadata, routing, Netlify Forms, strict CSP, headers, and pre-activation media privacy.",
+);
