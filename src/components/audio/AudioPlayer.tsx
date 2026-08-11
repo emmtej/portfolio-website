@@ -1,52 +1,19 @@
-import { useState, useRef, useEffect } from "react";
 import { cn } from "../../utils/cn";
-import { useIsHydrated } from "../../hooks/useIsHydrated";
-import {
-  YOUTUBE_NOCOOKIE_ORIGIN,
-  buildPlayerCommand,
-  isPlayingState,
-  parseYouTubeInfoDeliveryState,
-} from "./youtube-player";
+import { useIsHydrated } from "../../utils/hydration";
+import { useAudioControls } from "../../hooks/useAudioControls";
+import { YOUTUBE_NOCOOKIE_ORIGIN } from "./youtube-player";
 
-export function AudioPlayer({ playLabel, pauseLabel, iframeTitle }: { playLabel: string; pauseLabel: string; iframeTitle: string }) {
+export function AudioPlayer({
+  playLabel,
+  pauseLabel,
+  iframeTitle,
+}: {
+  playLabel: string;
+  pauseLabel: string;
+  iframeTitle: string;
+}) {
   const isHydrated = useIsHydrated();
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [showIframe, setShowIframe] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-
-  useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== YOUTUBE_NOCOOKIE_ORIGIN) return;
-
-      try {
-        const state = parseYouTubeInfoDeliveryState(JSON.parse(event.data));
-        const playing = isPlayingState(state);
-        if (playing !== undefined) setIsPlaying(playing);
-      } catch {
-        // Ignore non-JSON messages
-      }
-    };
-
-    window.addEventListener("message", handleMessage, { passive: true });
-    return () => window.removeEventListener("message", handleMessage);
-  }, []);
-
-  const togglePlay = () => {
-    if (!showIframe) {
-      setShowIframe(true);
-      setIsPlaying(true);
-      return;
-    }
-
-    if (!iframeRef.current) return;
-
-    const command = isPlaying ? "pauseVideo" : "playVideo";
-    iframeRef.current.contentWindow?.postMessage(
-      buildPlayerCommand(command),
-      YOUTUBE_NOCOOKIE_ORIGIN,
-    );
-    setIsPlaying(!isPlaying);
-  };
+  const { iframeRef, isPlaying, showIframe, togglePlay } = useAudioControls();
 
   return (
     <div

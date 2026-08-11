@@ -27,13 +27,21 @@ describe("AudioPlayer", () => {
   });
 
   it("updates playing state from YouTube postMessage", () => {
-    render(<AudioPlayer {...labels} />);
+    const { container } = render(<AudioPlayer {...labels} />);
     fireEvent.click(screen.getByRole("button", { name: labels.playLabel }));
+
+    const iframe = container.querySelector("iframe");
+    const contentWindow = {} as Window;
+    Object.defineProperty(iframe, "contentWindow", {
+      configurable: true,
+      value: contentWindow,
+    });
 
     act(() => {
       window.dispatchEvent(
         new MessageEvent("message", {
           origin: YOUTUBE_NOCOOKIE_ORIGIN,
+          source: contentWindow,
           data: JSON.stringify({
             event: "infoDelivery",
             info: { playerState: 2 },
@@ -43,6 +51,26 @@ describe("AudioPlayer", () => {
     });
 
     expect(screen.getByRole("button", { name: labels.playLabel })).toBeTruthy();
+  });
+
+  it("ignores messages from the nocookie origin without the player frame source", () => {
+    render(<AudioPlayer {...labels} />);
+    fireEvent.click(screen.getByRole("button", { name: labels.playLabel }));
+
+    act(() => {
+      window.dispatchEvent(
+        new MessageEvent("message", {
+          origin: YOUTUBE_NOCOOKIE_ORIGIN,
+          source: {} as Window,
+          data: JSON.stringify({
+            event: "infoDelivery",
+            info: { playerState: 2 },
+          }),
+        }),
+      );
+    });
+
+    expect(screen.getByRole("button", { name: labels.pauseLabel })).toBeTruthy();
   });
 
   it("ignores messages from other origins", () => {
