@@ -24,6 +24,8 @@
     "verify:build-output": "node scripts/verify-build-output.mjs",
     "fallow": "fallow",
     "fallow:health": "fallow health",
+    "fallow:health:coverage": "fallow health --coverage coverage/coverage-final.json",
+    "fallow:ci": "fallow health --coverage coverage/coverage-final.json",
     "fallow:audit": "fallow audit"
   },
   "dependencies": {

@@ -54,6 +54,11 @@ jobs:
       - name: Test with coverage
         run: npm run test:coverage
 
+      # Advisory until `fallow health` exits 0 locally and on Linux CI; then remove continue-on-error.
+      - name: Fallow health (coverage-backed)
+        continue-on-error: true
+        run: npm run fallow:ci
+
       - name: Build
         run: npm run build
 
