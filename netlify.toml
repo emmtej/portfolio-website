@@ -5,13 +5,35 @@
 [build.environment]
   NODE_VERSION = "24"
 
+# Production HTTP redirects. Astro keeps portable static fallbacks for these
+# paths, so force is required to override their generated HTML on Netlify.
+[[redirects]]
+  from = "/about"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/it/about"
+  to = "/it/"
+  status = 301
+  force = true
+
+# Netlify shadowing preserves existing Italian routes and serves this only for
+# missing /it/* paths. HTTP status still requires deploy-preview verification.
+[[redirects]]
+  from = "/it/*"
+  to = "/it/404/"
+  status = 404
+
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "no-referrer-when-downgrade"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com/iframe_api https://s.ytimg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-src 'self' https://www.youtube-nocookie.com; frame-ancestors 'self'; upgrade-insecure-requests;"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    # Full hash-based CSP is generated into dist/_headers after Astro builds.
 
 [[headers]]
   for = "/favicon.svg"

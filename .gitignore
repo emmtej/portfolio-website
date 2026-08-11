@@ -38,9 +38,5 @@ playwright/.auth/
 .DS_Store
 *.sw?
 
-# Local agent tooling
-.agents/
-skills-lock.json
-
 docs/
-.impeccable
+

@@ -243,7 +243,7 @@ export function ContactForm({ copy }: ContactFormProps) {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="group relative bg-text-main px-6 py-3 text-xs font-bold uppercase tracking-widest text-bg-app transition-all hover:pr-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-main/30 disabled:opacity-50"
+            className="group relative inline-flex min-h-11 items-center bg-text-main px-6 py-3 text-xs font-bold uppercase tracking-widest text-bg-app transition-all hover:pr-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-main/30 disabled:opacity-50"
           >
             {isSubmitting ? copy.sending : copy.send}
             <span

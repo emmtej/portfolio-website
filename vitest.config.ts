@@ -1,20 +1,8 @@
 import { defineConfig } from "vitest/config";
-import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
 
 // https://vitest.dev/config/
 export default defineConfig({
   server: { port: 3000 },
-  plugins: [
-    react({
-      babel: {
-        plugins: [
-          ["babel-plugin-react-compiler", { target: "19" }],
-        ],
-      },
-    }),
-    tailwindcss(),
-  ],
   test: {
     environment: "jsdom",
     globals: false,

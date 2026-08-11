@@ -7,5 +7,6 @@ export function getStaticPaths() {
 }
 
 const { locale } = Astro.params;
+// Netlify serves the production 301. This static page is a portable fallback.
 return Astro.redirect(locale === 'it' ? '/it' : '/', 301);
 ---

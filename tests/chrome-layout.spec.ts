@@ -87,7 +87,8 @@ test.describe('Chrome and sticky nav layout', () => {
 
     expect(layout.gap).not.toBeNull();
     expect(Math.abs(layout.gap!)).toBeLessThanOrEqual(2);
-    expect(layout.headerHeight).toBeCloseTo(60, 0);
+    // chrome-height = chrome-inset (1.5rem) + chrome-control (2.75rem / 44px)
+    expect(layout.headerHeight).toBeCloseTo(68, 0);
     expect(layout.chromeBg).not.toMatch(/rgba?\(0,\s*0,\s*0,\s*0\)/);
     expect(layout.overlap).toBe(false);
   });

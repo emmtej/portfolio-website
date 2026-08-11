@@ -9,15 +9,40 @@ import NetlifyFormStub from '../components/contact/NetlifyFormStub.astro';
 interface Props {
 	title?: string;
 	description?: string;
+	noindex?: boolean;
+	includeCanonical?: boolean;
+	includeAlternates?: boolean;
+	languageSwitcherTarget?: string;
 }
 
 const { 
 	title = "Emmanuel T. | Software Developer",
-	description = "Full-stack web developer specializing in building modern, responsive websites using the React ecosystem, TypeScript, and Tailwind CSS."
+	description = "Full-stack web developer specializing in building modern, responsive websites using the React ecosystem, TypeScript, and Tailwind CSS.",
+	noindex = false,
+	includeCanonical = !noindex,
+	includeAlternates = !noindex,
+	languageSwitcherTarget,
 } = Astro.props;
 
 const locale = Astro.currentLocale || "en";
-const canonical = new URL(Astro.url.pathname, "https://emmanueltejeda.com").href;
+const site = Astro.site;
+
+if (!site) {
+	throw new Error("Astro site configuration is required for absolute metadata URLs.");
+}
+
+function normalizePagePath(pathname: string): string {
+	if (pathname === "/") return pathname;
+	return `${pathname.replace(/\/+$/, "")}/`;
+}
+
+const pagePath = normalizePagePath(Astro.url.pathname);
+const canonical = new URL(pagePath, site).href;
+const ogImage = new URL("/og-image.png", site).href;
+const defaultLocalePath = pagePath.replace(/^\/it(?=\/)/, "") || "/";
+const italianPath = defaultLocalePath === "/" ? "/it/" : `/it${defaultLocalePath}`;
+const englishUrl = new URL(defaultLocalePath, site).href;
+const italianUrl = new URL(italianPath, site).href;
 ---
 
 <!doctype html>
@@ -36,23 +61,24 @@ const canonical = new URL(Astro.url.pathname, "https://emmanueltejeda.com").href
 		<meta name="title" content={title} />
 		<meta name="description" content={description} />
 		<meta name="author" content="Emmanuel T." />
-		<link rel="canonical" href={canonical} />
+		{noindex && <meta name="robots" content="noindex,follow" />}
+		{includeCanonical && <link rel="canonical" href={canonical} />}
 
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content={canonical} />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:image" content="https://emmanueltejeda.com/og-image.png" />
+		{!noindex && <meta property="og:type" content="website" />}
+		{!noindex && <meta property="og:url" content={canonical} />}
+		{!noindex && <meta property="og:title" content={title} />}
+		{!noindex && <meta property="og:description" content={description} />}
+		{!noindex && <meta property="og:image" content={ogImage} />}
 
-		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content={canonical} />
-		<meta property="twitter:title" content={title} />
-		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content="https://emmanueltejeda.com/og-image.png" />
+		{!noindex && <meta property="twitter:card" content="summary_large_image" />}
+		{!noindex && <meta property="twitter:url" content={canonical} />}
+		{!noindex && <meta property="twitter:title" content={title} />}
+		{!noindex && <meta property="twitter:description" content={description} />}
+		{!noindex && <meta property="twitter:image" content={ogImage} />}
 
-		<link rel="alternate" hreflang="en" href={new URL(Astro.url.pathname.replace(/^\/it/, ""), "https://emmanueltejeda.com").href} />
-		<link rel="alternate" hreflang="it" href={new URL("/it" + Astro.url.pathname.replace(/^\/it/, ""), "https://emmanueltejeda.com").href} />
-		<link rel="alternate" hreflang="x-default" href={new URL(Astro.url.pathname.replace(/^\/it/, ""), "https://emmanueltejeda.com").href} />
+		{includeAlternates && <link rel="alternate" hreflang="en" href={englishUrl} />}
+		{includeAlternates && <link rel="alternate" hreflang="it" href={italianUrl} />}
+		{includeAlternates && <link rel="alternate" hreflang="x-default" href={englishUrl} />}
 
 		<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 		<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
@@ -81,7 +107,7 @@ const canonical = new URL(Astro.url.pathname, "https://emmanueltejeda.com").href
 					<RomeAvailability client:only="react" />
 				</div>
 				<div class="pointer-events-auto flex shrink-0 items-center gap-1 sm:gap-2 md:gap-4">
-					<LanguageSwitcher />
+					<LanguageSwitcher targetUrl={languageSwitcherTarget} />
 					<ThemeToggle />
 				</div>
 			</header>

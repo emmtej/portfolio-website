@@ -3,9 +3,14 @@ import { getServerT, resolveLocale } from "../utils/server-t";
 import ChromeControl from "./ui/ChromeControl.astro";
 import { cn } from "../utils/cn";
 
+interface Props {
+  targetUrl?: string;
+}
+
 const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
 const t = getServerT(locale);
 const pathname = new URL(Astro.request.url).pathname;
+const { targetUrl: targetUrlOverride } = Astro.props;
 
 const nextLocale = locale === "en" ? "it" : "en";
 
@@ -15,6 +20,8 @@ if (locale === "en") {
 } else {
   targetUrl = pathname.replace(/^\/it/, "") || "/";
 }
+
+targetUrl = targetUrlOverride ?? targetUrl;
 ---
 
 <ChromeControl
