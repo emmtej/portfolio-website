@@ -39,4 +39,5 @@ playwright/.auth/
 *.sw?
 
 docs/
+.agents/
 
