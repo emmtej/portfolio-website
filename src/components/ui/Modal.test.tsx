@@ -49,7 +49,8 @@ describe("Modal – scroll lock", () => {
     expect(document.body.style.overflow).toBe("hidden");
   });
 
-  it("restores body overflow when unmounted", () => {
+  it("restores the previous body overflow when unmounted", () => {
+    document.body.style.overflow = "scroll";
     const { unmount } = render(
       <Modal
         onClose={vi.fn()}
@@ -61,7 +62,7 @@ describe("Modal – scroll lock", () => {
     );
     expect(document.body.style.overflow).toBe("hidden");
     unmount();
-    expect(document.body.style.overflow).toBe("unset");
+    expect(document.body.style.overflow).toBe("scroll");
   });
 });
 
