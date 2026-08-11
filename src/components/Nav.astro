@@ -1,67 +1,32 @@
 ---
 import { getServerT, resolveLocale } from "../utils/server-t";
-import { cn } from "../utils/cn";
 import { getRomeAvailabilitySnapshot } from "../utils/rome-sky-phase";
-import { ROME_NAV_DOT_HOST_ID } from "./ui/rome-availability-ids";
+import {
+  buildNavTabs,
+  getLocalizedNavUrl,
+  resolveActiveTabId,
+} from "./nav-items";
+import NavTab from "./NavTab.astro";
 
 const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
 const t = getServerT(locale);
-const { pathname } = Astro.url;
-const segments = pathname.split("/").filter(Boolean);
-const activeTabId = (locale === "it" ? segments[1] : segments[0]) || "about";
+const activeTabId = resolveActiveTabId(Astro.url.pathname, locale);
 const { available: romeAvailable } = getRomeAvailabilitySnapshot(new Date());
-
-const TABS = [
-  { id: "about", label: t("nav.about"), shortLabel: t("nav.about") },
-  { id: "development", label: t("nav.development"), shortLabel: "Dev" },
-  { id: "audio", label: t("nav.audio"), shortLabel: "Audio" },
-  { id: "contact", label: t("nav.contact"), shortLabel: t("nav.contact") },
-];
-
-function getLocalizedUrl(id: string) {
-  const prefix = locale === "it" ? "/it" : "";
-  if (id === "about") return prefix || "/";
-  return `${prefix}/${id}`;
-}
-
-const tabLinkClass =
-  "relative inline-flex h-chrome-control items-center gap-2 whitespace-nowrap shrink-0 snap-center -mb-px border-b-2 border-transparent text-xs font-bold uppercase tracking-wider md:tracking-widest text-inactive transition-colors hover:text-text-main";
+const tabs = buildNavTabs(t);
 ---
 
 <nav
   aria-label="Primary"
   class="flex h-chrome-control items-center gap-4 md:gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
 >
-  {TABS.map((tab) => {
-    const isActive = activeTabId === tab.id;
-    return (
-      <a
-        href={getLocalizedUrl(tab.id)}
-        class={cn(tabLinkClass, isActive && "border-text-main text-text-main")}
-        aria-current={isActive ? "page" : undefined}
-        aria-label={tab.label as string}
-      >
-        <span class="md:hidden">{tab.shortLabel}</span>
-        <span class="hidden md:inline">{tab.label}</span>
-        {tab.id === "contact" && (
-          <span
-            id={ROME_NAV_DOT_HOST_ID}
-            class="inline-flex items-center"
-            data-rome-nav-dot
-          >
-            {/* SSR placeholder; RomeAvailability portal replaces with live indicator */}
-            <span
-              class={cn(
-                "size-1.5 shrink-0 rounded-full transition-colors duration-normal",
-                romeAvailable
-                  ? "bg-it-green animate-rome-availability-pulse"
-                  : "bg-text-muted/20",
-              )}
-              aria-hidden="true"
-            />
-          </span>
-        )}
-      </a>
-    );
-  })}
+  {tabs.map((tab) => (
+    <NavTab
+      href={getLocalizedNavUrl(locale, tab.id)}
+      label={tab.label}
+      shortLabel={tab.shortLabel}
+      isActive={activeTabId === tab.id}
+      showRomeDot={tab.id === "contact"}
+      romeAvailable={romeAvailable}
+    />
+  ))}
 </nav>

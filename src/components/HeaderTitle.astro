@@ -1,0 +1,27 @@
+---
+import { cn } from "../utils/cn";
+import { getItalianGreetingWordClass, splitGreetingWords } from "./header-title";
+
+interface Props {
+  greeting: string;
+  isIt: boolean;
+}
+
+const { greeting, isIt } = Astro.props;
+const words = splitGreetingWords(greeting);
+---
+
+<h1 class="text-[clamp(2.5rem,10vw,6rem)] font-bold tracking-tight text-text-main leading-[0.85]">
+  {words.map((word, index) => (
+    <span
+      class={cn(
+        "mr-3 transition-colors duration-slow",
+        isIt && getItalianGreetingWordClass(index),
+      )}
+    >
+      {word}{" "}
+    </span>
+  ))}
+  <br />
+  <span class="text-text-main">Emmanuel</span>
+</h1>

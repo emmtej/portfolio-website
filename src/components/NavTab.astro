@@ -1,0 +1,27 @@
+---
+import { cn } from "../utils/cn";
+import { NAV_TAB_LINK_CLASS } from "./nav-items";
+import NavRomeDot from "./NavRomeDot.astro";
+
+interface Props {
+  href: string;
+  label: string;
+  shortLabel: string;
+  isActive: boolean;
+  showRomeDot?: boolean;
+  romeAvailable: boolean;
+}
+
+const { href, label, shortLabel, isActive, showRomeDot = false, romeAvailable } = Astro.props;
+---
+
+<a
+  href={href}
+  class={cn(NAV_TAB_LINK_CLASS, isActive && "border-text-main text-text-main")}
+  aria-current={isActive ? "page" : undefined}
+  aria-label={label}
+>
+  <span class="md:hidden">{shortLabel}</span>
+  <span class="hidden md:inline">{label}</span>
+  {showRomeDot ? <NavRomeDot available={romeAvailable} /> : null}
+</a>

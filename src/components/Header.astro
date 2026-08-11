@@ -1,9 +1,9 @@
 ---
 import { getServerT, resolveLocale } from "../utils/server-t";
-import { cn } from "../utils/cn";
 import HeaderLink from "./ui/HeaderLink.astro";
 import HeaderSeparator from "./ui/HeaderSeparator.astro";
 import Text from "./ui/Text.astro";
+import HeaderTitle from "./HeaderTitle.astro";
 
 const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
 const t = getServerT(locale);
@@ -30,21 +30,5 @@ const isIt = locale === "it";
       </HeaderLink>
     </Text>
   </div>
-  <h1 class="text-[clamp(2.5rem,10vw,6rem)] font-bold tracking-tight text-text-main leading-[0.85]">
-    {(t("app.title.greeting") as string)
-      .split(" ")
-      .map((word: string, i: number) => (
-        <span
-          class={cn(
-            "mr-3 transition-colors duration-slow",
-            isIt && i === 0 && "text-it-green",
-            isIt && i === 1 && "text-it-red",
-          )}
-        >
-          {word}{" "}
-        </span>
-      ))}
-    <br />
-    <span class="text-text-main">Emmanuel</span>
-  </h1>
+  <HeaderTitle greeting={t("app.title.greeting") as string} isIt={isIt} />
 </header>
