@@ -1,0 +1,67 @@
+---
+import { getServerT } from "../../utils/server-t";
+import Text from "../ui/Text.astro";
+
+interface Props {
+  locale: string;
+}
+
+const experienceKeys = ["frontend", "audio_mastering", "it_intern"] as const;
+
+const t = getServerT(Astro.props.locale);
+
+function getBullets(key: (typeof experienceKeys)[number]): string[] {
+  const value = t(`about.experiences.${key}.bullets`, { returnObjects: true });
+  if (!Array.isArray(value)) return [];
+  return value.filter((item): item is string => typeof item === "string");
+}
+
+const experiences = experienceKeys.map((key) => ({
+  time: t(`about.experiences.${key}.time`) as string,
+  company: t(`about.experiences.${key}.company`) as string,
+  location: t(`about.experiences.${key}.location`) as string,
+  title: t(`about.experiences.${key}.title`) as string,
+  bullets: getBullets(key),
+}));
+---
+
+<ol class="relative space-y-8 md:space-y-10 before:absolute before:left-[4.5px] before:h-full before:w-px before:bg-border-subtle">
+  {experiences.map((exp) => (
+    <li class="group relative flex items-start gap-6">
+      <span
+        class="mt-1.5 size-2.5 shrink-0 border border-border-subtle bg-bg-app ring-4 ring-bg-app transition-colors duration-slower group-hover:bg-text-main group-hover:border-text-main"
+      ></span>
+
+      <div class="flex-1 -mt-0.5">
+        <div class="flex flex-wrap items-center gap-2 mb-2">
+          <Text variant="label" as="time" className="text-secondary">
+            {exp.time}
+          </Text>
+          <span class="size-1 bg-border-subtle" />
+          <Text variant="label" className="text-secondary">
+            {exp.location}
+          </Text>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-baseline gap-1 md:gap-3">
+          <Text variant="h3">
+            {exp.title}
+          </Text>
+          <Text variant="label" className="text-secondary group-hover:text-text-main">
+            [{exp.company}]
+          </Text>
+        </div>
+
+        <ul class="mt-3 space-y-2 list-disc pl-5 marker:text-secondary">
+          {exp.bullets.map((bullet) => (
+            <li>
+              <Text variant="body" className="text-secondary leading-relaxed">
+                {bullet}
+              </Text>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </li>
+  ))}
+</ol>

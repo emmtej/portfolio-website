@@ -1,0 +1,193 @@
+{
+  "common": {
+    "loading": "Caricamento...",
+    "error": {
+      "title": "Qualcosa è andato storto",
+      "description": "L'applicazione ha riscontrato un errore inaspettato. Potrebbe trattarsi di un errore di calcolo o di un problema temporaneo.",
+      "retry": "Riprova"
+    }
+  },
+  "app": {
+    "title": {
+      "greeting": "Ciao, sono"
+    }
+  },
+  "about": {
+    "hero_intro": "Sviluppatore web full-stack con base a <1>Palagianello, Italia</1>, e originario di <2>New York City</2>.",
+    "hero_description_2": "La mia passione per i viaggi mi ha spinto a lavorare come freelance, unendo il desiderio di esplorare nuovi posti alla voglia di aiutare piccole imprese e attività a costruire una solida presenza online.",
+    "hero_description_3": "Sviluppo siti web moderni e performanti, utilizzando le tecnologie più recenti per aiutare i miei clienti a comunicare in modo efficace con il proprio pubblico.",
+    "hero_description_4": "Dal 2020 mi sono specializzato nell'ecosistema React, unendo l'esperienza frontend alla logica backend per aiutare le piccole attività a crescere e superare i limiti dei siti statici.",
+    "experience_title": "Esperienza",
+    "languages_title": "Lingue",
+    "languages_inline": "Inglese (Madrelingua) · Spagnolo (Bilingue) · Italiano (Conversazionale)",
+    "languages": {
+      "english_name": "Inglese",
+      "english_level": "Madrelingua",
+      "spanish_name": "Spagnolo",
+      "spanish_level": "Bilingue",
+      "italian_name": "Italiano",
+      "italian_level": "Conversazionale"
+    },
+    "experiences": {
+      "frontend": {
+        "time": "2020 - Presente",
+        "title": "Sviluppatore Front-End",
+        "company": "Collaboratore indipendente",
+        "location": "Remoto",
+        "bullets": [
+          "Ho consegnato e mantenuto oltre 12 siti web responsive e applicazioni React, occupandomi di sviluppo, deploy e supporto continuo.",
+          "Ho modernizzato codebase legacy in HTML, CSS e JavaScript con React, Next.js e TypeScript, migliorando la manutenibilità e accelerando il rilascio delle funzionalità.",
+          "Ho costruito componenti riutilizzabili e accessibili con Tailwind CSS e implementato controlli qualità con Vitest, React Testing Library e Playwright.",
+          "Ho integrato API REST e piattaforme CMS headless, permettendo ai clienti non tecnici di gestire i contenuti in autonomia e riducendo le richieste di supporto di routine."
+        ]
+      },
+      "audio_mastering": {
+        "time": "2024 - 2026",
+        "title": "Consulente di Mastering Audio",
+        "company": "Collaboratore indipendente",
+        "location": "Remoto",
+        "bullets": [
+          "Ho modificato, restaurato, masterizzato e sincronizzato audio voice-over per cinque video YouTube a settimana usando iZotope RX, Reaper e DaVinci Resolve, garantendo coerenza qualitativa e il rispetto ricorrente delle scadenze di pubblicazione.",
+          "Ho masterizzato voice-over grezzi per soddisfare i requisiti ACX e prodotto asset audio per annunci di servizio pubblico utilizzati da un ente governativo statale statunitense e da applicazioni educative per l'apprendimento delle lingue."
+        ]
+      },
+      "it_intern": {
+        "time": "2017 - 2018",
+        "title": "Tirocinante Supporto IT I",
+        "company": "Mosholu Montefiore Community Center",
+        "location": "New York City, USA",
+        "bullets": [
+          "Ho eseguito aggiornamenti di deployment da Windows 7 a 10 e configurazioni hardware su PC del personale, laboratori informatici e periferiche di rete.",
+          "Ho risolto ticket di supporto tecnico di primo livello con G Suite, Microsoft 365 e strumenti remoti, gestendo account Active Directory e reti locali."
+        ]
+      }
+    }
+  },
+  "nav": {
+    "about": "Chi Sono",
+    "development": "Sviluppo",
+    "audio": "Mixaggio e Mastering Audio",
+    "contact": "Contatti",
+    "toggle_theme": "Cambia tema",
+    "toggle_language": "Cambia lingua"
+  },
+  "dev": {
+    "intro": "Realizzo applicazioni web pronte per la produzione per flussi creativi: strumenti di fatturazione, portfolio bilingue e prodotti per clienti con React, TypeScript e Tailwind CSS.",
+    "projects_title": "Progetti",
+    "view_project": "Vedi dettagli",
+    "tech_stack": "Tech Stack",
+    "features_title": "Cosa ho costruito",
+    "skills_title": "Competenze",
+    "view_source": "Codice sorgente",
+    "view_demo": "Apri demo",
+    "links_title": "Link",
+    "links_private": "Codice sorgente e demo non sono pubblici per questo progetto.",
+    "source_only_note": "Nessuna demo live separata — il repository è il codice di produzione di questo sito.",
+    "demo_only_note": "Demo live disponibile; il codice sorgente non è pubblico.",
+    "repo_transfer_notice": {
+      "title": "Link ai repository temporaneamente non disponibili",
+      "body": "I link al codice sorgente dei progetti sono offline durante il trasferimento da GitHub a GitLab. Verranno aggiornati a breve.",
+      "links_unavailable": "Link al codice sorgente non disponibile durante il trasferimento da GitHub a GitLab."
+    },
+    "close_modal": "Chiudi dettagli progetto",
+    "projects": {
+      "invoice": {
+        "title": "InVoice",
+        "shortDesc": "Trasforma copioni voice-over in fatture dettagliate con conteggio parole per personaggio ed export dei documenti di fatturazione.",
+        "fullDesc": "InVoice aiuta chi lavora con la voce a trasformare i copioni in fatture accurate. Analizza i dialoghi per personaggio, conta le parole fatturabili, applica preset tariffari riutilizzabili ed esporta fatture in PDF, DOCX e testo semplice.",
+        "features": [
+          "Analizza i copioni in conteggi parole per personaggio per accelerare la fatturazione.",
+          "Workflow accessibili costruiti con i componenti Mantine UI.",
+          "Zustand per sincronizzare strumenti a documento singolo e multi-documento.",
+          "Preset tariffari riutilizzabili ed export in PDF, DOCX e testo semplice."
+        ],
+        "previewAlt": "Dashboard InVoice con parser del copione, conteggio parole per personaggio e anteprima fattura"
+      },
+      "portfolio": {
+        "title": "Sito Portfolio v2",
+        "shortDesc": "Questo sito — portfolio bilingue Astro + React con navigazione testata, form di contatto e deploy statico.",
+        "fullDesc": "Sito Portfolio v2 è il sito che stai visitando, ricostruito con qualità da produzione. Unisce tipografia sobria ad accessibilità, localizzazione EN/IT e un'architettura statica Astro con isole React per le aree interattive.",
+        "features": [
+          "11 route statiche con localizzazione EN/IT e rilevamento automatico della lingua.",
+          "Navigazione, modali e validazione del contatto accessibili da tastiera, con copertura Playwright.",
+          "Persistenza del tema chiaro/scuro senza flash al primo caricamento.",
+          "Deploy Netlify, honeypot anti-spam e header di sicurezza configurati."
+        ],
+        "previewAlt": "Sito portfolio con navigazione, schede bilingue e timeline esperienze"
+      }
+    }
+  },
+  "audio": {
+    "intro": "Restauro dialoghi registrati sul campo e mixo contenuti voce su target di loudness per streaming — con iZotope RX per il ripristino, Reaper per il montaggio e DaVinci Resolve per la consegna finale.",
+    "tools_title": "Strumenti con cui lavoro",
+    "restoration_title": "Prima e dopo",
+    "restoration_desc": "Un passaggio prima/dopo su dialoghi registrati in location: rumore di fondo ridotto, parole rese più leggibili e livelli allineati per podcast e video.",
+    "restoration_video_caption": "Video con la catena di ripristino RX, le scelte di montaggio e il match finale dei livelli.",
+    "play": "Riproduci",
+    "pause": "Pausa",
+    "iframe_title": "Video dimostrativo di restauro audio"
+  },
+  "contact": {
+    "title": "Contattami",
+    "intro": "Sono disponibile per nuovi progetti freelance. Se hai un'idea in mente o vuoi solo salutarmi, scrivimi pure.",
+    "availability": {
+      "location": "Italia",
+      "available": "Di solito sono disponibile · {{localWindow}} ora locale ({{romeWindow}} Roma)",
+      "away": "Sarò di nuovo disponibile tra {{countdown}} · alle {{localNext}} ora locale (08:00 Roma)",
+      "available_short": "Disponibile",
+      "away_short": "Al momento non disponibile"
+    },
+    "find_me_title": "Trovami su",
+    "copied": "Copiato!",
+    "form": {
+      "name": "Nome",
+      "email": "Email",
+      "message": "Messaggio",
+      "send": "Invia Messaggio",
+      "sending": "Invio in corso...",
+      "success": "Messaggio inviato",
+      "success_detail": "Grazie — rispondo entro 1–2 giorni lavorativi.",
+      "success_action": "Invia un altro messaggio",
+      "error": "Impossibile inviare il messaggio",
+      "error_detail": "Riprova tra poco oppure scrivimi direttamente via email.",
+      "message_helper": "Indica ambito, tempistiche o link utili, se li hai.",
+      "placeholders": {
+        "name": "Nome e cognome",
+        "email": "nome@esempio.com",
+        "message": "Parlami del tuo progetto..."
+      },
+      "errors": {
+        "name": "Il nome deve avere almeno 2 caratteri",
+        "name_max": "Il nome deve contenere al massimo 100 caratteri",
+        "email": "Indirizzo email non valido",
+        "email_max": "L'indirizzo email deve contenere al massimo 254 caratteri",
+        "message": "Il messaggio deve avere almeno 10 caratteri",
+        "message_max": "Il messaggio deve contenere al massimo 5.000 caratteri"
+      }
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "Emmanuel T. || Sviluppatore Software",
+      "description": "Sviluppatore web full-stack basato in Italia. Specialista React dal 2020 nella realizzazione di siti moderni e responsive."
+    },
+    "development": {
+      "title": "Emmanuel T. || Sviluppo",
+      "description": "Progetti frontend e competenze tecniche. Specializzato in React, TypeScript e applicazioni web ad alte prestazioni."
+    },
+    "audio": {
+      "title": "Emmanuel T. || Mixing e Mastering Audio",
+      "description": "Servizi di mixing, mastering e restauro audio. Specializzato in editing di dialoghi e post-produzione per media digitali."
+    },
+    "contact": {
+      "title": "Emmanuel T. || Contatti",
+      "description": "Contattami per collaborazioni freelance, richieste di progetto o semplicemente per salutare. Disponibile per opportunità remote."
+    }
+  },
+  "404": {
+    "title": "404 - Pagina non trovata",
+    "description": "La pagina che stai cercando non esiste.",
+    "message": "Sembra che tu ti sia avventurato in un territorio sconosciuto.",
+    "back": "Torna alla base"
+  }
+}

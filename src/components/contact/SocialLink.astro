@@ -1,0 +1,37 @@
+---
+import { cn } from "../../utils/cn";
+import {
+  getSocialLinkAriaLabel,
+  getSocialLinkComponent,
+  getSocialLinkType,
+  isMailtoLink,
+  socialLinkClassName,
+} from "./social-link";
+import SocialLinkBody from "./SocialLinkBody.astro";
+
+interface Props {
+  label: string;
+  href: string;
+  value: string;
+  icon: string;
+  copiedLabel: string;
+}
+
+const { label, href, value, icon, copiedLabel } = Astro.props;
+const isMailto = isMailtoLink(href);
+const Component = getSocialLinkComponent(href);
+---
+
+<Component
+  class={cn(socialLinkClassName)}
+  href={isMailto ? undefined : href}
+  target={isMailto ? undefined : "_blank"}
+  rel={isMailto ? undefined : "noopener noreferrer"}
+  data-href={href}
+  data-is-mailto={isMailto ? "true" : "false"}
+  data-copied-label={copiedLabel}
+  type={getSocialLinkType(isMailto)}
+  aria-label={getSocialLinkAriaLabel(label, value, isMailto)}
+>
+  <SocialLinkBody label={label} value={value} icon={icon} copiedLabel={copiedLabel} />
+</Component>

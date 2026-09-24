@@ -1,0 +1,35 @@
+---
+import AboutTab from "./about/AboutTab.astro";
+import DevelopmentTab from "./development/DevelopmentTab.astro";
+import AudioTab from "./audio/AudioTab.astro";
+import ContactTab from "./contact/ContactTab.astro";
+import type { NavTabId } from "./nav-items";
+import { resolveLocale } from "../utils/server-t";
+
+interface Props {
+  activeTab: NavTabId;
+}
+
+const { activeTab } = Astro.props;
+const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
+const panels: NavTabId[] = ["about", "development", "audio", "contact"];
+---
+
+<div id="tab-panels-container" class="mt-6 md:mt-8" data-locale={locale}>
+  {
+    panels.map((id) => (
+      <section
+        id={`tab-panel-${id}`}
+        data-tab-panel={id}
+        aria-labelledby={`tab-link-${id}`}
+        tabindex="-1"
+        hidden={activeTab !== id}
+      >
+        {id === "about" && <AboutTab />}
+        {id === "development" && <DevelopmentTab />}
+        {id === "audio" && <AudioTab />}
+        {id === "contact" && <ContactTab />}
+      </section>
+    ))
+  }
+</div>

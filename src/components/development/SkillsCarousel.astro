@@ -1,0 +1,69 @@
+---
+import { getServerT, resolveLocale } from "../../utils/server-t";
+import { cn } from "../../utils/cn";
+import Text from "../ui/Text.astro";
+
+interface Props {
+  locale?: string;
+}
+
+const locale = resolveLocale(Astro.props.locale ?? Astro.currentLocale, Astro.url.pathname);
+const t = getServerT(locale);
+
+const SKILLS = [
+  "React",
+  "TypeScript",
+  "Tailwind CSS",
+  "Next.js",
+  "Framer Motion",
+  "Node.js",
+  "Prisma",
+  "PostgreSQL",
+  "GraphQL",
+  "Docker",
+  "Git",
+  "Vite",
+  "Redux",
+  "Zustand",
+  "Mantine UI",
+  "Express",
+  "CSS/SCSS",
+  "HTML5",
+  "JavaScript",
+];
+
+const isIt = locale === "it";
+const matteColors = ["bg-it-sage", "bg-it-cream", "bg-it-rose"];
+const duplicatedSkills = [...SKILLS, ...SKILLS, ...SKILLS, ...SKILLS];
+---
+
+<section class="w-full overflow-hidden py-2 select-none">
+  <Text variant="h2" className="mb-4 px-0 text-text-main">
+    {t("dev.skills_title")}
+  </Text>
+  <div class="relative group">
+    <div class="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-bg-app to-transparent z-10 pointer-events-none max-md:hidden" />
+    <div class="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-bg-app to-transparent z-10 pointer-events-none max-md:hidden" />
+
+    <div class="relative flex overflow-hidden">
+      <div class="flex w-max shrink-0 gap-4 pr-4 animate-marquee will-change-transform">
+        {duplicatedSkills.map((skill, index) => (
+          <div
+            class={cn(
+              "flex items-center gap-2 px-5 py-2.5 cursor-default transition-colors duration-100 bg-bg-app border border-border-subtle hover:border-text-main/20 hover:bg-text-main/[0.02]",
+              isIt && matteColors[index % matteColors.length],
+            )}
+          >
+            <Text
+              variant="eyebrow"
+              size="sm"
+              className="text-text-secondary whitespace-nowrap"
+            >
+              {skill}
+            </Text>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

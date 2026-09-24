@@ -1,0 +1,25 @@
+---
+import { cn } from "../utils/cn";
+import { ROME_NAV_DOT_HOST_ID } from "./ui/rome-availability-ids";
+
+interface Props {
+  available: boolean;
+}
+
+const { available } = Astro.props;
+---
+
+<span
+  id={ROME_NAV_DOT_HOST_ID}
+  class="inline-flex items-center"
+  data-rome-nav-dot
+>
+  <span
+    data-rome-nav-dot-placeholder
+    class={cn(
+      "size-1.5 shrink-0 rounded-full",
+      available ? "bg-it-green animate-rome-availability-pulse" : "bg-text-muted/20",
+    )}
+    aria-hidden="true"
+  />
+</span>

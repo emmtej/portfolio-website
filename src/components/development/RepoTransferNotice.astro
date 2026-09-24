@@ -1,0 +1,32 @@
+---
+import { getServerT } from "../../utils/server-t";
+import Section from "../ui/Section.astro";
+import Text from "../ui/Text.astro";
+import { REPO_TRANSFER_NOTICE_ENABLED } from "./repo-transfer-notice";
+
+interface Props {
+  locale: string;
+}
+
+const { locale } = Astro.props;
+
+if (!REPO_TRANSFER_NOTICE_ENABLED) {
+  return null;
+}
+
+const t = getServerT(locale);
+---
+
+<Section width="wide">
+  <aside
+    role="status"
+    class="border border-border-subtle bg-surface-muted px-5 py-4 md:px-6"
+  >
+    <Text variant="label" className="text-secondary">
+      {t("dev.repo_transfer_notice.title")}
+    </Text>
+    <Text className="mt-2 text-secondary">
+      {t("dev.repo_transfer_notice.body")}
+    </Text>
+  </aside>
+</Section>

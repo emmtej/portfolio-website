@@ -1,0 +1,48 @@
+---
+import { getServerT, resolveLocale } from "../utils/server-t";
+import { getRomeAvailabilitySnapshot } from "../utils/rome-sky-phase";
+import {
+  buildNavRouteMetadata,
+  buildNavTabs,
+  getLocalizedNavUrl,
+  resolveActiveTabId,
+} from "./nav-items";
+import NavTab from "./NavTab.astro";
+
+const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
+const t = getServerT(locale);
+const activeTabId = resolveActiveTabId(Astro.url.pathname, locale);
+const { available: romeAvailable } = getRomeAvailabilitySnapshot(new Date());
+const tabs = buildNavTabs(t);
+const site = Astro.site;
+
+if (!site) {
+  throw new Error("Astro site configuration is required for absolute metadata URLs.");
+}
+---
+
+<nav
+  aria-label="Primary"
+  class="flex h-chrome-control items-center gap-4 md:gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+>
+  {
+    tabs.map((tab) => (
+      <NavTab
+        href={getLocalizedNavUrl(locale, tab.id)}
+        label={tab.label}
+        shortLabel={tab.shortLabel}
+        isActive={activeTabId === tab.id}
+        tabId={tab.id}
+        route={buildNavRouteMetadata(locale, tab.id, t, site)}
+        showRomeDot={tab.id === "contact"}
+        romeAvailable={romeAvailable}
+      />
+    ))
+  }
+</nav>
+<p id="tab-route-status" class="sr-only" aria-live="polite"></p>
+<script>
+  import { installTabShell } from "./tab-shell";
+
+  installTabShell();
+</script>

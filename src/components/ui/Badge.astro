@@ -1,0 +1,21 @@
+---
+import { cn } from "../../utils/cn";
+import { styles } from "./primitives.tokens";
+
+interface Props {
+  variant?: keyof typeof styles.badge.variants;
+  size?: keyof typeof styles.badge.sizes;
+  className?: string;
+}
+
+const { 
+  variant = "subtle", 
+  size = "sm", 
+  className 
+} = Astro.props;
+---
+
+<span class={cn("font-bold uppercase tracking-wider inline-flex items-center", styles.badge.variants[variant], styles.badge.sizes[size], className)}>
+  <slot />
+</span>
+

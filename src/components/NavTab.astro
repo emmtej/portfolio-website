@@ -1,0 +1,46 @@
+---
+import { NAV_TAB_LINK_CLASS, type NavRouteMetadata, type NavTabId } from "./nav-items";
+import NavRomeDot from "./NavRomeDot.astro";
+
+interface Props {
+  href: string;
+  label: string;
+  shortLabel: string;
+  isActive: boolean;
+  tabId: NavTabId;
+  route: NavRouteMetadata;
+  showRomeDot?: boolean;
+  romeAvailable: boolean;
+}
+
+const {
+  href,
+  label,
+  shortLabel,
+  isActive,
+  tabId,
+  route,
+  showRomeDot = false,
+  romeAvailable,
+} = Astro.props;
+---
+
+<a
+  id={`tab-link-${tabId}`}
+  href={href}
+  data-nav-tab={tabId}
+  data-title={route.title}
+  data-description={route.description}
+  data-canonical={route.canonical}
+  data-og-image={route.ogImage}
+  data-english-url={route.englishUrl}
+  data-italian-url={route.italianUrl}
+  data-switcher-href={route.switcherHref}
+  class={NAV_TAB_LINK_CLASS}
+  aria-current={isActive ? "page" : undefined}
+  aria-label={label}
+>
+  <span class="md:hidden">{shortLabel}</span>
+  <span class="hidden md:inline">{label}</span>
+  {showRomeDot ? <NavRomeDot available={romeAvailable} /> : null}
+</a>

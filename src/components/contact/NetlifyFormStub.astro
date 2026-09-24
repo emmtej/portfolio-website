@@ -1,0 +1,22 @@
+---
+/**
+ * Hidden Netlify Forms stub. Required site-wide so Netlify detects the form
+ * even when the interactive React form is the only visible contact UI.
+ */
+import {
+	NETLIFY_CONTACT_FORM_NAME,
+	NETLIFY_HONEYPOT_FIELD,
+} from "./netlify-form-constants";
+---
+
+<form
+	name={NETLIFY_CONTACT_FORM_NAME}
+	data-netlify="true"
+	data-netlify-honeypot={NETLIFY_HONEYPOT_FIELD}
+	hidden
+>
+	<input type="text" name="name" />
+	<input type="email" name="email" />
+	<textarea name="message"></textarea>
+	<input type="text" name={NETLIFY_HONEYPOT_FIELD} />
+</form>

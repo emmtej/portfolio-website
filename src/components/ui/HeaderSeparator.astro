@@ -1,0 +1,11 @@
+---
+import { cn } from "../../utils/cn";
+
+interface Props {
+  className?: string;
+}
+
+const { className } = Astro.props;
+---
+
+<span class={cn("font-sans text-sm opacity-40", className)}>//</span>

@@ -1,0 +1,24 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import TabPanels from '../../components/TabPanels.astro';
+import { getServerT, resolveLocale } from '../../utils/server-t';
+
+export function getStaticPaths() {
+  return [
+    { params: { locale: undefined } },
+    { params: { locale: 'it' } },
+  ];
+}
+
+const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
+const t = getServerT(locale);
+---
+
+<MainLayout 
+	title={t("meta.audio.title") as string} 
+	description={t("meta.audio.description") as string}
+>
+	<SiteHeader />
+	<TabPanels activeTab="audio" />
+</MainLayout>
