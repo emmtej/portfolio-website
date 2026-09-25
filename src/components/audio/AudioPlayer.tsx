@@ -13,7 +13,7 @@ export function AudioPlayer({
   iframeTitle: string;
 }) {
   const isHydrated = useIsHydrated();
-  const { iframeRef, isPlaying, showIframe, togglePlay, onIframeLoad } = useAudioControls();
+  const { iframeRef, isPlaying, togglePlay, onIframeLoad } = useAudioControls();
 
   return (
     <div
@@ -21,11 +21,11 @@ export function AudioPlayer({
       data-island="audio-player"
       data-hydrated={isHydrated ? "true" : "false"}
     >
-      {showIframe ? (
+      {isHydrated ? (
         <iframe
           ref={iframeRef}
           className="pointer-events-none h-full w-full scale-[1.01]"
-          src={`${YOUTUBE_NOCOOKIE_ORIGIN}/embed/9AVBGNRMMZM?enablejsapi=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&autoplay=1`}
+          src={`${YOUTUBE_NOCOOKIE_ORIGIN}/embed/9AVBGNRMMZM?enablejsapi=1&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1`}
           title={iframeTitle}
           onLoad={onIframeLoad}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -42,7 +42,7 @@ export function AudioPlayer({
       <button
         type="button"
         onClick={togglePlay}
-        className="absolute inset-0 flex h-full w-full cursor-pointer items-center justify-center bg-black/20 transition-colors duration-300 hover:bg-black/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-text-main/30"
+        className="absolute inset-0 flex h-full w-full cursor-pointer items-center justify-center bg-black/5 transition-colors duration-300 hover:bg-black/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-text-main/30"
         aria-label={isPlaying ? pauseLabel : playLabel}
       >
         <div

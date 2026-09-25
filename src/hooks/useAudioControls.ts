@@ -9,7 +9,6 @@ import {
 
 export function useAudioControls() {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showIframe, setShowIframe] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const suppressPlaybackRef = useRef(false);
 
@@ -78,13 +77,6 @@ export function useAudioControls() {
   };
 
   const togglePlay = () => {
-    if (!showIframe) {
-      suppressPlaybackRef.current = false;
-      setShowIframe(true);
-      setIsPlaying(true);
-      return;
-    }
-
     if (suppressPlaybackRef.current) {
       suppressPlaybackRef.current = false;
       sendCommand("playVideo");
@@ -104,7 +96,6 @@ export function useAudioControls() {
   return {
     iframeRef,
     isPlaying,
-    showIframe,
     togglePlay,
     onIframeLoad,
   };
