@@ -57,7 +57,9 @@
   --spacing-chrome-inset: 1rem;
   /* 2.75rem = 44px — ergonomic touch target for chrome / nav controls */
   --spacing-chrome-control: 2.75rem;
-  --spacing-chrome-height: calc(var(--spacing-chrome-inset) + var(--spacing-chrome-control));
+  --spacing-chrome-height: calc(
+    var(--spacing-chrome-inset) + var(--spacing-chrome-control)
+  );
 }
 
 @media (min-width: 768px) {
@@ -124,8 +126,12 @@ html {
   }
 
   @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
   .animate-marquee {
     animation: marquee 80s linear infinite;
@@ -147,10 +153,47 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
+  *,
+  ::before,
+  ::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@keyframes intro-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+html[data-intro-play] .intro-in {
+  animation: intro-fade 800ms ease-in backwards;
+}
+
+html[data-intro-play] .intro-in-late {
+  animation: intro-fade 500ms ease-out 800ms backwards;
+}
+
+@keyframes intro-line {
+  from { border-bottom-color: transparent; }
+  to { border-bottom-color: var(--color-border-subtle); }
+}
+
+html[data-intro-play] .intro-line {
+  animation: intro-line 500ms ease-out 800ms backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-intro-play] .intro-in,
+  html[data-intro-play] .intro-in-late,
+  html[data-intro-play] .intro-line {
+    animation: none !important;
+    opacity: 1 !important;
   }
 }

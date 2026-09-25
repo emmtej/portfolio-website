@@ -15,7 +15,7 @@ const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
 const panels: NavTabId[] = ["about", "development", "audio", "contact"];
 ---
 
-<div id="tab-panels-container" class="mt-6 md:mt-8" data-locale={locale}>
+<div id="tab-panels-container" class="intro-in-late mt-6 md:mt-8" data-locale={locale}>
   {
     panels.map((id) => (
       <section
