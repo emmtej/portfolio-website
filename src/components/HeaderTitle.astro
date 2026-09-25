@@ -11,7 +11,7 @@ const { greeting, isIt } = Astro.props;
 const words = splitGreetingWords(greeting);
 ---
 
-<h1 class="text-[clamp(2.5rem,10vw,6rem)] font-bold tracking-tight text-text-main leading-[0.85]">
+<h1 class="intro-in text-[clamp(2.5rem,10vw,6rem)] font-bold tracking-tight text-text-main leading-[0.85]">
   {words.map((word, index) => (
     <span
       class={cn(

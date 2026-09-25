@@ -21,10 +21,20 @@ describe("AudioPlayer", () => {
     expect(screen.getByRole("button", { name: labels.playLabel })).toBeTruthy();
   });
 
-  it("switches to pause after first click", () => {
-    render(<AudioPlayer {...labels} />);
+  it("mounts a paused iframe and sends playVideo on the first click", () => {
+    const { container } = render(<AudioPlayer {...labels} />);
+    const iframe = container.querySelector("iframe")!;
+    const url = new URL(iframe.src);
+    expect(url.origin).toBe(YOUTUBE_NOCOOKIE_ORIGIN);
+    expect(url.searchParams.has("autoplay")).toBe(false);
+    expect(url.searchParams.has("controls")).toBe(false);
+    const postMessage = vi.spyOn(iframe.contentWindow!, "postMessage");
     fireEvent.click(screen.getByRole("button", { name: labels.playLabel }));
     expect(screen.getByRole("button", { name: labels.pauseLabel })).toBeTruthy();
+    expect(postMessage).toHaveBeenCalledWith(
+      buildPlayerCommand("playVideo"),
+      YOUTUBE_NOCOOKIE_ORIGIN,
+    );
   });
 
   it("updates playing state from YouTube postMessage", () => {

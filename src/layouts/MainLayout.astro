@@ -15,6 +15,7 @@ interface Props {
 	includeCanonical?: boolean;
 	includeAlternates?: boolean;
 	languageSwitcherTarget?: string;
+	intro?: boolean;
 }
 
 const { 
@@ -24,6 +25,7 @@ const {
 	includeCanonical = !noindex,
 	includeAlternates = !noindex,
 	languageSwitcherTarget,
+	intro = false,
 } = Astro.props;
 
 const locale = Astro.currentLocale || "en";
@@ -37,7 +39,7 @@ const metadata = buildPageMetadataUrls(Astro.url.pathname, site);
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={locale} data-intro={intro ? "" : undefined}>
 	<PageHead
 		title={title}
 		description={description}
@@ -54,7 +56,7 @@ const metadata = buildPageMetadataUrls(Astro.url.pathname, site);
 			Skip to content
 		</a>
 		<div class="min-h-screen flex flex-col">
-			<header class="pointer-events-none fixed top-0 left-0 z-50 flex h-chrome-height w-full items-center gap-1 bg-bg-app px-chrome-inset sm:gap-3">
+			<header class="intro-in-late pointer-events-none fixed top-0 left-0 z-50 flex h-chrome-height w-full items-center gap-1 bg-bg-app px-chrome-inset sm:gap-3">
 				<div class="min-w-0 flex-1">
 					<RomeAvailability client:only="react" />
 				</div>

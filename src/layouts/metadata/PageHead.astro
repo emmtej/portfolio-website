@@ -72,7 +72,7 @@ const {
 	<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 	<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
 
-	<script is:inline>
+	<script is:inline define:vars={{ introSeen: import.meta.env.DEV ? "0" : "1" }}>
 		try {
 			const saved = localStorage.getItem("theme");
 			const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -83,6 +83,56 @@ const {
 			}
 		} catch {
 			// Storage can be unavailable under restrictive privacy settings.
+		}
+
+		try {
+			const root = document.documentElement;
+			if (root.hasAttribute("data-intro")) {
+				const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+				const finish = () => {
+					root.removeAttribute("data-intro-play");
+					try {
+						localStorage.setItem("intro-seen", introSeen);
+					} catch {
+						// Content stays visible even when persistence fails.
+					}
+				};
+
+				if (introSeen === "0") {
+					try {
+						localStorage.setItem("intro-seen", "0");
+					} catch {
+						// Dev reset is optional; a blocked store still shows the page.
+					}
+				}
+
+				if (motion.matches) {
+					try {
+						localStorage.setItem("intro-seen", introSeen);
+					} catch {
+						// Reduced motion stays visible without a stored flag.
+					}
+				} else if (localStorage.getItem("intro-seen") !== "1") {
+					root.setAttribute("data-intro-play", "");
+					motion.addEventListener("change", () => {
+						if (motion.matches) finish();
+					});
+					document.addEventListener("focusin", () => {
+						if (root.hasAttribute("data-intro-play")) finish();
+					}, true);
+					document.addEventListener("animationend", (event) => {
+						const target = event.target;
+						if (!(target instanceof Element) || !target.hasAttribute("data-intro-end")) return;
+						if (event.animationName !== "intro-fade") return;
+						finish();
+					});
+					window.addEventListener("pageshow", (event) => {
+						if (event.persisted) finish();
+					});
+				}
+			}
+		} catch {
+			// Storage blocked: leave every section visible.
 		}
 	</script>
 </head>

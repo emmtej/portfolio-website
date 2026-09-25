@@ -15,7 +15,8 @@ const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
 const t = getServerT(locale);
 ---
 
-<MainLayout 
+<MainLayout
+	intro
 	title={t("meta.contact.title") as string} 
 	description={t("meta.contact.description") as string}
 >
