@@ -9,4 +9,4 @@
  * 3. Remove notice imports/usages in `DevelopmentTab.astro`, `ProjectGallery.tsx`,
  *    and `ProjectUI.tsx`.
  */
-export const REPO_TRANSFER_NOTICE_ENABLED = true;
+export const REPO_TRANSFER_NOTICE_ENABLED = false;
