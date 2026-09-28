@@ -82,7 +82,6 @@
     "view_demo": "Apri demo",
     "links_title": "Link",
     "links_private": "Codice sorgente e demo non sono pubblici per questo progetto.",
-    "source_only_note": "Nessuna demo live separata — il repository è il codice di produzione di questo sito.",
     "demo_only_note": "Demo live disponibile; il codice sorgente non è pubblico.",
     "repo_transfer_notice": {
       "title": "Link ai repository temporaneamente non disponibili",

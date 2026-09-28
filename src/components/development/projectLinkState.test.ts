@@ -27,13 +27,13 @@ describe("getProjectLinkState", () => {
     });
   });
 
-  it("returns source-only notice for github without demo", () => {
+  it("returns no footer notice for github without demo", () => {
     expect(getProjectLinkState({ github: project.github }, false)).toEqual({
       hasGithub: true,
       hasDemo: false,
       githubUnavailable: false,
       showButtons: true,
-      noticeKey: "dev.source_only_note",
+      noticeKey: null,
     });
   });
 

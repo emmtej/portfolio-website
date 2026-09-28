@@ -3,7 +3,6 @@ import type { Project } from "./types";
 export type ProjectLinkNoticeKey =
   | "dev.links_private"
   | "dev.repo_transfer_notice.links_unavailable"
-  | "dev.source_only_note"
   | "dev.demo_only_note";
 
 export interface ProjectLinkState {
@@ -35,8 +34,6 @@ export function getProjectLinkState(
   let noticeKey: ProjectLinkNoticeKey | null = null;
   if (githubUnavailable) {
     noticeKey = "dev.repo_transfer_notice.links_unavailable";
-  } else if (hasGithub && !hasDemo) {
-    noticeKey = "dev.source_only_note";
   } else if (!hasGithub && hasDemo) {
     noticeKey = "dev.demo_only_note";
   }

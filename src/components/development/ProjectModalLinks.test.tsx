@@ -30,7 +30,7 @@ describe("ProjectModalLinks", () => {
     expect(screen.queryByRole("link", { name: "View demo" })).toBeNull();
   });
 
-  it("renders source link and source-only notice", () => {
+  it("renders source link without a footer notice", () => {
     render(
       <ProjectModalLinks
         project={{ ...baseProject, github }}
@@ -43,10 +43,10 @@ describe("ProjectModalLinks", () => {
     expect(sourceLink.getAttribute("target")).toBe("_blank");
     expect(sourceLink.getAttribute("rel")).toBe("noopener noreferrer");
     expect(
-      screen.getByText(
+      screen.queryByText(
         "No separate live demo — the repository is the production codebase for this site.",
       ),
-    ).toBeTruthy();
+    ).toBeNull();
   });
 
   it("renders demo link and demo-only notice", () => {
