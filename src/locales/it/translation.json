@@ -109,7 +109,7 @@
         "features": [
           "11 route statiche con localizzazione EN/IT e rilevamento automatico della lingua.",
           "Navigazione, modali e validazione del contatto accessibili da tastiera, con copertura Playwright.",
-          "Persistenza del tema chiaro/scuro senza flash al primo caricamento.",
+          "Aggiunto tema chiaro/scuro e implementate animazioni con Framer Motion.",
           "Deploy Netlify, honeypot anti-spam e header di sicurezza configurati."
         ],
         "previewAlt": "Sito portfolio con navigazione, schede bilingue e timeline esperienze"

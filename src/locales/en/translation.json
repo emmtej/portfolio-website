@@ -109,7 +109,7 @@
         "features": [
           "Shipped 11 static routes with EN/IT localization and browser-language detection.",
           "Built keyboard-accessible navigation, modals, and contact validation with Playwright coverage.",
-          "Added light/dark theme persistence with no flash on first paint.",
+          "Added light/dark theme and implemented animations using Framer Motion.",
           "Configured Netlify deploy, honeypot spam protection, and security headers."
         ],
         "previewAlt": "Portfolio site with navigation, bilingual tabs, and experience timeline"
