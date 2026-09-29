@@ -1,0 +1,191 @@
+{
+  "common": {
+    "loading": "Caricamento...",
+    "error": {
+      "title": "Qualcosa è andato storto",
+      "description": "L'applicazione ha riscontrato un errore inaspettato. Potrebbe trattarsi di un errore di calcolo o di un problema temporaneo.",
+      "retry": "Riprova"
+    }
+  },
+  "app": {
+    "title": {
+      "greeting": "Ciao, sono"
+    }
+  },
+  "about": {
+    "hero_intro": "Sviluppatore web full stack, attualmente vicino a <1>Taranto, Italia</1>, originario di <2>New York City</2>.",
+    "hero_description_2": "La passione per i viaggi mi ha portato a lavorare come freelance, permettendomi di esplorare nuovi luoghi mentre aiuto piccole imprese a costruire e mantenere i loro siti web.",
+    "hero_description_3": "Creo siti web responsive con React e TypeScript per aiutare i clienti a raggiungere il proprio pubblico.",
+    "hero_description_4": "Lavoro con React dal 2020, unendo sviluppo frontend e backend per aiutare le piccole imprese a superare i limiti dei siti statici.",
+    "experience_title": "Esperienza",
+    "languages_title": "Lingue",
+    "languages_inline": "Inglese (Madrelingua) · Spagnolo (Bilingue) · Italiano (Conversazionale)",
+    "languages": {
+      "english_name": "Inglese",
+      "english_level": "Madrelingua",
+      "spanish_name": "Spagnolo",
+      "spanish_level": "Bilingue",
+      "italian_name": "Italiano",
+      "italian_level": "Conversazionale"
+    },
+    "experiences": {
+      "frontend": {
+        "time": "2020 - Presente",
+        "title": "Sviluppatore Front-End",
+        "company": "Collaboratore indipendente",
+        "location": "Remoto",
+        "bullets": [
+          "Ho realizzato e mantenuto oltre 12 siti web responsive e applicazioni React, occupandomi di sviluppo, deploy e supporto continuo.",
+          "Ho aggiornato codebase legacy in HTML, CSS e JavaScript con React, Next.js e TypeScript, rendendo il codice più facile da mantenere ed estendere.",
+          "Ho costruito componenti riutilizzabili e accessibili con Tailwind CSS e aggiunto controlli automatizzati con Vitest, React Testing Library e Playwright.",
+          "Ho integrato API REST e piattaforme CMS headless, permettendo ai clienti non tecnici di gestire i contenuti in autonomia e riducendo le richieste di supporto di routine."
+        ]
+      },
+      "audio_mastering": {
+        "time": "2024 - 2026",
+        "title": "Consulente di Mastering Audio",
+        "company": "Collaboratore indipendente",
+        "location": "Remoto",
+        "bullets": [
+          "Ho editato, restaurato, masterizzato e sincronizzato audio voice over per cinque video YouTube a settimana, mantenendo un suono coerente e rispettando le scadenze di pubblicazione.",
+          "Ho masterizzato voice-over grezzi per soddisfare i requisiti ACX e prodotto asset audio per annunci di servizio pubblico utilizzati da un ente governativo statale statunitense e da applicazioni educative per l'apprendimento delle lingue."
+        ]
+      },
+      "it_intern": {
+        "time": "2017 - 2018",
+        "title": "Tirocinante Supporto IT I",
+        "company": "Mosholu Montefiore Community Center",
+        "location": "New York City, USA",
+        "bullets": [
+          "Ho aggiornato PC del personale e laboratori informatici da Windows 7 a Windows 10 e configurato hardware e periferiche di rete.",
+          "Ho risolto ticket di supporto tecnico di primo livello con G Suite, Microsoft 365 e strumenti remoti, gestendo account Active Directory e reti locali."
+        ]
+      }
+    }
+  },
+  "nav": {
+    "about": "Chi Sono",
+    "development": "Sviluppo",
+    "audio": "Mixaggio e Mastering Audio",
+    "contact": "Contatti",
+    "toggle_theme": "Cambia tema",
+    "toggle_language": "Cambia lingua"
+  },
+  "dev": {
+    "intro": "Realizzo applicazioni web per il lavoro creativo, tra cui strumenti di fatturazione, portfolio bilingue e prodotti per clienti sviluppati con React, TypeScript e Tailwind CSS.",
+    "projects_title": "Progetti",
+    "view_project": "Vedi dettagli",
+    "tech_stack": "Tech Stack",
+    "features_title": "Cosa ho costruito",
+    "skills_title": "Competenze",
+    "view_source": "Codice sorgente",
+    "view_demo": "Apri demo",
+    "links_title": "Link",
+    "links_private": "Codice sorgente e demo non sono pubblici per questo progetto.",
+    "demo_only_note": "Demo live disponibile; il codice sorgente non è pubblico.",
+    "repo_transfer_notice": {
+      "title": "Link ai repository temporaneamente non disponibili",
+      "body": "I link al codice sorgente dei progetti sono offline durante il trasferimento da GitHub a GitLab. Verranno aggiornati a breve.",
+      "links_unavailable": "Link al codice sorgente non disponibile durante il trasferimento da GitHub a GitLab."
+    },
+    "close_modal": "Chiudi dettagli progetto",
+    "projects": {
+      "invoice": {
+        "title": "InVoice",
+        "shortDesc": "Trasforma copioni voice over in fatture dettagliate con conteggi delle parole per personaggio ed esportazione in PDF, DOCX e testo semplice.",
+        "fullDesc": "InVoice aiuta chi lavora con la voce a trasformare i copioni in fatture accurate. Analizza i dialoghi per personaggio, conta le parole fatturabili, applica preset tariffari riutilizzabili ed esporta fatture in PDF, DOCX e testo semplice.",
+        "features": [
+          "Analizza i copioni in conteggi parole per personaggio per accelerare la fatturazione.",
+          "Crea flussi accessibili con i componenti Mantine UI.",
+          "Mantiene sincronizzati gli strumenti per documento singolo e multi documento con Zustand.",
+          "Include preset tariffari riutilizzabili ed esportazione in PDF, DOCX e testo semplice."
+        ],
+        "previewAlt": "Dashboard InVoice con parser del copione, conteggio parole per personaggio e anteprima fattura"
+      },
+      "portfolio": {
+        "title": "Sito Portfolio v2",
+        "shortDesc": "Portfolio bilingue Astro e React con navigazione testata, modulo di contatto e deploy statico.",
+        "fullDesc": "Portfolio bilingue Astro e React con route localizzate, interazioni accessibili e isole React per le sezioni interattive.",
+        "features": [
+          "11 route statiche con localizzazione EN/IT e rilevamento della lingua del browser.",
+          "Navigazione, modali e validazione del contatto accessibili da tastiera, con test Playwright.",
+          "Aggiunto un tema chiaro/scuro e animazioni con Framer Motion.",
+          "Configurati il deploy su Netlify, la protezione antispam honeypot e gli header di sicurezza."
+        ],
+        "previewAlt": "Sito portfolio con navigazione, schede bilingue e timeline esperienze"
+      }
+    }
+  },
+  "audio": {
+    "intro": "Restauro dialoghi registrati sul campo e mixo contenuti vocali secondo i target di loudness per lo streaming, usando iZotope RX, Reaper e DaVinci Resolve.",
+    "tools_title": "Strumenti con cui lavoro",
+    "restoration_title": "Prima e dopo",
+    "restoration_desc": "Breve demo di restauro e mixaggio audio con iZotope RX, Reaper e DaVinci Resolve.",
+    "play": "Riproduci",
+    "pause": "Pausa",
+    "iframe_title": "Video dimostrativo di restauro audio"
+  },
+  "contact": {
+    "title": "Contattami",
+    "intro": "Sono disponibile per progetti freelance e aperto a nuove opportunità. Scrivimi con i dettagli del tuo progetto oppure anche solo per salutare.",
+    "availability": {
+      "location": "Italia",
+      "available": "Di solito sono disponibile · {{localWindow}} ora locale ({{romeWindow}} Roma)",
+      "away": "Sarò di nuovo disponibile tra {{countdown}} · alle {{localNext}} ora locale (08:00 Roma)",
+      "available_short": "Disponibile",
+      "away_short": "Al momento non disponibile"
+    },
+    "find_me_title": "Trovami su",
+    "copied": "Copiato!",
+    "form": {
+      "name": "Nome",
+      "email": "Email",
+      "message": "Messaggio",
+      "send": "Invia Messaggio",
+      "sending": "Invio in corso...",
+      "success": "Messaggio inviato",
+      "success_detail": "Grazie — rispondo entro 1–2 giorni lavorativi.",
+      "success_action": "Invia un altro messaggio",
+      "error": "Impossibile inviare il messaggio",
+      "error_detail": "Riprova tra poco oppure scrivimi direttamente via email.",
+      "message_helper": "Indica ambito, tempistiche o link utili, se li hai.",
+      "placeholders": {
+        "name": "Nome e cognome",
+        "email": "nome@esempio.com",
+        "message": "Parlami del tuo progetto..."
+      },
+      "errors": {
+        "name": "Il nome deve avere almeno 2 caratteri",
+        "name_max": "Il nome deve contenere al massimo 100 caratteri",
+        "email": "Indirizzo email non valido",
+        "email_max": "L'indirizzo email deve contenere al massimo 254 caratteri",
+        "message": "Il messaggio deve avere almeno 10 caratteri",
+        "message_max": "Il messaggio deve contenere al massimo 5.000 caratteri"
+      }
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "Emmanuel T. || Sviluppatore Software",
+      "description": "Sviluppatore web full stack in Italia, specializzato in React e siti web responsive dal 2020."
+    },
+    "development": {
+      "title": "Emmanuel T. || Sviluppo",
+      "description": "Progetti frontend e applicazioni web realizzati con React e TypeScript."
+    },
+    "audio": {
+      "title": "Emmanuel T. || Mixing e Mastering Audio",
+      "description": "Mixing, mastering e restauro di dialoghi per video, podcast e media digitali."
+    },
+    "contact": {
+      "title": "Emmanuel T. || Contatti",
+      "description": "Contattami per collaborazioni freelance, richieste di progetto o semplicemente per salutare. Disponibile per opportunità remote."
+    }
+  },
+  "404": {
+    "title": "404 - Pagina non trovata",
+    "description": "La pagina che stai cercando non esiste.",
+    "message": "Questa pagina non esiste.",
+    "back": "Torna alla home"
+  }
+}

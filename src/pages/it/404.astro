@@ -1,0 +1,18 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import NotFoundContent from '../../components/NotFoundContent.astro';
+import { getServerT } from '../../utils/server-t';
+
+const t = getServerT('it');
+---
+
+<MainLayout
+  title={t("404.title") as string}
+  description={t("404.description") as string}
+  noindex
+  includeCanonical={false}
+  includeAlternates={false}
+  languageSwitcherTarget="/"
+>
+  <NotFoundContent locale="it" />
+</MainLayout>

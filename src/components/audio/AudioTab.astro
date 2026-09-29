@@ -1,0 +1,38 @@
+---
+import { getServerT, resolveLocale } from "../../utils/server-t";
+import Text from "../ui/Text.astro";
+import Section from "../ui/Section.astro";
+import ItemBadge from "../ui/ItemBadge.astro";
+import { AudioPlayer } from "./AudioPlayer";
+
+const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
+const t = getServerT(locale);
+const audioSoftware = ["iZotope RX", "Reaper", "DaVinci Resolve"];
+---
+
+<div class="space-y-10 md:space-y-12">
+  <Section>
+    <Text className="max-w-3xl">{t("audio.intro")}</Text>
+  </Section>
+
+  <Section title={t("audio.tools_title") as string}>
+    <div class="flex flex-wrap gap-4">
+      {audioSoftware.map((software, index) => (
+        <ItemBadge locale={locale} index={index}>{software}</ItemBadge>
+      ))}
+    </div>
+  </Section>
+
+  <Section title={t("audio.restoration_title") as string} width="wide">
+    <div class="max-w-3xl space-y-6">
+      <Text>{t("audio.restoration_desc")}</Text>
+
+      <AudioPlayer
+        client:visible
+        playLabel={t("audio.play") as string}
+        pauseLabel={t("audio.pause") as string}
+        iframeTitle={t("audio.iframe_title") as string}
+      />
+    </div>
+  </Section>
+</div>

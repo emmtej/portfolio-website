@@ -1,0 +1,23 @@
+---
+import { cn } from "../../utils/cn";
+import Text from "./Text.astro";
+
+interface Props {
+  locale?: string;
+  index?: number;
+}
+
+const { locale, index = 0 } = Astro.props;
+const matteColors = ["bg-it-sage", "bg-it-cream", "bg-it-rose"];
+---
+
+<div
+  class={cn(
+    "flex items-center gap-2 px-5 py-2.5 cursor-default transition-colors duration-100 bg-bg-app border border-border-subtle hover:border-text-main/20 hover:bg-text-main/[0.02]",
+    locale === "it" && matteColors[index % matteColors.length],
+  )}
+>
+  <Text variant="eyebrow" size="sm" className="text-text-secondary whitespace-nowrap">
+    <slot />
+  </Text>
+</div>

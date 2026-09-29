@@ -1,0 +1,16 @@
+---
+import { cn } from "../../utils/cn";
+
+interface Props {
+  href: string;
+  className?: string;
+  target?: string;
+  rel?: string;
+}
+
+const { href, className, target, rel } = Astro.props;
+---
+
+<a href={href} target={target} rel={rel} class={cn("hover:text-text-main transition-colors duration-fast", className)}>
+  <slot />
+</a>

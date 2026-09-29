@@ -1,0 +1,54 @@
+---
+import { getServerT, resolveLocale } from "../../utils/server-t";
+import Text from "../ui/Text.astro";
+import ItemBadge from "../ui/ItemBadge.astro";
+
+interface Props {
+  locale?: string;
+}
+
+const locale = resolveLocale(Astro.props.locale ?? Astro.currentLocale, Astro.url.pathname);
+const t = getServerT(locale);
+
+const SKILLS = [
+  "React",
+  "TypeScript",
+  "Tailwind CSS",
+  "Next.js",
+  "Framer Motion",
+  "Node.js",
+  "Prisma",
+  "PostgreSQL",
+  "GraphQL",
+  "Docker",
+  "Git",
+  "Vite",
+  "Redux",
+  "Zustand",
+  "Mantine UI",
+  "Express",
+  "CSS/SCSS",
+  "HTML5",
+  "JavaScript",
+];
+
+const duplicatedSkills = [...SKILLS, ...SKILLS, ...SKILLS, ...SKILLS];
+---
+
+<section class="w-full overflow-hidden py-2 select-none">
+  <Text variant="h2" className="mb-4 px-0 text-text-main">
+    {t("dev.skills_title")}
+  </Text>
+  <div class="relative group">
+    <div class="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-bg-app to-transparent z-10 pointer-events-none max-md:hidden" />
+    <div class="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-bg-app to-transparent z-10 pointer-events-none max-md:hidden" />
+
+    <div class="relative flex overflow-hidden">
+      <div class="flex w-max shrink-0 gap-4 pr-4 animate-marquee will-change-transform">
+        {duplicatedSkills.map((skill, index) => (
+          <ItemBadge locale={locale} index={index}>{skill}</ItemBadge>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,49 @@
+---
+import Text from "../ui/Text.astro";
+import SocialLinkArrowIcon from "./SocialLinkArrowIcon.astro";
+
+interface Props {
+  label: string;
+  value: string;
+  icon: string;
+  copiedLabel: string;
+}
+
+const { label, value, icon, copiedLabel } = Astro.props;
+---
+
+<div
+  class="flex min-w-[2rem] shrink-0 items-center self-center text-text-tertiary transition-colors group-hover:text-text-main"
+>
+  <Text variant="meta" size="tiny" color="muted" className="group-hover:text-text-main">
+    [{icon}]
+  </Text>
+</div>
+
+<div class="min-w-0 flex-1">
+  <Text
+    variant="h3"
+    as="p"
+    className="transition-colors group-hover:text-text-main"
+  >
+    {label}
+  </Text>
+
+  <div class="relative mt-1 min-h-[1.25rem]">
+    <span
+      class="copy-feedback pointer-events-none absolute inset-0 text-[10px] font-mono uppercase tracking-widest text-it-green opacity-0 transition-all duration-300 translate-y-2"
+      aria-live="polite"
+    >
+      {copiedLabel}
+    </span>
+    <span
+      class="value-display block break-all font-mono text-sm leading-snug text-secondary transition-all duration-500 ease-out group-hover:text-text-main"
+    >
+      {value}
+    </span>
+  </div>
+</div>
+
+<div class="flex shrink-0 items-center self-center pl-2">
+  <SocialLinkArrowIcon />
+</div>

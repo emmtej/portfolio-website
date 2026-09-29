@@ -1,0 +1,14 @@
+---
+import type { HTMLTag, Polymorphic } from "astro/types";
+import { cn } from "../../utils/cn";
+
+type Props<Tag extends HTMLTag = "div"> = Polymorphic<{ as: Tag }> & {
+  className?: string;
+};
+
+const { as: Component = "div", className, ...props } = Astro.props;
+---
+
+<Component class={cn("inline-flex h-chrome-control min-h-chrome-control items-center gap-2 px-2 text-xs font-bold uppercase tracking-wider text-text-main pointer-events-auto sm:px-3 sm:tracking-widest", className)} {...props}>
+  <slot />
+</Component>

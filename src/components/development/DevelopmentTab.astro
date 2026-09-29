@@ -1,0 +1,86 @@
+---
+import { getServerT, resolveLocale } from "../../utils/server-t";
+import SkillsCarousel from "./SkillsCarousel.astro";
+import Text from "../ui/Text.astro";
+import Section from "../ui/Section.astro";
+import RepoTransferNotice from "./RepoTransferNotice.astro";
+import { ProjectGallery } from "./ProjectGallery";
+import type { Project } from "./types";
+import { REPO_TRANSFER_NOTICE_ENABLED } from "./repo-transfer-notice";
+
+const locale = resolveLocale(Astro.currentLocale, Astro.url.pathname);
+const t = getServerT(locale);
+
+function parseStringArray(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value.filter((item): item is string => typeof item === "string");
+}
+
+const PROJECTS_CONFIG = [
+  {
+    id: "invoice",
+    titleKey: "dev.projects.invoice.title",
+    shortDescKey: "dev.projects.invoice.shortDesc",
+    fullDescKey: "dev.projects.invoice.fullDesc",
+    featuresKey: "dev.projects.invoice.features",
+    previewAltKey: "dev.projects.invoice.previewAlt",
+    // previewSrc: "/projects/invoice-preview.gif",
+    tech: ["React", "TypeScript", "Tailwind CSS", "Zustand", "Mantine UI"],
+  },
+  {
+    id: "portfolio",
+    titleKey: "dev.projects.portfolio.title",
+    shortDescKey: "dev.projects.portfolio.shortDesc",
+    fullDescKey: "dev.projects.portfolio.fullDesc",
+    featuresKey: "dev.projects.portfolio.features",
+    previewAltKey: "dev.projects.portfolio.previewAlt",
+    // previewSrc: "/projects/portfolio-preview.gif",
+    tech: [
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "i18next",
+      "Vitest",
+    ],
+    github: "https://github.com/emmtej/portfolio-website",
+  },
+];
+
+const projects: Project[] = PROJECTS_CONFIG.map((p) => ({
+  id: p.id,
+  title: t(p.titleKey) as string,
+  shortDesc: t(p.shortDescKey) as string,
+  fullDesc: t(p.fullDescKey) as string,
+  tech: p.tech,
+  features: parseStringArray(t(p.featuresKey, { returnObjects: true })),
+  github: p.github,
+  preview:
+    "previewSrc" in p && typeof p.previewSrc === "string"
+      ? {
+          src: p.previewSrc,
+          alt: t(p.previewAltKey) as string,
+        }
+      : undefined,
+}));
+---
+
+<div class="space-y-12 md:space-y-16">
+  <Section>
+    <Text className="max-w-3xl">{t("dev.intro")}</Text>
+  </Section>
+  
+  <Section width="full">
+    <SkillsCarousel locale={locale} />
+  </Section>
+
+  <RepoTransferNotice locale={locale} />
+
+  <Section title={t("dev.projects_title") as string} width="wide">
+    <ProjectGallery
+      client:visible
+      projects={projects}
+      repoLinksUnavailable={REPO_TRANSFER_NOTICE_ENABLED}
+    />
+  </Section>
+</div>

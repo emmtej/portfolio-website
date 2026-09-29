@@ -1,0 +1,29 @@
+---
+import SiteHeader from './SiteHeader.astro';
+import Section from './ui/Section.astro';
+import Text from './ui/Text.astro';
+import { getServerT } from '../utils/server-t';
+
+interface Props {
+  locale: 'en' | 'it';
+}
+
+const { locale } = Astro.props;
+const t = getServerT(locale);
+---
+
+<SiteHeader />
+<div class="mt-6 md:mt-8">
+  <Section className="flex flex-col items-center justify-center min-h-[60vh] text-center">
+    <Text as="h1" size="4xl" className="mb-4">404</Text>
+    <Text size="xl" className="mb-8 text-text-secondary">
+      {t("404.message")}
+    </Text>
+    <a
+      href={locale === "it" ? "/it/" : "/"}
+      class="text-text-main hover:underline font-mono"
+    >
+      &gt; {t("404.back")}
+    </a>
+  </Section>
+</div>
